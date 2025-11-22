@@ -1,0 +1,36 @@
+# Core Frameworks
+langchain
+langchain-community
+langchain-core
+langchain-openai
+langchain-google-genai
+langgraph
+crewai
+pyautogen
+google-generativeai
+semantic-kernel
+
+# LLM Providers & Embeddings
+openai
+tiktoken
+
+# Vector Stores
+faiss-cpu
+chromadb
+
+# Tools & APIs
+yfinance
+duckduckgo-search
+wikipedia
+requests
+beautifulsoup4
+
+# Utilities
+python-dotenv
+pydantic
+numpy
+pandas
+
+# Notebooks
+jupyter
+ipykernel
