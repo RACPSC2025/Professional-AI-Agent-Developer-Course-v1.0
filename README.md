@@ -76,11 +76,11 @@ El curso está estructurado en **3 niveles de maestría**, cubriendo desde funda
 | Módulo | Tema | Descripción | Proyectos |
 | :--- | :--- | :--- | :--- |
 | **[Módulo 9](module9/README.md)** | **Metacognición** | Self-learning, Skill Libraries, Memoria a largo plazo | 🧠 Agente Evolutivo |
-| **[Módulo 10](module10/README.md)** | **LLMOps** | Tracing, Costos, Observabilidad, Optimización | 📊 Dashboard Monitoreo |
-| **[Módulo 11](module11/README.md)** | **Protocolos Modernos** | MCP, Agent-to-Agent (A2A), estándares | 🌐 Marketplace Agentes |
-| **[Módulo 12](module12/README.md)** | **Capstone Project** | Proyecto Final: GitHub Agent Team completo | 🏆 **Dev Team Autónomo** |
-| **[Módulo 13](module13/README.md)** | **Testing Agentes** | Unit & Integration Testing para agentes | 🧪 Suite de Pruebas |
-| **[Módulo 14](module14/README.md)** | **DevOps para IA** | Docker, K8s, Cloud Deployment (AWS/Azure/GCP) | ☁️ Despliegue Cloud |
+| **[Módulo 10](module10/README.md)** | **Full Stack Agents** | FastAPI, Streamlit, Async Queues, SSE | 🚀 App Completa |
+| **[Módulo 11](module11/README.md)** | **LLMOps & Observability** | Tracing (LangSmith), Eval (Ragas), Monitoring | 📊 Dashboard Ops |
+| **[Módulo 12](module12/README.md)** | **Agent Protocols (MCP)** | Model Context Protocol, Interoperabilidad, Tools | 🔌 USB para IA |
+| **[Módulo 13](module13/README.md)** | **Capstone Project** | The Autonomous Software House (End-to-End) | 🏆 **Software House** |
+| **[Módulo 14](module14/README.md)** | **Bonus: Deployment** | Docker, Kubernetes, Cloud Run | ☁️ Despliegue Cloud |
 
 ---
 
@@ -121,11 +121,12 @@ El curso está estructurado en **3 niveles de maestría**, cubriendo desde funda
 
 Recursos esenciales para tu día a día como desarrollador:
 
-- 🆚 **[Comparativa de Frameworks](FRAMEWORK_COMPARISON.md)**: 8 frameworks comparados en detalle
-- ✅ **[Mejores Prácticas](BEST_PRACTICES.md)**: Guía consolidada de diseño y código
-- 🔧 **[Troubleshooting](TROUBLESHOOTING.md)**: Soluciones a problemas comunes
-- 🏛️ **[Patrones de Arquitectura](ARCHITECTURE_PATTERNS.md)**: Catálogo de diseños probados
-- 💰 **[Optimización de Costos](COST_OPTIMIZATION.md)**: Estrategias para reducir factura LLM
+- 🎨 **[Design Guide](docs/DESIGN_GUIDE.md)**: Estándares de UI/UX para agentes (NUEVO)
+- 🆚 **[Comparativa de Frameworks](docs/FRAMEWORK_COMPARISON.md)**: 8 frameworks comparados en detalle
+- ✅ **[Mejores Prácticas](docs/BEST_PRACTICES.md)**: Guía consolidada de diseño y código
+- 🔧 **[Troubleshooting](docs/TROUBLESHOOTING.md)**: Soluciones a problemas comunes
+- 🏛️ **[Patrones de Arquitectura](docs/ARCHITECTURE_PATTERNS.md)**: Catálogo de diseños probados
+- 💰 **[Optimización de Costos](docs/COST_OPTIMIZATION.md)**: Estrategias para reducir factura LLM
 
 ---
 

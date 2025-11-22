@@ -1,107 +1,96 @@
-# Módulo 12: Proyecto Capstone - GitHub AI Agent Team
+# Módulo 12: Protocolos de Agentes (MCP)
 
 ![Module 12 Header](../images/module12_banner.png)
 
-<div align="center">
+![Level](https://img.shields.io/badge/Nivel-Architect-8E44AD?style=for-the-badge&logo=molecule&logoColor=white)
+![Time](https://img.shields.io/badge/Tiempo-4_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
+![Stack](https://img.shields.io/badge/Stack-Model_Context_Protocol_|_Anthropic_|_LangChain-8E44AD?style=for-the-badge)
 
-[![Level](https://img.shields.io/badge/Level-Experto-C3B1E1?style=for-the-badge)]()
-[![Time](https://img.shields.io/badge/Time-8_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)]()
-[![Stack](https://img.shields.io/badge/Stack-CrewAI_|_LangChain_|_GitHub_API-C3B1E1?style=for-the-badge)]()
-
-</div>
+> *"El problema de la IA no es la inteligencia, es la conectividad. MCP es el USB de los Agentes."*
 
 ---
 
-## 🏆 Misión del Proyecto
+## 🎯 Objetivos del Módulo
 
-Construir un **Equipo de Desarrollo de Software Autónomo** capaz de gestionar un repositorio de GitHub real. El sistema debe monitorear issues, analizar código, proponer soluciones, escribir tests y generar Pull Requests de calidad profesional sin intervención humana directa.
+Hasta ahora, cada vez que querías conectar un agente a una base de datos, escribías una "Tool" específica.
+Si tenías 10 agentes y 5 bases de datos, escribías 50 integraciones. **Esto no escala.**
 
-> [!IMPORTANT]
-> Este es el proyecto final del curso. Integra conceptos de RAG, Tool Use, Planificación, Multi-Agente y LLMOps.
-
----
-
-## 🏗️ Arquitectura del Sistema
-
-![Capstone Architecture](../images/architecture_overview.png)
-
-El sistema utiliza una arquitectura **Jerárquica con Manager** implementada en CrewAI/LangGraph:
-
-1.  **🕵️ Manager Agent (Coordinador):**
-    - Monitorea el repositorio.
-    - Triaje de issues (Bug vs Feature).
-    - Asigna tareas a especialistas.
-2.  **🧠 Analysis Agent (Analista):**
-    - Lee el código existente.
-    - Identifica la causa raíz de bugs.
-    - Detecta code smells usando AST.
-3.  **👨‍💻 Coding Agent (Desarrollador):**
-    - Escribe la solución.
-    - Genera tests unitarios.
-    - Crea el PR con descripción semántica.
+**Lo que vas a dominar:**
+1.  🔌 **MCP (Model Context Protocol):** El estándar abierto para conectar IAs a sistemas.
+2.  🖥️ **MCP Server:** Cómo crear un servidor que exponga tus datos (archivos, DBs) universalmente.
+3.  🧠 **MCP Client:** Cómo conectar cualquier LLM (Claude, GPT-4) a tus herramientas sin reescribir código.
 
 ---
 
-## 🛠️ Implementación Paso a Paso
+## 🔌 1. ¿Qué es MCP? (La Analogía del USB)
 
-### 1. Configuración del Entorno
-Necesitarás un token de GitHub con permisos de repo.
+Antes del USB, tenías un puerto para el ratón, otro para la impresora, otro para el teclado. Un caos.
+El USB estandarizó todo: **Cualquier dispositivo funciona en cualquier PC.**
 
-```bash
-export GITHUB_TOKEN="ghp_..."
-export GITHUB_REPO="usuario/repo-destino"
+**MCP hace lo mismo para la IA:**
+-   **Antes:** Escribías una integración específica de "Google Drive para LangChain", otra de "Google Drive para AutoGen", etc.
+-   **Con MCP:** Escribes un **Servidor MCP de Google Drive** una vez. LangChain, AutoGen, Claude y ChatGPT pueden usarlo instantáneamente.
+
+### Arquitectura MCP
+
+```mermaid
+graph LR
+    Host[🖥️ Host Application] <-->|Protocolo MCP| Server[🗄️ MCP Server]
+    
+    subgraph "Host (El Cerebro)"
+        Claude[🧠 Claude Desktop]
+        LangChain[🦜 LangChain Agent]
+        IDE[💻 VS Code / Cursor]
+    end
+    
+    subgraph "Server (Las Herramientas)"
+        Files[📂 File System]
+        DB[🛢️ PostgreSQL]
+        Slack[💬 Slack API]
+    end
+    
+    Host -- "List Tools" --> Server
+    Server -- "Tools: [ReadFile, QueryDB]" --> Host
+    Host -- "Call Tool: ReadFile" --> Server
+    Server -- "Content: 'Hola Mundo'" --> Host
+    
+    style Host fill:#8E44AD,color:#fff
+    style Server fill:#2ECC71,color:#fff
 ```
 
-### 2. Agentes Especializados
+---
 
-#### **[01_github_agent_manager.py](01_github_agent_manager.py)**
-El cerebro de la operación. Usa la API de GitHub para buscar trabajo.
+## 🛠️ 2. Componentes Clave
 
-#### **[02_code_analysis_agent.py](02_code_analysis_agent.py)**
-El experto técnico. No escribe código, solo piensa y diagnostica.
+### 1. Resources (Recursos)
+Son datos pasivos que el agente puede leer. Como archivos o logs.
+*   Ejemplo: `file:///logs/error.txt`
 
-#### **[03_code_writer_agent.py](03_code_writer_agent.py)**
-El ejecutor. Produce código limpio, documentado y testeado.
+### 2. Prompts (Plantillas)
+Instrucciones predefinidas que viven en el servidor.
+*   Ejemplo: Un prompt de "Code Review" que ya conoce las reglas de estilo de tu empresa.
+
+### 3. Tools (Herramientas)
+Funciones ejecutables que toman argumentos y devuelven resultados.
+*   Ejemplo: `query_database(sql: str)`
 
 ---
 
-## 🚀 Ejecución del Capstone
+## 🚀 Proyectos Prácticos
 
-```bash
-# Ejecutar el sistema completo
-python 01_github_agent_manager.py
-```
+### 🔌 Proyecto 1: Tu Primer Servidor MCP
+**Archivo:** [`01_mcp_server_simple.py`](01_mcp_server_simple.py)
+Crearemos un servidor que expone una "Base de Datos de Productos" (simulada).
+Este servidor puede ser consumido por Claude Desktop o tu propio agente.
 
-**Flujo Esperado:**
-1.  Manager detecta Issue #42: "Fix login bug".
-2.  Analyst lee `auth.py` y encuentra el error lógico.
-3.  Writer crea branch `fix/login-bug`, parchea el código y sube PR.
-4.  Manager notifica en el issue original.
-
----
-
-## 🎓 Criterios de Evaluación
-
-Para considerar este módulo completado, tu sistema debe:
-
-- [ ] Conectarse exitosamente a GitHub.
-- [ ] Diferenciar entre un bug y una feature request.
-- [ ] Generar código sintácticamente correcto (Python).
-- [ ] Crear un PR real con cambios válidos.
-- [ ] Manejar errores de API gracefully.
-
----
-
-## 🌟 Extensiones Sugeridas
-
-¿Quieres ir más allá? Intenta esto:
-
-- **Code Reviewer Agent:** Un cuarto agente que revise el PR antes de abrirlo.
-- **CI/CD Integration:** Que el agente espere a que pasen los tests de GitHub Actions.
-- **Documentation Bot:** Que actualice el README automáticamente si cambia la funcionalidad.
+### 🧠 Proyecto 2: Cliente MCP con LangChain
+**Archivo:** [`02_mcp_client_agent.py`](02_mcp_client_agent.py)
+Un agente que se conecta a tu servidor MCP, descubre las herramientas automáticamente y las usa para responder preguntas.
 
 ---
 
 <div align="center">
-<a href="../module13/README.md">➡️ Siguiente Módulo: Testing de Agentes</a>
+
+**[⬅️ Módulo Anterior](../module11/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo (Capstone) ➡️](../module13/README.md)**
+
 </div>

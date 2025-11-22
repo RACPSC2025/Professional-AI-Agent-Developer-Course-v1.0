@@ -134,6 +134,12 @@ Usamos un `StateGraph` donde el nodo Supervisor decide a qué nodo Worker enruta
 
 ---
 
+## 💼 Caso de Estudio Real
+**[Startup Chatbot de Soporte](CASE_STUDY_STARTUP.md)**
+Descubre cómo una startup redujo su carga de soporte en un 70% usando un sistema RAG + Agentes, ahorrando $7k/mes.
+- **Stack:** LangChain, Pinecone, FastAPI.
+- **Resultados:** ROI de 750%.
+
 ## 🎓 Referencias
 
 - **Paper:** ["Tree of Thoughts: Deliberate Problem Solving with Large Language Models"](https://arxiv.org/abs/2305.10601)

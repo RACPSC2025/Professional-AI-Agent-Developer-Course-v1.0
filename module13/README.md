@@ -1,144 +1,104 @@
-# Módulo 13: Testing de Agentes
+# Módulo 13: Capstone Project - The Autonomous Software House 🏗️
 
 ![Module 13 Header](../images/module13_banner.png)
 
-<div align="center">
+![Level](https://img.shields.io/badge/Nivel-Legendary-FFD700?style=for-the-badge&logo=fortran&logoColor=black)
+![Time](https://img.shields.io/badge/Tiempo-20_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
+![Stack](https://img.shields.io/badge/Stack-FastAPI_|_LangGraph_|_Streamlit_|_Docker-FFD700?style=for-the-badge)
 
-[![Level](https://img.shields.io/badge/Level-Experto-C3B1E1?style=for-the-badge)]()
-[![Time](https://img.shields.io/badge/Time-8_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)]()
-[![Stack](https://img.shields.io/badge/Stack-CrewAI_|_LangChain_|_GitHub_API-C3B1E1?style=for-the-badge)]()
-
-</div>
+> *"Cualquiera puede escribir código. Solo un Ingeniero de IA construye sistemas que escriben código."*
 
 ---
 
-## 🎯 Objetivos del Módulo
+## 🏆 El Desafío Final
 
-Aprender a testear AI Agents de forma profesional, desde unit tests hasta pipelines CI/CD completos.
+Bienvenido al final del camino. Has aprendido sobre RAG, Agentes, Memoria, Herramientas, MCP y Observabilidad.
+Ahora, vamos a ponerlo todo junto.
 
-## 📚 Conceptos Clave
+**Tu Misión:** Construir una **"Casa de Software Autónoma"**.
+Un sistema donde el usuario (el Cliente) entrega un requerimiento en lenguaje natural, y un equipo de agentes (el Personal) entrega el software funcionando.
 
-### 1. Unit Testing
+---
 
-**Concepto:** Testear componentes individuales de agentes de forma aislada
+## 🏗️ Arquitectura del Sistema
 
-**Desafío Testing único de LLMs:**
-- Outputs no determinísticos
-- Necesidad de mocking
-- Evaluación de calidad (no solo igualdad exacta)
+Usaremos una arquitectura de **Microservicios Agénticos**.
 
-**Soluciones:**
-- Mock LLM calls para tests determinísticos  
-- LLM-as-a-Judge para evaluar calidad
-- Similarity metrics
-- Gold standard datasets
-
-### 2. Integration Testing
-
-**Concepto:** Testear flujos completos de múltiples agentes
-
-**Qué testear:**
-- Comunicación entre agentes
-- Manejo de errores en cascada
-- Performance end-to-end
-- Estado compartido correctamente
-
-### 3. CI/CD para Agentes
-
-**Diferencia con CI/CD tradicional:**
-- Evaluation metrics vs traditional assertions
-- LLM-powered tests
-- Dataset versioning
-- Prompt versioning
-
-## 🛠️ Proyectos Prácticos
-
-### 🟢 Nivel Básico: Unit Testing Agents
-**Archivo:** `01_unit_testing_agents.py`
-- **Framework:** pytest con mocking
-- **Concepto:** Tests determinísticos con LLM mocks
-- **Coverage:** Funciones, tools, prompts
-
-### 🟡 Nivel Intermedio: Integration Testing Multi-Agent
-**Archivo:** `02_integration_testing_multiagent.py`
-- **Framework:** pytest con fixtures
-- **Concepto:** Test workflows completos
-- **Caso de uso:** Sistema multi-agente research → analysis → report
-
-### 🔴 Nivel Avanzado: CI/CD Pipeline
-**Archivo:** `03_cicd_pipeline_agents.py`
-- **Framework:** GitHub Actions + pytest
-- **Concepto:** Automated testing en cada commit/PR
-- **Includes:** Regression tests, performance benchmarks
-
-## 🎓 Best Practices
-
-### Testing Pyramid para Agentes
-
-```
-        /\
-       /  \  E2E Tests (5%)
-      /    \  Integration Tests (25%)
-     /      \ Unit Tests (70%)
-    /________\
-```
-
-### Métricas Clave
-
-- **Test Coverage:** >80% de funciones
-- **Response Quality:** Score >0.8 en evaluaciones
-- **Latency:** p95 < threshold
-- **Cost:** $ per test run
-
-### Golden Rules
-
-1. **Mock LLMs en unit tests** (rápido,  barato, determinístico)
-2. **Use real LLMs en integration** (catch real issues)
-3. **Version prompts** (git track cambios)
-4. **Maintain gold datasets** (regression detection)
-5. **Automate everything** (CI/CD esencial)
-
-## 📊 Test Example Pattern
-
-```python
-def test_agent_response():
-    # Arrange
-    llm_mock = Mock()
-    llm_mock.invoke.return_value = "Expected output"
-    agent = MyAgent(llm=llm_mock)
+```mermaid
+graph TD
+    Client((👤 Cliente)) -->|Requerimiento| UI[💻 Streamlit Frontend]
+    UI -->|POST /jobs| API[🚀 FastAPI Backend]
     
-    # Act
-    result = agent.process("test input")
+    subgraph "The Software House (LangGraph)"
+        PM[👔 Product Manager] -->|Plan| Coder[👨‍💻 Senior Coder]
+        Coder -->|Código| Reviewer[🧐 QA Engineer]
+        Reviewer -->|Aprobado?| Decision{✅ / ❌}
+        
+        Decision -->|No| Coder
+        Decision -->|Sí| Delivery[📦 Entregable]
+    end
     
-    # Assert
-    assert result == "Expected output"
-    llm_mock.invoke.assert_called_once()
+    API --> PM
+    Delivery --> API
+    API -->|SSE Stream| UI
+    
+    style PM fill:#F39C12,color:#fff
+    style Coder fill:#3498DB,color:#fff
+    style Reviewer fill:#E74C3C,color:#fff
 ```
 
-## 🚀 Quick Start
+---
+
+## 🤖 El Equipo (Los Agentes)
+
+1.  **👔 Product Manager (PM):**
+    *   **Rol:** Analiza el requerimiento del usuario.
+    *   **Salida:** Un plan paso a paso y especificaciones técnicas.
+    *   **Herramienta:** `PlanTool`.
+
+2.  **👨‍💻 Senior Coder:**
+    *   **Rol:** Escribe el código Python basado en el plan del PM.
+    *   **Salida:** Archivos de código `.py`.
+    *   **Herramienta:** `WriteFileTool`.
+
+3.  **🧐 QA Engineer (Reviewer):**
+    *   **Rol:** Revisa el código buscando bugs, seguridad y estilo.
+    *   **Salida:** Aprobación o lista de correcciones.
+    *   **Herramienta:** `LintTool`.
+
+---
+
+## 🚀 Instrucciones de Ejecución
+
+### 1. Backend (El Cerebro)
+El backend corre en FastAPI y orquesta a los agentes usando LangGraph.
 
 ```bash
-# Install dependencies
-pip install pytest pytest-cov pytest-asyncio
-
-# Run tests
-pytest tests/ -v
-
-# With coverage
-pytest tests/ --cov=agents --cov-report=html
-
-# Specific test
-pytest tests/test_agent.py::test_specific_function
+cd module13/backend
+pip install -r requirements.txt
+uvicorn main:app --reload
 ```
 
-## 📚 Recursos
+### 2. Frontend (La Cara)
+Una interfaz moderna en Streamlit para interactuar con tu equipo de software.
 
-- [pytest Documentation](https://docs.pytest.org)
-- [unittest.mock Guide](https://docs.python.org/3/library/unittest.mock.html)
-- [GitHub Actions for Python](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python)
+```bash
+cd module13/frontend
+streamlit run app.py
+```
+
+---
+
+## 🌟 Características "Wow"
+
+*   **Streaming en Tiempo Real:** Verás a cada agente "pensando" y trabajando en vivo en la UI.
+*   **Sistema de Archivos Real:** Los agentes realmente crean archivos en tu disco duro (en una carpeta `workspace`).
+*   **Human-in-the-loop:** (Opcional) El PM puede pedirte confirmación antes de empezar a codificar.
 
 ---
 
 <div align="center">
-<a href="../module14/README.md">➡️ Siguiente Módulo: Deployment & DevOps</a>
+
+**[⬅️ Módulo Anterior](../module12/README.md)** | **[🎓 Certificado de Finalización](../CERTIFICATE.md)**
+
 </div>
