@@ -1,5 +1,7 @@
 # Módulo 6: IA Confiable y Evaluación (Trustworthy AI)
 
+![Module 6 Banner](../images/module6_banner.png)
+
 ## 🎯 Objetivos del Módulo
 Es fácil hacer una demo que funcione el 80% de las veces. Lo difícil es llegar al 99%. En este módulo, aprenderás a medir la calidad de tus agentes, protegerlos contra ataques y asegurar que no filtren datos sensibles.
 
@@ -83,5 +85,8 @@ print(results)
 ---
 
 <div align="center">
-<a href="../module7/README.md">➡️ Siguiente Módulo: Planificación Avanzada</a>
+
+**[⬅️ Módulo Anterior](../module5/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module7/README.md)**
+
 </div>
+

@@ -1,5 +1,7 @@
 # Módulo 10: Ingeniería de Producción (LLMOps)
 
+![Module 10 Banner](../images/module10_banner.png)
+
 ## 🎯 Objetivos del Módulo
 Tu agente funciona en tu laptop. Genial. Ahora haz que funcione para 10,000 usuarios sin arruinarte. En este módulo, nos ponemos el sombrero de DevOps para hablar de observabilidad, costes y latencia.
 
@@ -82,5 +84,8 @@ llm.predict("Dime un chiste sobre programadores")
 ---
 
 <div align="center">
-<a href="../module11/README.md">➡️ Siguiente Módulo: Protocolos de Agentes</a>
+
+**[⬅️ Módulo Anterior](../module9/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module11/README.md)**
+
 </div>
+

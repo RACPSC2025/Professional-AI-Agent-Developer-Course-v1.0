@@ -1,5 +1,7 @@
 # Módulo 4: Uso de Herramientas y Function Calling (The Hands)
 
+![Module 4 Banner](../images/module4_banner.png)
+
 ## 🎯 Objetivos del Módulo
 Un agente sin herramientas es solo un chatbot. En este módulo, le daremos "manos" a tus agentes. Aprenderás cómo los LLMs estructuran llamadas a funciones y cómo conectar tus agentes a bases de datos, APIs y la web.
 
@@ -24,5 +26,8 @@ print(search.args)
 ---
 
 <div align="center">
-<a href="../module5/README.md">➡️ Siguiente Módulo: RAG Avanzado</a>
+
+**[⬅️ Módulo Anterior](../module3/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module5/README.md)**
+
 </div>
+

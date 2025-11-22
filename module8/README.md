@@ -36,5 +36,8 @@ result = crew.kickoff()
 ---
 
 <div align="center">
-<a href="../module9/README.md">➡️ Siguiente Módulo: Metacognición</a>
+
+**[⬅️ Módulo Anterior](../module7/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module9/README.md)**
+
 </div>
+

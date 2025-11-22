@@ -1,5 +1,7 @@
 # Módulo 7: Planificación Avanzada y Razonamiento
 
+![Module 7 Banner](../images/module7_banner.png)
+
 ## 🎯 Objetivos del Módulo
 Los agentes simples reaccionan. Los agentes avanzados **planifican**. En este módulo, dotaremos a tus agentes de la capacidad de pensar a largo plazo, descomponer problemas masivos y navegar grafos de decisión complejos.
 
@@ -38,5 +40,8 @@ app = workflow.compile()
 ---
 
 <div align="center">
-<a href="../module8/README.md">➡️ Siguiente Módulo: Sistemas Multi-Agente</a>
+
+**[⬅️ Módulo Anterior](../module6/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module8/README.md)**
+
 </div>
+
