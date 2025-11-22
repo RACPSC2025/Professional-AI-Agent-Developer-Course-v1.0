@@ -1,146 +1,935 @@
-# 🧠 Módulo 1: Fundamentos y Mentalidad Agéntica
+# Módulo 1: LLMs, Agentes y Mentalidad Agéntica
 
-![Level](https://img.shields.io/badge/Nivel-Fundamentos-C3B1E1?style=for-the-badge&logo=python&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-2_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-LangChain_|_OpenAI-C3B1E1?style=for-the-badge)
+![Module 1 Banner](../images/module1_banner.png)
 
-> *"Un agente no es solo un script que llama a una API. Es un sistema cognitivo capaz de razonar, planificar y actuar para cumplir un objetivo ambiguo."*
+![Level](https://img.shields.io/badge/Nivel-Fundamentos-4ECDC4?style=for-the-badge&logo=robot&logoColor=white)
+![Time](https://img.shields.io/badge/Tiempo-4_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
+![Models](https://img.shields.io/badge/Models-10+_Comparados-9B59B6?style=for-the-badge)
 
----
-
-## 🌸 Introducción: El Cambio de Paradigma
-
-Bienvenido al primer paso de tu viaje para convertirte en un **Professional AI Agent Developer**. En este módulo, no solo escribiremos código; redefiniremos cómo piensas sobre el software.
-
-### De Imperativo a Agéntico
-En la programación tradicional (**Imperativa**), tú eres el "Jefe" que micro-gestiona cada paso.
-*   *Tú:* "Abre el archivo."
-*   *Tú:* "Lee la línea 1."
-*   *Tú:* "Si dice 'Error', imprime una alerta."
-
-En la programación **Agéntica**, tú eres el "Gerente" que define objetivos.
-*   *Tú:* "Aquí tienes acceso al sistema de archivos y al email. Monitoriza los logs y avísame si hay algo crítico."
-*   *Agente:* (Decide cuándo leer, qué es crítico y cómo avisarte).
-
-### La Analogía del Pasante (The Intern)
-Imagina que contratas a un pasante muy inteligente pero que no conoce tu empresa.
-*   **Un Script** es como un brazo robótico en una fábrica: hace exactamente lo mismo mil veces. Si la caja está 1cm a la izquierda, falla.
-*   **Un Agente** es como el pasante: Si la caja está movida, la busca. Si no encuentra la caja, pregunta. Si se rompe, intenta arreglarla.
+> *"Un LLM predice texto. Un agente razona, decide y actúa. La diferencia lo cambia todo."*
 
 ---
 
-## 📚 Conceptos Fundamentales
+## 🎯 Objetivos del Módulo
 
-### 1. Arquitectura Cognitiva (The Brain) 🧠
-El Gran Modelo de Lenguaje (LLM) actúa como el núcleo de procesamiento. Pero un LLM por sí solo es solo un predictor de texto. Para que sea un agente, necesita una **Arquitectura Cognitiva**.
+En el Módulo 0 aprendiste **cómo funcionan los LLMs** (transformers, attention, entrenamiento). Ahora aprenderás:
 
-La arquitectura más fundamental es el bucle **Percepción-Acción**.
+- 🌐 Qué LLMs existen en el mercado (2024-2025)
+- 🏆 Comparación de modelos líderes (ChatGPT, Claude, Gemini, Llama, etc.)
+- 🧠 Tipos de LLMs (reasoning, multimodal, code-specialized)
+- 🤖 **Diferencia clave**: LLM → Agent → Agentic → Multi-agent
+- 🎯 Cuándo usar cada uno
+
+---
+
+## 📚 Índice
+
+### Parte I: Panorama de LLMs Modernos
+1. [Tipos de LLMs por Capacidad](#tipos-de-llms-por-capacidad)
+2. [Líderes del Mercado](#líderes-del-mercado-2024-2025)
+3. [Comparación Detallada](#comparación-detallada)
+
+### Parte II: De LLMs a Agentes
+4. [LLM Puro](#1-llm-puro)
+5. [Agent (LLM + Tools)](#2-agent-llm--tools--memory)
+6. [Agentic (Comportamiento Autónomo)](#3-agentic-comportamiento-autónomo)
+7. [Multi-Agent (Sistemas Colaborativos)](#4-multi-agent-sistemas-colaborativos)
+
+### Parte III: Guía de Decisión
+8. [Decision Matrix](#decision-matrix)
+9. [Ejemplos Prácticos](#ejemplos-prácticos)
+
+---
+
+# Parte I: Panorama de LLMs Modernos
+
+## 🔍 Tipos de LLMs por Capacidad
+
+Los LLMs se han especializado en diferentes tareas. Aquí están los 5 tipos principales:
+
+### 1. Text Generation Models (Generadores de Texto)
+
+**Propósito:** Chat, escritura, resúmenes, Q&A general
+
+**Ejemplos:**
+- GPT-4, GPT-4o (OpenAI)
+- Claude 3.5 Sonnet, Claude 3 Opus (Anthropic)
+- Gemini 1.5 Pro/Flash (Google)
+- Llama 3/3.1 (Meta - Open Source)
+- Qwen 2.5 (Alibaba Cloud)
+- Kimi (Moonshot AI)
+
+**Características:**
+- Veloces y eficientes
+- Propósito general
+- Balance costo/performance
+
+---
+
+### 2. Reasoning Models (Modelos de Razonamiento)
+
+**Propósito:** Matemáticas complejas, código difícil, lógica multi-paso
+
+**Innovación clave:** Muestran su "pensamiento" interno (chain-of-thought)
+
+```mermaid
+graph LR
+    A[User: Resuelve problema complejo] --> B{Tipo de Modelo}
+    
+    B -->|Text Gen| C[GPT-4]
+    C --> D[Respuesta directa]
+    
+    B -->|Reasoning| E[o1]
+    E --> F[Pensamiento visible]
+    F --> G[1. Analizo el problema...]
+    G --> H[2. Descompongo en pasos...]
+    H --> I[3. Verifico cada paso...]
+    I --> J[4. Respuesta final]
+    
+    style C fill:#4A90E2,color:#fff,stroke:#2E5C8A,stroke-width:2px
+    style E fill:#9B59B6,color:#fff,stroke:#6C3483,stroke-width:2px
+```
+
+**Ejemplos:**
+- **o1, o1-mini, o3, o3-mini** (OpenAI) - Líder en razonamiento
+- **QwQ-32B** (Alibaba) - Open source reasoning
+- **DeepSeek-R1** (DeepSeek) - Competidor de o1
+- **Claude 3.7 Sonnet** (Anthropic) - Extended thinking mode
+
+**Cuándo usarlos:**
+- ✅ Problemas matemáticos (IMO level)
+- ✅ Competencias de código (Codeforces)
+- ✅ Debugging complejo
+- ✅ Research científico
+- ❌ Chat casual (overkill + caro)
+
+---
+
+### 3. Multimodal Models (Texto + Imagen/Video/Audio)
+
+**Propósito:** Analizar imágenes, videos, audio junto con texto
+
+**Ejemplos:**
+- **GPT-4V, GPT-4o** (OpenAI) - Text + Image
+- **Gemini 1.5 Pro** (Google) - Text + Image + Video + Audio
+- **Claude 3 Opus** (Anthropic) - Text + Image
+- **Llama 3.2 Vision** (Meta) - Open source multimodal
+
+**Casos de uso:**
+- Análisis de gráficos y documentos visuales
+- Descripción de imágenes para accesibilidad
+- OCR avanzado (extraer texto de imágenes)
+- Content moderation visual
+
+---
+
+### 4. Code-Specialized Models
+
+**Propósito:** Generación y análisis de código
+
+**Ejemplos:**
+- **GitHub Copilot** (Powered by Codex - OpenAI)
+- **Claude 3.5 Sonnet** (Líder en benchmarks de código)
+- **DeepSeek-Coder-V2** (Open source)
+
+**Benchmark líder (SWE-bench):**
+1. Claude 3.5 Sonnet - 49%
+2. GPT-4o - 41%
+3. o1-preview - 38%
+
+---
+
+### 5. Image Generation Models
+
+**Nota:** No son LLMs tradicionales, pero parte del ecosistema de IA generativa.
+
+**Ejemplos:**
+- DALL-E 3 (OpenAI)
+- Midjourney
+- Stable Diffusion (Open source)
+- Imagen 2 (Google)
+
+---
+
+## 🏆 Líderes del Mercado (2024-2025)
+
+### Tabla Comparativa Principal
+
+| Modelo | Empresa | Tipo | Context | Fortalezas | Precio | Open Source |
+|--------|---------|------|---------|------------|--------|-------------|
+| **GPT-4o** | OpenAI | Text + Multimodal | 128K | Velocidad, multimodal | $$$ | ❌ |
+| **o1 / o3** | OpenAI | Reasoning | 128K | Math, code, logic | $$$$ | ❌ |
+| **Claude 3.5 Sonnet** | Anthropic | Text + Image | 200K | Coding #1, safety | $$$ | ❌ |
+| **Gemini 1.5 Pro** | Google | Multimodal | **1M** 🏆 | Long context | $$$ | ❌ |
+| **Llama 3.1 405B** | Meta | Text | 128K | Open source líder | FREE | ✅ |
+| **Grok-2** | xAI | Text | ? | Real-time, humor | $$$ | ❌ |
+| **Qwen 2.5** | Alibaba | Text | 128K | Multilingual | $/FREE | ✅ |
+| **QwQ-32B** | Alibaba | Reasoning | 32K | Open reasoning | FREE | ✅ |
+| **DeepSeek-V2** | DeepSeek | Text | 128K | Cost-effective | $ | ✅ |
+| **DeepSeek-R1** | DeepSeek | Reasoning | 128K | Compite con o1 | $ | ✅ |
+
+---
+
+## 📊 Comparación Detallada
+
+### GPT-4o (OpenAI)
+
+```yaml
+Release: Mayo 2024
+Parámetros: ~1.76 Trillion (estimado)
+Context Window: 128K tokens
+
+Capacidades:
+  - Text generation (excelente)
+  - Image understanding
+  - Code generation
+  - Real-time voice
+
+Velocidad:
+  - 2x más rápido que GPT-4
+  - Latencia: ~500ms
+
+Costo:
+  - Input: $2.50 / 1M tokens
+  - Output: $10 / 1M tokens
+  - 50% más barato que GPT-4
+
+Best for:
+  - Aplicaciones de producción generales
+  - Chatbots
+  - Customer support
+  - Content creation
+```
+
+**Ejemplo de uso:**
+```python
+from openai import OpenAI
+
+client = OpenAI()
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant"},
+        {"role": "user", "content": "Explain quantum computing simply"}
+    ]
+)
+
+print(response.choices[0].message.content)
+```
+
+---
+
+### o1 / o3 (OpenAI - Reasoning Models)
+
+```yaml
+Release: o1 (Sept 2024), o3 (Dec 2024)
+Context Window: 128K tokens
+
+Características únicas:
+  - Chain-of-thought interno visible
+  - Self-verification
+  - Muestra razonamiento paso a paso
+
+Benchmarks:
+  - AIME 2024 (Math): 83% (vs 13% GPT-4)
+  - Codeforces: 89th percentile
+  - GPQA Diamond (Science): 78%
+
+Costo:
+  - o1: $15/$60 por 1M tokens (input/output)
+  - o3-mini: Más económico
+
+Best for:
+  - Problemas matemáticos complejos
+  - Debugging de código difícil
+  - Análisis científico
+  - Research
+```
+
+**Cuándo NO usar:**
+- ❌ Chat casual
+- ❌ Generación de contenido simple
+- ❌ Cuando velocidad > accuracy
+
+---
+
+### Claude 3.5 Sonnet (Anthropic)
+
+```yaml
+Release: Junio 2024 (updated Oct 2024)
+Context Window: 200K tokens
+
+Fortalezas clave:
+  - #1 en coding benchmarks (SWE-bench: 49%)
+  - Extended thinking mode (Claude 3.7)
+  - Computer use (beta) - puede controlar desktop
+  - Safety y alignment
+
+Capacidades:
+  - Text + Image analysis
+  - Code generation
+  - Long document analysis
+  - Agentic workflows
+
+Costo:
+  - $3/$15 por 1M tokens
+
+Best for:
+  - Code assistants (mejor del mercado)
+  - Document analysis
+  - Research tasks
+  - Aplicaciones que requieren safety
+```
+
+**Ejemplo - Extended Thinking:**
+```python
+import anthropic
+
+client = anthropic.Anthropic()
+response = client.messages.create(
+    model="claude-3-7-sonnet",
+    max_tokens=16000,
+    thinking={
+        "type": "enabled",
+        "budget_tokens": 10000  # Cuánto pensar
+    },
+    messages=[{
+        "role": "user",
+        "content": "Debug this complex algorithm..."
+    }]
+)
+
+# Response incluye bloques de "thinking"
+for block in response.content:
+    if block.type == "thinking":
+        print("Claude's thoughts:", block.thinking)
+    elif block.type == "text":
+        print("Claude's answer:", block.text)
+```
+
+---
+
+### Gemini 1.5 Pro (Google)
+
+```yaml
+Release: Febrero 2024
+Context Window: 1 MILLION tokens 🏆 (record mundial)
+
+Capacidades:
+  - Text + Image + Video + Audio
+  - Multimodal reasoning
+  - Code generation
+  - Native Google integration
+
+Use cases únicos:
+  - Analizar películas completas (1.5hrs video)
+  - Procesar codebases enteros
+  - 1500+ page documents
+
+Costo:
+  - Prompts ≤128K: $1.25/$5 / 1M tokens
+  - Prompts >128K: $2.50/$10 / 1M tokens
+
+Best for:
+  - Long document analysis
+  - Multimodal tasks
+  - Research con contexto masivo
+```
+
+---
+
+### Llama 3.1 405B (Meta)
+
+```yaml
+Release: Julio 2024
+Parámetros: 405 Billion
+Context Window: 128K tokens
+Licencia: Apache 2.0 (Open Source)
+
+Modelos disponibles:
+  - 405B (flagship)
+  - 70B (balance)
+  - 8B (edge/mobile)
+
+Fortalezas:
+  - OPEN SOURCE completo
+  - Competitive con modelos closed
+  - Can fine-tune
+  - On-premise deployment
+
+Performance:
+  - MMLU: 85.2% (close to GPT-4)
+  - HumanEval: 61.0%
+  - Multilingual
+
+Best for:
+  - On-premise / air-gapped environments
+  - Fine-tuning para casos específicos
+  - Research académico
+  - Reducir vendor lock-in
+```
+
+**Deploy local:**
+```bash
+# Con Ollama
+ollama run llama3.1:70b
+
+# Con HuggingFace
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-70B-Instruct")
+tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-70B-Instruct")
+```
+
+---
+
+### Otros Modelos Notables
+
+#### Grok-2 (xAI - Elon Musk)
+- Real-time web access
+- Menos censura
+- Personality/humor
+- Integración con X (Twitter)
+
+#### Qwen 2.5 + QwQ (Alibaba Cloud)
+- Open source
+- Excelente en chino
+- QwQ compite con o1 en reasoning
+- Cost-effective
+
+#### DeepSeek-V2 / R1 (DeepSeek)
+- Extremadamente económico
+- R1 open source reasoning model
+- Innovación en arquitectura (MoE)
+
+#### Kimi (Moonshot AI)
+- Líder en mercado chino
+- 200K context window
+- Enterprise focus
+
+---
+
+# Parte II: De LLMs a Agentes
+
+## 🔄 La Evolución
+
+```mermaid
+graph LR
+    A[LLM<br/>Solo Predict] --> B[Agent<br/>LLM + Tools]
+    B --> C[Agentic<br/>Autonomous]
+    C --> D[Multi-Agent<br/>Collaborative]
+    
+    A -.Ejemplo.-> E[ChatGPT API]
+    B -.Ejemplo.-> F[LangChain Agent]
+    C -.Ejemplo.-> G[ReAct / AutoGPT]
+    D -.Ejemplo.-> H[CrewAI / AutoGen]
+    
+    style A fill:#4ECDC4,color:#fff,stroke:#2C7A7B,stroke-width:2px
+    style B fill:#4A90E2,color:#fff,stroke:#2E5C8A,stroke-width:2px
+    style C fill:#9B59B6,color:#fff,stroke:#6C3483,stroke-width:2px
+    style D fill:#E74C3C,color:#fff,stroke:#C0392B,stroke-width:2px
+```
+
+---
+
+## 1. LLM Puro
+
+### Definición
+
+Un **Large Language Model** sin ninguna capacidad adicional. Solo predice el siguiente token.
+
+### Características
+
+- ❌ No puede usar herramientas
+- ❌ No tiene memoria entre conversaciones
+- ❌ No puede acceder a internet
+- ❌ No puede ejecutar código
+- ✅ Solo genera texto basado en su entrenamiento
+
+### Código Ejemplo
+
+```python
+"""
+LLM Puro: Sin tools, sin memory, sin context
+"""
+from openai import OpenAI
+
+client = OpenAI()
+
+# Request completamente aislado
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[
+        {"role": "user", "content": "What's 2+2?"}
+    ]
+)
+
+print(response.choices[0].message.content)
+# Output: "4"
+
+# ❌ No puede:
+# - Buscar precio actual de una acción
+# - Recordar conversación anterior  
+# - Ejecutar código Python
+# - Acceder a base de datos
+```
+
+### Limitaciones
+
+```python
+# Pregunta que requiere datos actuales
+response = client.chat.completions.create(
+    model="gpt-4o",
+    messages=[{
+        "role": "user",
+        "content": "What's the current weather in London?"
+    }]
+)
+
+print(response.choices[0].message.content)
+# Output: "I don't have access to real-time data..."
+# ❌ No puede hacer API call a weather service
+```
+
+---
+
+## 2. Agent (LLM + Tools + Memory)
+
+### Definición
+
+Un **sistema** que usa un LLM como "cerebro" combinado con:
+- 🛠️ **Tools**: Funciones que el LLM puede llamar
+- 💾 **Memory**: Historial de conversaciones
+- 🔄 **Loop**: Reason → Act → Observe → Repeat
+
+### Arquitectura
+
+```mermaid
+graph TB
+    A[User Input] --> B[Agent System]
+    
+    subgraph Agent_System[Agent: Decision Maker]
+        C[LLM Brain] --> D{¿Qué hacer?}
+        D -->|Need web info| E[Tool: Web Search]
+        D -->|Need calculation| F[Tool: Calculator]
+        D -->|Need data| G[Tool: Database Query]
+        D -->|Check history| H[Memory]
+        
+        E --> I[Execute & Observe]
+        F --> I
+        G --> I
+        H --> I
+        
+        I -->|Result| C
+    end
+    
+    B --> C
+    I --> J[Final Answer]
+    
+    style C fill:#4A90E2,color:#fff,stroke:#2E5C8A,stroke-width:2px
+    style E fill:#9B59B6,color:#fff,stroke:#6C3483,stroke-width:2px
+    style H fill:#E74C3C,color:#fff,stroke:#C0392B,stroke-width:2px
+```
+
+### Código Ejemplo
+
+```python
+"""
+Agent: LLM + Tools + Memory
+"""
+from langchain.agents import create_openai_functions_agent, AgentExecutor
+from langchain_openai import ChatOpenAI
+from langchain.tools import Tool
+from langchain.memory import ConversationBufferMemory
+import requests
+
+# 1. Definir Tools
+def search_web(query: str) -> str:
+    """Busca en la web información actual"""
+    # Simulado - en producción usar API real
+    return f"Results for '{query}': Latest news found..."
+
+def get_weather(city: str) -> str:
+    """Obtiene clima actual"""
+    # API call real
+    response = requests.get(f"https://wttr.in/{city}?format=j1")
+    data = response.json()
+    return f"Weather in {city}: {data['current_condition'][0]['temp_C']}°C"
+
+# Convertir a LangChain Tools
+tools = [
+    Tool(
+        name="web_search",
+        func=search_web,
+        description="Search web for current information"
+    ),
+    Tool(
+        name="weather",
+        func=get_weather,
+        description="Get current weather for a city"
+    )
+]
+
+# 2. Memory
+memory = ConversationBufferMemory(
+    memory_key="chat_history",
+    return_messages=True
+)
+
+# 3. LLM
+llm = ChatOpenAI(model="gpt-4o", temperature=0)
+
+# 4. Create Agent
+agent = create_openai_functions_agent(llm, tools, prompt)
+executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    memory=memory,
+    verbose=True  # Ver razonamiento
+)
+
+# 5. Usage
+response = executor.invoke({
+    "input": "What's the weather in Paris and search for Paris tourism"
+})
+
+print(response['output'])
+
+# El agent:
+# 1. Razona: "Necesito 2 cosas: clima y tourismo"
+# 2. Llama weather("Paris") 
+# 3. Observa: "15°C"
+# 4. Llama web_search("Paris tourism")
+# 5. Observa: "Top attractions..."
+# 6. Genera respuesta combinando ambos resultados
+```
+
+### Output Example
+
+```
+> Entering new AgentExecutor chain...
+
+Thought: El usuario pregunta por clima Y turismo en París. Necesito 2 tools.
+
+Action: weather
+Action Input: Paris
+Observation: Weather in Paris: 15°C
+
+Action: web_search  
+Action Input: Paris tourism
+Observation: Results for 'Paris tourism': Eiffel Tower, Louvre...
+
+Thought: Ya tengo ambas informaciones. Puedo responder.
+
+Final Answer: The weather in Paris is currently 15°C. For tourism, top 
+attractions include the Eiffel Tower and the Louvre Museum...
+```
+
+---
+
+## 3. Agentic (Comportamiento Autónomo)
+
+### Definición
+
+Un **agent** que toma **decisiones autónomas** para lograr un objetivo ambiguo.
+
+### Diferencia clave
+
+| Agent (Traditional) | Agentic (Autonomous) |
+|---------------------|----------------------|
+| Usa tools cuando se le pide | Decide por sí mismo qué hacer |
+| Sigue instrucciones directas | Interpreta objetivo de alto nivel |
+| Ejecuta y termina | Loop hasta completar objetivo |
+| "Busca clima en París" | "Investiga París para viaje" |
+
+### Características Agentic
+
+- 🎯 **Goal-oriented**: Objetivo ambiguo → Plan específico
+- 🧠 **Self-prompting**: Se genera sub-tareas
+- 🔄 **Iterative**: Loop hasta completar
+- 🤔 **Reasoning**: Reflexiona sobre progreso
+- ✅ **Self-verification**: Verifica si logró objetivo
+
+### Ejemplo Comparativo
+
+```python
+# USER: "Investiga Tesla y dame un reporte"
+
+# AGENT TRADICIONAL:
+# 1. Search "Tesla"
+# 2. Summarize
+# 3. Done
+# ❌ Superficial
+
+# AGENT AGENTIC (ReAct):
+# 1. Thought: "Para research completo necesito: finanzas, producto, competencia"
+# 2. Action: Search "Tesla Q3 2024 earnings"
+# 3. Observation: "Revenue $25B..."
+# 4. Thought: "Ahora necesito info de productos"
+# 5. Action: Search "Tesla Model Y specs 2024"
+# 6. Observation: "Range 330 miles..."
+# 7. Thought: "Falta competencia"
+# 8. Action: Search "Tesla vs BYD comparison"
+# 9. Observation: "BYD sold 500K..."
+# 10. Thought: "Tengo suficiente info"
+# 11. Action: Generate comprehensive report
+# ✅ Profundo y autónomo
+```
+
+### Patrones Agentic Populares
+
+**ReAct (Reason + Act)**
+```python
+while not goal_achieved:
+    thought = llm.think(current_state)
+    action = llm.decide_action(thought)
+    observation = execute(action)
+    current_state = update_state(observation)
+```
+
+**Reflexion (Self-Correction)**
+```python
+output = llm.generate(task)
+critique = llm.critique(output)
+if critique.has_issues():
+    output = llm.improve(output, critique)
+```
+
+**Plan-and-Solve**
+```python
+plan = llm.create_plan(goal)
+for step in plan:
+    result = execute(step)
+    if failed(result):
+        plan = llm.replan(plan, result)
+```
+
+---
+
+## 4. Multi-Agent (Sistemas Colaborativos)
+
+### Definición
+
+**Múltiples agentes** trabajando juntos, cada uno con rol especializado.
+
+### Arquitectura
+
+```mermaid
+graph TB
+    A[User: Create marketing campaign] --> B[Manager Agent]
+    
+    B -->|Assign task| C[Researcher Agent]
+    B -->|Assign task| D[Writer Agent]
+    B -->|Assign task| E[Designer Agent]
+    
+    C -->|Market analysis| F[Shared Memory/Context]
+    D -->|Copy drafts| F
+    E -->|Visual concepts| F
+    
+    F --> G{Manager reviews}
+    G -->|Needs revision| C
+    G -->|Needs revision| D
+    G -->|All good| H[Final Campaign]
+    
+    style B fill:#4A90E2,color:#fff,stroke:#2E5C8A,stroke-width:2px
+    style C fill:#9B59B6,color:#fff,stroke:#6C3483,stroke-width:2px
+    style D fill:#E74C3C,color:#fff,stroke:#C0392B,stroke-width:2px
+    style E fill:#F39C12,color:#fff,stroke:#D68910,stroke-width:2px
+```
+
+### Frameworks Multi-Agent
+
+**CrewAI** - Role-based
+```python
+from crewai import Agent, Task, Crew
+
+# Agentes especializados
+researcher = Agent(
+    role="Market Researcher",
+    goal="Find latest AI trends",
+    backstory="Expert analyst with 10 years experience",
+    tools=[search_tool, scrape_tool],
+    verbose=True
+)
+
+writer = Agent(
+    role="Content Writer",
+    goal="Write engaging blog posts",
+    backstory="Award-winning tech writer",
+    tools=[],
+    verbose=True
+)
+
+critic = Agent(
+    role="Content Critic",
+    goal="Review and improve content",
+    backstory="Editor-in-chief",
+    tools=[],
+    verbose=True
+)
+
+# Tasks
+research_task = Task(
+    description="Research AI agent market trends 2024",
+    agent=researcher,
+    expected_output="Comprehensive market analysis"
+)
+
+write_task = Task(
+    description="Write 1000-word blog post based on research",
+    agent=writer,
+    expected_output="Polished blog post"
+)
+
+review_task = Task(
+    description="Review blog post and suggest improvements",
+    agent=critic,
+    expected_output="Feedback and final version"
+)
+
+# Crew (orchestrator)
+crew = Crew(
+    agents=[researcher, writer, critic],
+    tasks=[research_task, write_task, review_task],
+    verbose=True,
+    process="sequential"  # o "hierarchical"
+)
+
+# Execute
+result = crew.kickoff()
+```
+
+**AutoGen** - Conversational
+```python
+from autogen import ConversableAgent, GroupChat, GroupChatManager
+
+# Agentes conversacionales
+researcher_agent = ConversableAgent(
+    name="Researcher",
+    system_message="You are a researcher...",
+    llm_config={"model": "gpt-4"}
+)
+
+coder_agent = ConversableAgent(
+    name="Coder",
+    system_message="You are a Python expert...",
+    llm_config={"model": "gpt-4"}
+)
+
+critic_agent = ConversableAgent(
+    name="Critic",
+    system_message="You review code...",
+    llm_config={"model": "gpt-4"}
+)
+
+# Group chat (debate)
+group_chat = GroupChat(
+    agents=[researcher_agent, coder_agent, critic_agent],
+    messages=[],
+    max_round=10
+)
+
+manager = GroupChatManager(groupchat=group_chat)
+
+# Start conversation
+researcher_agent.initiate_chat(
+    manager,
+    message="Let's build a web scraper for news articles"
+)
+
+# Los agentes debaten entre sí hasta llegar a solución
+```
+
+### Cuándo usar Multi-Agent
+
+✅ **Cuando:**
+- Workflow tiene múltiples roles distintos
+- Beneficio de "debate" entre perspectivas
+- Tasks independientes paralelizables
+- Emular equipo humano
+
+❌ **Cuando NO:**
+- Task simple (single-agent suficiente)
+- Budget limitado (más agentes = más cost)
+- Latencia crítica (coordinación añade tiempo)
+
+---
+
+# Parte III: Guía de Decisión
+
+## 🎯 Decision Matrix
+
+### Árbol de Decisión
 
 ```mermaid
 graph TD
-    User[👤 Usuario] -->|Objetivo: 'Investiga a Tesla'| Agent(🤖 Agente)
+    A[¿Qué necesitas construir?] --> B{¿Requiere datos externos?}
     
-    subgraph "Cerebro del Agente (Loop)"
-    Agent -->|1. Pensamiento| Thought[💭 ¿Qué necesito saber?]
-    Thought -->|2. Decisión| Action[🛠️ Usar Herramienta: Search]
-    Action -->|3. Observación| Result[📄 Resultados de Google]
-    Result -->|4. Reflexión| Check{¿Es suficiente?}
-    Check -->|No| Thought
-    end
+    B -->|No| C[LLM puro]
+    B -->|Sí| D{¿Tarea simple o compleja?}
     
-    Check -->|Sí| Final[✅ Respuesta Final]
+    D -->|Simple: 1-2 tools| E[Agent básico]
+    D -->|Compleja: objetivo ambiguo| F{¿Single role o múltiples?}
+    
+    F -->|Single role| G[Agentic system]
+    F -->|Múltiples roles| H[Multi-agent
+
+]
+    
+    C --> I[OpenAI API directo]
+    E --> J[LangChain Agent]
+    G --> K[ReAct / Reflexion]
+    H --> L[CrewAI / AutoGen]
+    
+    style C fill:#4ECDC4,color:#fff
+    style E fill:#4A90E2,color:#fff
+    style G fill:#9B59B6,color:#fff
+    style H fill:#E74C3C,color:#fff
 ```
 
-### 2. Herramientas (The Tools) 🛠️
-Si el LLM es el cerebro, las herramientas son sus **brazos y piernas**. Sin ellas, la IA vive en una caja negra aislada (solo sabe lo que aprendió durante su entrenamiento).
+### Tabla de Decisión
 
-*   **Read Tools:** Buscadores web (`DuckDuckGo`), lectores de PDF, APIs de datos (`Yahoo Finance`).
-*   **Write Tools:** Enviar emails (`Gmail API`), escribir en bases de datos, crear archivos.
+| Necesito... | Usa | Framework | Ejemplo |
+|-------------|-----|-----------|---------|
+| Responder Q&A simple | **LLM** | OpenAI API | "What is photosynthesis?" |
+| Buscar en web + responder | **Agent** | LangChain | "Latest news on Tesla stock" |
+| Research profundo | **Agentic** | ReAct loop | "Full market analysis of EV industry" |
+| Workflow multi-rol | **Multi-agent** | CrewAI | "Create marketing campaign: research + write + design" |
+| Code generation + review | **Multi-agent** | AutoGen | "Build app with debate between coder + reviewer" |
 
 ---
 
-## 💻 Del Código a la Realidad
+## 💻 Ejemplos Prácticos
 
-Veamos cómo se ve esto en código real. Analizaremos la diferencia entre una **Cadena (Chain)** y un **Agente**.
+### Costo Comparison
 
-### La Cadena (The Chain)
-Una cadena es una secuencia predefinida de pasos. Es robusta pero rígida.
+| Tipo | Tokens promedio | Costo (GPT-4o) | Velocidad |
+|------|-----------------|----------------|-----------|
+| LLM | 500 | $0.0075 | 1x |
+| Agent | 2000 | $0.03 | 3x |
+| Agentic | 5000 | $0.075 | 5-10x |
+| Multi-agent (3 agents) | 8000 | $0.12 | 8-15x |
 
-*Archivo: `01_basic_news_summarizer.py`*
-
-```python
-# Flujo Rígido: Input -> Scrape -> Prompt -> LLM -> Output
-chain = (
-    {"text": scrape_website}  # Paso 1: Siempre scrapea
-    | summary_prompt          # Paso 2: Siempre formatea
-    | llm                     # Paso 3: Siempre resume
-    | StrOutputParser()
-)
-```
-> **Análisis:** Si `scrape_website` falla, toda la cadena falla. El LLM no tiene oportunidad de decir "Hey, la URL está rota, intentaré buscarla en Google".
-
-### El Agente (The Agent)
-Un agente tiene acceso a herramientas y un bucle de razonamiento.
-
-*Archivo: `02_intermediate_investment_analyst.py`*
-
-```python
-# Definimos las herramientas disponibles
-tools = [yahoo_finance, google_search, calculator]
-
-# El LLM decide qué usar
-agent = create_openai_functions_agent(llm, tools, prompt)
-
-# El Executor maneja el bucle (Pensar -> Actuar -> Observar)
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-
-agent_executor.invoke({"input": "¿Debería invertir en Apple hoy?"})
-```
-
-**¿Qué pasa internamente?**
-1.  **Pensamiento:** "El usuario pregunta por Apple. Necesito el precio actual." -> *Decide usar `yahoo_finance`*.
-2.  **Acción:** Ejecuta `yahoo_finance("AAPL")`.
-3.  **Observación:** "El precio es $150, bajó un 2%."
-4.  **Pensamiento:** "Ya tengo el precio, pero ¿por qué bajó? Necesito noticias." -> *Decide usar `google_search`*.
-5.  **Acción:** Ejecuta `google_search("Apple stock news today")`.
-6.  **Observación:** "Reporte de ganancias mixto."
-7.  **Respuesta Final:** "Aunque el precio bajó a $150 debido al reporte, los analistas sugieren mantener..."
+**Conclusión:** Más autonomía = más cost + tiempo. Usa la herramienta correcta para el trabajo.
 
 ---
 
-## 🧪 Proyectos Prácticos
+## 🚀 Próximos Pasos
 
-### 🟢 Nivel Básico: Resumidor de Noticias (The Chain)
-**Archivo:** [01_basic_news_summarizer.py](01_basic_news_summarizer.py)
+Ahora que entiendes el panorama de LLMs y la diferencia entre LLM/Agent/Agentic/Multi-agent, estás listo para explorar los frameworks específicos:
 
-En este nivel, construimos una **Cadena Secuencial**.
-*   **Objetivo:** Entender la sintaxis LCEL (`|`) y cómo pasar datos de una función al LLM.
-*   **Reto:** Intenta cambiar la URL por una que no exista. ¿Qué pasa? (Spoiler: Crash).
-
-### 🟡 Nivel Intermedio: Analista de Inversiones (The Agent)
-**Archivo:** [02_intermediate_investment_analyst.py](02_intermediate_investment_analyst.py)
-
-Aquí introducimos la **incertidumbre**.
-*   **Objetivo:** Ver al agente tomar decisiones.
-*   **Experimento:** Pregúntale "¿Cuánto es 2+2?". Verás que *no* usa Yahoo Finance, sino su propio conocimiento o la calculadora. ¡Eso es razonamiento!
-
-### 🔴 Nivel Avanzado: Asistente Ejecutivo (The System)
-**Archivo:** [03_advanced_executive_assistant.py](03_advanced_executive_assistant.py)
-
-Un sistema que combina **autenticación** y **acciones de escritura**.
-*   **Objetivo:** Entender el riesgo y la seguridad.
-*   **Concepto Clave:** **Human-in-the-loop**. Antes de enviar un email, el agente debería pedir confirmación.
-
----
-
-## 🚀 Siguientes Pasos
-
-1.  Abre `01_basic_news_summarizer.py` y ejecútalo.
-2.  Lee los comentarios en el código, explican cada línea de LCEL.
-3.  Intenta modificar el prompt para que el resumen sea en tono "sarcástico".
+➡️ **[Módulo 2: Panorama de Frameworks](../module2/README.md)**
 
 ---
 
 <div align="center">
-<a href="../module2/README.md">➡️ Siguiente Módulo: Frameworks Modernos</a>
+
+**[⬅️ Módulo Anterior](../module0/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module2/README.md)**
+
 </div>
+
+---
+
+**Última actualización:** Noviembre 2024  
+**Modelos comparados:** GPT-4o, o1, Claude, Gemini, Llama, Grok, Qwen, DeepSeek, Kimi  
+**Frameworks mencionados:** LangChain, CrewAI, AutoGen, ReAct

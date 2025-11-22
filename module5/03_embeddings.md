@@ -27,8 +27,8 @@ graph LR
     B --> F["[0.3, 0.7, 0.2, ...]"]
     B --> G["[0.9, 0.1, 0.8, ...]"]
     
-    E -.Similitud: 0.92.-> F
-    E -.Similitud: 0.15.-> G
+    E -.Similitud 0_92.-> F
+    E -.Similitud 0_15.-> G
     
     style B fill:#FF6B6B,stroke:#C92A2A,stroke-width:3px,color:#fff
 ```
