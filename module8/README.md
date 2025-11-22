@@ -2,9 +2,9 @@
 
 ![Module 8 Header](../images/module8_header.png)
 
-![Level](https://img.shields.io/badge/Nivel-Avanzado-C3B1E1?style=for-the-badge&logo=crewai&logoColor=white)
+![Level](https://img.shields.io/badge/Nivel-Enterprise-C3B1E1?style=for-the-badge&logo=crewai&logoColor=white)
 ![Time](https://img.shields.io/badge/Tiempo-8_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-CrewAI_|_AutoGen_|_LangGraph_|_Semantic_Kernel-C3B1E1?style=for-the-badge)
+![Stack](https://img.shields.io/badge/Stack-CrewAI_|_AutoGen_|_LangGraph_|_MCP-C3B1E1?style=for-the-badge)
 
 > *"El talento gana partidos, pero el trabajo en equipo y la inteligencia ganan campeonatos."* — Michael Jordan
 
@@ -12,101 +12,146 @@
 
 ## 🎯 Objetivos del Módulo
 
-Un solo agente es limitado. Un **Sistema Multi-Agente (MAS)** es ilimitado. En este módulo, aprenderás a orquestar equipos de agentes especializados que colaboran para resolver problemas complejos, simulando departamentos enteros de una empresa.
+En el mundo real, un solo empleado no hace todo el trabajo. Tienes departamentos: Ventas, Ingeniería, Legal.
+En la IA Enterprise, hacemos lo mismo. **Orquestamos** equipos de agentes especializados.
 
-Cubriremos el **"Big 5"** de la orquestación de agentes:
-
-1.  🚣 **CrewAI:** Roles estructurados y procesos secuenciales.
-2.  🤖 **Microsoft AutoGen:** Conversación y ejecución de código.
-3.  🕸️ **LangGraph:** Control de estado y grafos complejos.
-4.  🏢 **Microsoft Semantic Kernel:** Integración empresarial y Plugins.
-5.  ☁️ **Google Vertex AI Agents:** Escalabilidad en la nube y modelos Gemini.
-
----
-
-## 📚 Índice
-
-1.  [Fundamentos de Sistemas Multi-Agente](#1-fundamentos-de-sistemas-multi-agente)
-2.  [Patrones de Orquestación Visualizados](#2-patrones-de-orquestación-visualizados)
-3.  [Comparativa Definitiva de Frameworks](#3-comparativa-definitiva-de-frameworks)
-4.  [Proyectos Prácticos](#-proyectos-prácticos)
+**Lo que vas a dominar:**
+1.  🚣 **CrewAI:** Cómo estructurar "Roles" y "Procesos" secuenciales.
+2.  🤖 **AutoGen:** Agentes que conversan y escriben código real.
+3.  🕸️ **LangGraph:** Control de estado granular para flujos complejos.
+4.  🔌 **MCP (Model Context Protocol):** El estándar universal para conectar herramientas.
 
 ---
 
-## 1. Fundamentos de Sistemas Multi-Agente
+## 🏗️ 1. Arquitectura de Equipos (Patrones Enterprise)
 
-Un MAS se compone de múltiples agentes interactuando en un entorno compartido. La clave no es solo tener muchos agentes, sino cómo **colaboran**.
+No basta con poner agentes juntos. Necesitas una **Topología de Comunicación**.
 
-### Ventajas sobre un Agente Único
--   **Especialización:** Un agente "Coder" y un "Writer" son mejores que un agente "Generalista".
--   **Paralelismo:** Varios agentes pueden trabajar en sub-tareas simultáneamente.
--   **Robustez:** Si un agente falla, otro puede corregirlo (ej. Reviewer revisando código).
+### A. Patrón Secuencial (The Assembly Line)
+Ideal para procesos lineales: `Investigar -> Escribir -> Traducir`.
+*   **Framework:** CrewAI.
+*   **Analogía:** Una línea de montaje de coches.
+
+```mermaid
+graph LR
+    Input[📝 Tema] --> Researcher[🕵️ Investigador]
+    Researcher -->|Datos Crudos| Analyst[📊 Analista]
+    Analyst -->|Insights| Writer[✍️ Escritor]
+    Writer --> Output[📄 Reporte Final]
+    
+    style Researcher fill:#E74C3C,color:#fff
+    style Analyst fill:#F39C12,color:#fff
+    style Writer fill:#2ECC71,color:#fff
+```
+
+### B. Patrón Jerárquico (The Boss)
+Un "Supervisor" decide quién trabaja. Ideal cuando la tarea varía dinámicamente.
+*   **Framework:** LangGraph / CrewAI (Hierarchical).
+*   **Analogía:** Un Project Manager asignando tickets.
+
+```mermaid
+graph TD
+    User((👤 Cliente)) --> Supervisor[👔 Supervisor]
+    Supervisor -->|¿Código?| Coder[💻 Coder Agent]
+    Supervisor -->|¿Diseño?| Designer[🎨 Designer Agent]
+    Coder -->|Pull Request| Supervisor
+    Designer -->|Mockup| Supervisor
+    
+    style Supervisor fill:#8E44AD,color:#fff
+```
 
 ---
 
-## 2. Patrones de Orquestación Visualizados
+## 🚣 2. CrewAI: Tu Primer Equipo Virtual
 
-### A. El Orquestador (Jerárquico)
-Un "Supervisor" central dirige a trabajadores especializados. Es ideal para tareas complejas que requieren coordinación centralizada.
+CrewAI brilla por su simplicidad basada en roles.
 
-![The Orchestrator](../../brain/d0c3bcfe-8fae-456d-b0ac-1bf2041655fe/module8_orchestrator_1763820953731.png)
-*Figura 1: Un Supervisor dirigiendo a agentes especializados (Construcción, Análisis, Arte).*
+### Anatomía de un Agente CrewAI
 
-### B. La Mesa Redonda (Colaborativo)
-Agentes autónomos discuten y colaboran en igualdad de condiciones. Ideal para brainstorming y resolución creativa de problemas.
+```python
+from crewai import Agent
 
-![The Roundtable](../../brain/d0c3bcfe-8fae-456d-b0ac-1bf2041655fe/module8_roundtable_1763820983046.png)
-*Figura 2: Diferentes frameworks (CrewAI, AutoGen, SK) colaborando en una mesa redonda digital.*
+# 1. Definir el ROL (Quién es)
+researcher = Agent(
+    role='Senior Researcher',
+    goal='Descubrir tecnologías emergentes en IA',
+    backstory="""Eres un veterano de Silicon Valley. 
+    Tu olfato para la innovación es legendario.""",
+    verbose=True,          # ¡Verlo pensar!
+    allow_delegation=False # No puede mandar a otros (es un worker)
+)
+```
+
+### Anatomía de una Tarea (Qué hace)
+
+```python
+from crewai import Task
+
+# 2. Definir la TAREA (Qué debe entregar)
+task1 = Task(
+    description='Investiga sobre "Agentic Patterns" en 2025.',
+    agent=researcher,
+    expected_output='Un resumen ejecutivo de 3 puntos clave.'
+)
+```
 
 ---
 
-## 3. Comparativa Definitiva de Frameworks
+## 🔌 3. MCP: El Futuro de la Conectividad
 
-| Característica | 🚣 CrewAI | 🤖 AutoGen | 🕸️ LangGraph | 🏢 Semantic Kernel | ☁️ Vertex AI |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Filosofía** | **Role-First** | **Conversation-First** | **State-First** | **Enterprise-First** | **Model-First** |
-| **Mejor para...** | Procesos de negocio, Marketing | Coding, Data Science | Apps complejas, SaaS | Integración .NET/Python | Escala masiva, Google Cloud |
-| **Curva** | ⭐ (Baja) | ⭐⭐ (Media) | ⭐⭐⭐ (Alta) | ⭐⭐ (Media) | ⭐⭐ (Media) |
-| **Control** | Alto en roles | Medio (Chat) | Total (Grafo) | Alto (Plugins) | Alto (Tools) |
+El **Model Context Protocol (MCP)** resuelve el problema de "¿Cómo conecto mi agente a mi Base de Datos / Slack / GitHub?".
+En lugar de escribir 50 integraciones, usas el estándar MCP.
+
+### Ejemplo: Deep Research con MCP
+En el script `06_mcp_deep_research.py`, simulamos cómo un agente usa herramientas MCP para navegar la web "profunda" (sin bloqueos).
+
+```python
+# El agente no sabe CÓMO funciona la herramienta, solo sabe que existe.
+# MCP se encarga del "CÓMO".
+search_agent = Agent(
+    role='Web Surfer',
+    tools=[mcp_tools.search_web], # Herramienta inyectada vía MCP
+    goal='Encontrar fuentes primarias'
+)
+```
 
 ---
 
-## 🛠️ Proyectos Prácticos
+## 🛠️ Proyectos Prácticos (Nivel Enterprise)
 
 ### 🚣 Proyecto 1: El Equipo de Investigación (CrewAI)
 **Archivo:** [`01_crewai_research_team.py`](01_crewai_research_team.py)
--   **Objetivo:** Crear un reporte completo sobre una tecnología emergente.
--   **Roles:** Lead Researcher, Senior Analyst, Tech Writer.
+-   **Patrón:** Secuencial.
+-   **Caso de Uso:** Generación de contenido automatizado.
+-   **Reto:** Modifica el script para añadir un agente "Editor" que critique el trabajo del "Escritor".
 
 ### 🤖 Proyecto 2: El Equipo de Desarrollo (AutoGen)
 **Archivo:** [`02_autogen_coding_team.py`](02_autogen_coding_team.py)
--   **Objetivo:** Resolver un problema matemático escribiendo y ejecutando código Python.
--   **Roles:** UserProxy (Admin), Assistant (Coder).
+-   **Patrón:** Conversacional (Chat).
+-   **Caso de Uso:** Escribir y ejecutar código Python para análisis de datos.
+-   **Nota:** AutoGen ejecuta código real en Docker (Sandbox). ¡Cuidado en local!
 
 ### 🕸️ Proyecto 3: El Supervisor Corporativo (LangGraph)
 **Archivo:** [`03_langgraph_supervisor.py`](03_langgraph_supervisor.py)
--   **Objetivo:** Sistema de soporte que enruta consultas al especialista adecuado.
--   **Roles:** Supervisor, Billing, Tech Support.
+-   **Patrón:** Jerárquico (Router).
+-   **Caso de Uso:** Sistema de soporte técnico nivel 1 y 2.
+-   **Tech:** StateGraph, Conditional Edges.
 
-### 🏢 Proyecto 4: Asistente Empresarial (Semantic Kernel)
-**Archivo:** [`04_semantic_kernel_agent.py`](04_semantic_kernel_agent.py)
--   **Objetivo:** Agente de productividad que gestiona agenda y correos.
--   **Concepto:** Uso de **Plugins** y **Kernel** para orquestación.
-
-### ☁️ Proyecto 5: Agente de Viajes (Vertex AI)
-**Archivo:** [`05_google_vertex_agent.py`](05_google_vertex_agent.py)
--   **Objetivo:** Planificador de viajes escalable.
--   **Concepto:** Estructura de **Tools** y razonamiento con Gemini.
+### 🔌 Proyecto 4: MCP Deep Research (Avanzado)
+**Archivo:** [`06_mcp_deep_research.py`](06_mcp_deep_research.py)
+-   **Tech:** CrewAI + MCP (Simulado).
+-   **Objetivo:** Orquestar búsqueda, lectura profunda y síntesis.
 
 ---
 
-## 🎓 Referencias
+## 📊 Comparativa Definitiva
 
--   **CrewAI Docs:** [docs.crewai.com](https://docs.crewai.com/)
--   **AutoGen Docs:** [microsoft.github.io/autogen](https://microsoft.github.io/autogen/)
--   **LangGraph:** [langchain-ai.github.io/langgraph](https://langchain-ai.github.io/langgraph/)
--   **Semantic Kernel:** [learn.microsoft.com/semantic-kernel](https://learn.microsoft.com/en-us/semantic-kernel/)
--   **Vertex AI Agents:** [cloud.google.com/vertex-ai/docs/agents](https://cloud.google.com/vertex-ai/docs/agents)
+| Característica | 🚣 CrewAI | 🤖 AutoGen | 🕸️ LangGraph |
+| :--- | :--- | :--- | :--- |
+| **Control** | ⭐⭐ (Medio) | ⭐⭐ (Medio) | ⭐⭐⭐⭐ (Total) |
+| **Facilidad** | ⭐⭐⭐⭐ (Alta) | ⭐⭐ (Media) | ⭐ (Baja - Curva alta) |
+| **Mejor para...** | Procesos de Negocio | Code Generation | Productos SaaS complejos |
+| **Producción** | ✅ Listo | ⚠️ Sandbox requerido | ✅ Estándar industrial |
 
 ---
 

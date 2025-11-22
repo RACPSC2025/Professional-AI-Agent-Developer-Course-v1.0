@@ -1,152 +1,127 @@
 """
 01_reflexion_agent.py
 =====================
-Implementación de un Agente Reflexion usando LangGraph.
-Este agente intenta resolver una tarea de programación. Si su código falla,
-analiza el error (Reflexion), actualiza su memoria y reintenta.
+Implementación de un Agente de Reflexión (Reflexion) usando LangGraph.
+
+Este agente intenta resolver una tarea de programación. Si falla (error de sintaxis o ejecución),
+entra en un bucle de "Reflexión" donde analiza el error y propone una solución antes de reintentar.
 
 Ciclo:
-Generator -> Executor -> (Error) -> Reflector -> Generator
-                      -> (Success) -> END
+1.  **Draft:** Escribir código.
+2.  **Execute:** Correr código.
+3.  **Reflect:** Si falla -> Analizar traceback -> Guardar lección en memoria.
+4.  **Retry:** Escribir nuevo código considerando la lección.
 
 Requisitos:
-pip install langgraph langchain langchain-openai
+pip install langgraph langchain langchain_openai
 """
 
-from typing import List, TypedDict, Annotated
-import operator
+from typing import List, TypedDict
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 from langgraph.graph import StateGraph, END
 
-# Configuración
-llm = ChatOpenAI(model="gpt-3.5-turbo")
-
-# 1. Definir Estado
-class ReflexionState(TypedDict):
-    messages: Annotated[List[BaseMessage], operator.add]
-    code: str
+# --- 1. Definición del Estado (Memoria del Grafo) ---
+class AgentState(TypedDict):
+    messages: List[BaseMessage]
+    code_solution: str
+    error_log: str
+    reflection: str
     iterations: int
-    error: str
-    success: bool
 
-# 2. Nodos
+# --- 2. Nodos del Grafo (Pasos del Pensamiento) ---
 
-def generator_node(state: ReflexionState):
-    """Genera o corrige el código basado en el historial"""
-    print(f"🤖 Generator: Escribiendo código (Iteración {state['iterations']})...")
+llm = ChatOpenAI(model="gpt-4", temperature=0)
+
+def generate_code(state: AgentState):
+    """Nodo Generador: Escribe la solución inicial o corregida."""
+    print(f"✍️ Generando código (Iteración {state['iterations']})...")
     
     messages = state['messages']
+    # Si hay reflexión previa, la inyectamos en el contexto
+    if state.get('reflection'):
+        messages.append(HumanMessage(content=f"Feedback anterior: {state['reflection']}. Por favor corrige el código."))
     
-    # Si hay error previo, el reflector ya añadió el contexto, así que el LLM lo verá
-    response = llm.invoke(messages)
-    code = response.content.replace("```python", "").replace("```", "").strip()
-    
-    return {
-        "code": code,
-        "messages": [response],
-        "iterations": state['iterations'] + 1
-    }
+    # Simulamos la generación (en prod, usarías un prompt real de codificación)
+    # Aquí hardcodeamos un error intencional en la primera vuelta para demo
+    if state['iterations'] == 0:
+        code = "print('Hola Mundo' + 5)" # Error de tipos
+    else:
+        code = "print('Hola Mundo' + ' 5')" # Corregido
+        
+    return {"code_solution": code, "iterations": state['iterations'] + 1}
 
-def executor_node(state: ReflexionState):
-    """Simula la ejecución del código"""
-    code = state['code']
-    print("⚡ Executor: Ejecutando código...")
-    
+def execute_code(state: AgentState):
+    """Nodo Ejecutor: Corre el código y captura errores."""
+    print("⚙️ Ejecutando código...")
+    code = state['code_solution']
     try:
-        # PELIGRO: exec() es inseguro en prod. Usar sandbox (e2b, docker) en realidad.
-        # Aquí simulamos un entorno seguro con variables locales
-        local_scope = {}
-        exec(code, {}, local_scope)
-        
-        # Verificación simple (asumimos que el código debe definir una función 'solve')
-        if "solve" not in local_scope:
-            raise Exception("El código debe definir una función llamada 'solve'")
-            
-        # Test simple
-        result = local_scope["solve"]()
-        print(f"   Resultado: {result}")
-        
-        return {"success": True, "error": ""}
-        
+        exec(code)
+        print("✅ Ejecución exitosa.")
+        return {"error_log": ""}
     except Exception as e:
-        print(f"   ❌ Error: {str(e)}")
-        return {"success": False, "error": str(e)}
+        print(f"❌ Error detectado: {e}")
+        return {"error_log": str(e)}
 
-def reflector_node(state: ReflexionState):
-    """Analiza el error y genera feedback constructivo"""
-    print("🧠 Reflector: Analizando por qué falló...")
+def reflect_on_error(state: AgentState):
+    """Nodo Reflexivo: Analiza por qué falló."""
+    print("🧠 Reflexionando sobre el error...")
+    error = state['error_log']
+    code = state['code_solution']
     
-    error = state['error']
-    code = state['code']
+    # El LLM analiza el error
+    prompt = f"El código `{code}` falló con el error `{error}`. Explica brevemente por qué y cómo arreglarlo."
+    reflection = llm.invoke(prompt).content
     
-    prompt = f"""
-    Tu código anterior falló con este error: "{error}"
-    
-    Código:
-    {code}
-    
-    Analiza el error y da instrucciones precisas para corregirlo.
-    Sé breve y técnico.
-    """
-    
-    reflection = llm.invoke([HumanMessage(content=prompt)])
-    
-    # Añadimos la reflexión como mensaje del usuario para que el Generator la vea
-    feedback_msg = HumanMessage(content=f"El código falló: {error}. Consejo: {reflection.content}")
-    
-    return {"messages": [feedback_msg]}
+    print(f"💡 Insight: {reflection}")
+    return {"reflection": reflection}
 
-# 3. Grafo
-workflow = StateGraph(ReflexionState)
+# --- 3. Construcción del Grafo (Wiring) ---
 
-workflow.add_node("generator", generator_node)
-workflow.add_node("executor", executor_node)
-workflow.add_node("reflector", reflector_node)
+workflow = StateGraph(AgentState)
 
-workflow.set_entry_point("generator")
+# Añadir Nodos
+workflow.add_node("generate", generate_code)
+workflow.add_node("execute", execute_code)
+workflow.add_node("reflect", reflect_on_error)
 
-workflow.add_edge("generator", "executor")
+# Definir Flujo
+workflow.set_entry_point("generate")
+workflow.add_edge("generate", "execute")
 
-def should_continue(state: ReflexionState):
-    if state['success']:
-        return "end"
-    if state['iterations'] > 3: # Límite de intentos
-        return "end"
-    return "reflect"
+# Edge Condicional: ¿Hubo error?
+def check_execution(state: AgentState):
+    if state['error_log']:
+        return "reflect" # Si hay error, ir a reflexionar
+    return END           # Si no, terminar
 
 workflow.add_conditional_edges(
-    "executor",
-    should_continue,
+    "execute",
+    check_execution,
     {
-        "end": END,
-        "reflect": "reflector"
+        "reflect": "reflect",
+        END: END
     }
 )
 
-workflow.add_edge("reflector", "generator")
+workflow.add_edge("reflect", "generate") # Después de reflexionar, intentar de nuevo
 
+# Compilar
 app = workflow.compile()
 
-# 4. Ejecutar
-def main():
-    task = """
-    Escribe una función en Python llamada 'solve' que retorne la suma de los primeros 10 números primos.
-    Asegúrate de importar lo necesario.
-    """
-    
-    print(f"Tarea: {task}\n")
-    
-    inputs = {
-        "messages": [HumanMessage(content=task)],
-        "iterations": 0,
-        "success": False,
-        "error": "",
-        "code": ""
-    }
-    
-    for event in app.stream(inputs):
-        pass # Logs en nodos
+# --- 4. Ejecución ---
 
 if __name__ == "__main__":
-    main()
+    print("🚀 Iniciando Agente de Reflexión...")
+    
+    initial_state = {
+        "messages": [HumanMessage(content="Escribe un script que sume texto y números.")],
+        "iterations": 0,
+        "code_solution": "",
+        "error_log": "",
+        "reflection": ""
+    }
+    
+    # Ejecutar el grafo
+    for event in app.stream(initial_state):
+        pass # Los prints ya están en los nodos

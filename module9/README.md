@@ -1,135 +1,107 @@
 # Módulo 9: Metacognición y Auto-Evolución
 
-![Module 9 Banner](../images/module9_banner.png)
+![Module 9 Header](../images/module9_banner.png)
 
-![Level](https://img.shields.io/badge/Nivel-Experto-F39C12?style=for-the-badge&logo=expert&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-6_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-Reflexion_|_Self--RAG_|_DSPy-9B59B6?style=for-the-badge)
+![Level](https://img.shields.io/badge/Nivel-Experto-FF5733?style=for-the-badge&logo=brain&logoColor=white)
+![Time](https://img.shields.io/badge/Tiempo-10_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
+![Stack](https://img.shields.io/badge/Stack-LangGraph_|_DSPy_|_Reflexion-FF5733?style=for-the-badge)
 
-> *"La verdadera inteligencia no es saberlo todo, sino saber qué hacer cuando no sabes qué hacer."* — Jean Piaget
+> *"No es inteligente quien no comete errores, sino quien aprende de ellos."*
 
 ---
 
 ## 🎯 Objetivos del Módulo
 
-Hasta ahora, nuestros agentes han sido "inteligentes" pero estáticos. Si cometen un error, lo repiten. Si el prompt no es perfecto, fallan.
-En este módulo, cruzamos la frontera hacia la **Metacognición**: agentes que piensan sobre su propio pensamiento, critican su trabajo y mejoran sus propios prompts automáticamente.
+Hasta ahora, tus agentes eran "inteligentes" pero **estáticos**. Si cometían un error, lo repetían.
+En este módulo, cruzamos la frontera final: **Agentes que piensan sobre su propio pensamiento (Metacognición).**
 
-Aprenderás:
-- 🧠 **Reflexion:** Cómo implementar bucles de auto-corrección verbal.
-- 📚 **Self-RAG:** Agentes que deciden *cuándo* buscar información y critican lo que encuentran.
-- 🧬 **DSPy (Auto-Evolución):** Dejar de escribir prompts manuales y dejar que el agente los optimice matemáticamente.
-
----
-
-## 📚 Índice
-
-1. [¿Qué es la Metacognición en IA?](#1-qué-es-la-metacognición-en-ia)
-2. [Reflexion: El Bucle de Auto-Mejora](#2-reflexion-el-bucle-de-auto-mejora)
-3. [Self-RAG: RAG con Criterio](#3-self-rag-rag-con-criterio)
-4. [DSPy: Programación de Prompts](#4-dspy-programación-de-prompts)
-5. [Proyectos Prácticos](#-proyectos-prácticos)
+**Lo que vas a dominar:**
+1.  🧠 **Reflexion:** El bucle de "Intentar -> Fallar -> Analizar -> Reintentar".
+2.  🛡️ **Self-RAG:** Agentes que se critican a sí mismos antes de hablar.
+3.  🧬 **DSPy:** Optimización automática de prompts (Auto-Evolución).
 
 ---
 
-## 1. ¿Qué es la Metacognición en IA?
+## 🧠 1. ¿Qué es la Metacognición en IA?
 
-La metacognición es la capacidad de "pensar sobre el pensamiento". En LLMs, esto se traduce en tres capacidades críticas:
+Imagina que estás aprendiendo a programar.
+1.  Escribes código.
+2.  Falla.
+3.  **Te detienes y piensas:** "¿Por qué falló? Ah, olvidé importar la librería."
+4.  Corriges.
 
-1.  **Self-Monitoring:** "¿Estoy progresando hacia la solución?"
-2.  **Self-Correction:** "Cometí un error de sintaxis, debo corregirlo."
-3.  **Self-Reflection:** "¿Por qué fallé antes? Ah, olvidé importar la librería."
+La mayoría de los agentes (ReAct básico) saltan el paso 3. Simplemente "alucinan" una corrección.
+La **Metacognición** es forzar al agente a hacer ese paso 3 explícitamente.
 
-A diferencia del **Chain-of-Thought (CoT)** que es un razonamiento lineal, la metacognición es un **bucle de retroalimentación**.
-
----
-
-## 2. Reflexion: El Bucle de Auto-Mejora
-
-El paper *"Reflexion: Language Agents with Verbal Reinforcement Learning"* (Shinn et al., 2023) introdujo una idea revolucionaria: en lugar de actualizar los pesos del modelo (caro), actualizamos su memoria verbal (barato).
-
-### Arquitectura Reflexion
+### El Bucle de Reflexión (Visualizado)
 
 ```mermaid
 graph TD
-    Task[Tarea] --> Actor
-    Actor -->|Intento 1| Evaluator{Evaluator}
-    Evaluator -->|❌ Fallo| SelfReflection[Self-Reflection]
-    SelfReflection -->|Genera Feedback| Memory[(Memoria Episódica)]
-    Memory -->|Contexto Mejorado| Actor
-    Actor -->|Intento 2| Evaluator
-    Evaluator -->|✅ Éxito| Success[Fin]
+    Start[🚀 Tarea Inicial] --> Draft[📝 Generar Borrador]
+    Draft --> Critique{🤔 ¿Es correcto?}
     
-    style Actor fill:#4A90E2,color:#fff
-    style SelfReflection fill:#9B59B6,color:#fff
-    style Evaluator fill:#E74C3C,color:#fff
+    Critique -->|No| Reflection[🧠 Generar Reflexión Verbal]
+    Reflection -->|Feedback| Draft
+    
+    Critique -->|Sí| Final[✅ Respuesta Final]
+    
+    style Reflection fill:#F39C12,color:#fff
+    style Critique fill:#E74C3C,color:#fff
+    style Final fill:#2ECC71,color:#fff
 ```
 
-El agente no solo reintenta, sino que **aprende** de su intento fallido mediante una "lección" escrita que se inyecta en el siguiente prompt.
+---
+
+## 🛡️ 2. Self-RAG: Autocrítica en Tiempo Real
+
+Self-RAG (Self-Reflective Retrieval-Augmented Generation) es una técnica donde el modelo genera "tokens de reflexión" especiales.
+
+El agente se hace 3 preguntas en cada paso:
+1.  **Is Relevant?** ¿Lo que recuperé de la base de datos sirve?
+2.  **Is Supported?** ¿Lo que estoy diciendo está respaldado por los datos?
+3.  **Is Useful?** ¿Responde a la pregunta del usuario?
+
+Si la respuesta es "No", el agente **se detiene y busca de nuevo**.
 
 ---
 
-## 3. Self-RAG: RAG con Criterio
+## 🧬 3. DSPy: Programando Prompts, no Strings
 
-El RAG tradicional es ciego: siempre busca, siempre confía en lo que encuentra. **Self-RAG** (Self-Reflective RAG) introduce tokens especiales para criticar cada paso.
+Escribir prompts a mano ("Actúa como un experto...") es frágil.
+**DSPy** (Declarative Self-improving Python) cambia el juego. En lugar de escribir el prompt, defines la **firma** (Input -> Output) y dejas que un "Optimizador" encuentre el mejor prompt por ti.
 
-### El Flujo de Decisión
-
-1.  **Retrieve?** -> ¿Necesito buscar info externa o ya lo sé?
-2.  **IsRel?** -> ¿Lo que encontré es relevante para la pregunta?
-3.  **IsSup?** -> ¿Mi respuesta está soportada por la evidencia?
-4.  **IsUse?** -> ¿Es útil la respuesta final?
-
-Si alguna métrica falla, el agente puede decidir buscar de nuevo o reescribir la respuesta.
-
----
-
-## 4. DSPy: Programación de Prompts
-
-Escribir prompts a mano ("Actúa como un experto...") es frágil y difícil de escalar. **DSPy** (Declarative Self-improving Python) cambia el paradigma:
-
-- **Tú defines:** La firma (Input -> Output) y la métrica de éxito.
-- **DSPy define:** El prompt exacto y los ejemplos few-shot.
-
-El "Optimizador" de DSPy (Teleprompter) prueba miles de variaciones de prompts y ejemplos hasta encontrar la combinación que maximiza tu métrica. ¡Es como un compilador para LLMs!
+### Analogía: Compilador vs Ensamblador
+-   **Prompt Engineering Manual:** Es como escribir en Ensamblador. Mueves bits a mano.
+-   **DSPy:** Es como un Compilador de C++. Escribes lógica, y el compilador genera el código máquina optimizado.
 
 ```python
-# En lugar de escribir un prompt largo:
+# Definición en DSPy (Lógica pura)
 class RAG(dspy.Module):
     def forward(self, question):
         context = self.retrieve(question)
-        return self.generate_answer(context, question)
+        return self.generate(context, question)
 
-# DSPy optimiza cómo pedirle al modelo que haga esto.
+# ¡El prompt real lo genera y optimiza DSPy automáticamente!
 ```
 
 ---
 
-## 🛠️ Proyectos Prácticos
+## 🛠️ Proyectos Prácticos (Nivel Experto)
 
-### 🧠 Proyecto 1: Agente Reflexion (LangGraph)
+### 🧠 Proyecto 1: Agente de Reflexión (LangGraph)
 **Archivo:** [`01_reflexion_agent.py`](01_reflexion_agent.py)
-- **Objetivo:** Un agente que escribe código Python.
-- **Mecánica:** Escribe código -> Lo ejecuta -> Si falla, lee el error -> Reflexiona -> Reescribe.
-- **Resultado:** Código robusto que se arregla solo.
+Un agente que escribe código Python. Si el código falla al ejecutarse, el agente lee el error, reflexiona sobre la causa y se auto-corrige.
+-   **Tech:** LangGraph State, PythonREPL Tool.
 
-### 📚 Proyecto 2: Self-RAG Minimalista
+### 🛡️ Proyecto 2: Self-RAG Minimal
 **Archivo:** [`02_self_rag_minimal.py`](02_self_rag_minimal.py)
-- **Objetivo:** Sistema de Q&A que no alucina.
-- **Mecánica:** Genera respuesta y luego se auto-critica ("¿Inventé esto?"). Si detecta alucinación, corrige.
+Implementación simplificada del ciclo Retrieve-Generate-Critique.
+-   **Tech:** LangChain, Custom Evaluator.
 
-### 🧬 Proyecto 3: Auto-Optimización con DSPy
+### 🧬 Proyecto 3: Optimizador Automático (DSPy)
 **Archivo:** [`03_dspy_auto_optimizer.py`](03_dspy_auto_optimizer.py)
-- **Objetivo:** Crear un clasificador de sentimientos perfecto.
-- **Mecánica:** Empezamos con cero ejemplos. DSPy "compila" el programa y encuentra los mejores prompts y ejemplos few-shot automáticamente.
-
----
-
-## 🎓 Referencias
-
-- **Paper Reflexion:** [arxiv.org/abs/2303.11366](https://arxiv.org/abs/2303.11366)
-- **Paper Self-RAG:** [arxiv.org/abs/2310.11511](https://arxiv.org/abs/2310.11511)
-- **DSPy Repo:** [github.com/stanfordnlp/dspy](https://github.com/stanfordnlp/dspy)
+Un pipeline que mejora su precisión automáticamente analizando ejemplos de entrenamiento.
+-   **Tech:** DSPy Teleprompter.
 
 ---
 

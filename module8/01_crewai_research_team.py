@@ -1,78 +1,93 @@
 """
 01_crewai_research_team.py
 ==========================
-Este script demuestra cómo usar CrewAI para orquestar un equipo de agentes con roles definidos.
-CrewAI brilla en procesos secuenciales donde cada agente tiene un "Backstory" y "Goal" claro.
+Ejemplo Enterprise de CrewAI: Patrón Secuencial.
 
-Caso de Uso: Generar un reporte de investigación sobre una tecnología.
+Este script demuestra cómo orquestar un equipo de agentes para transformar
+un tema abstracto en un artículo de blog pulido.
+
+Conceptos Clave:
+1.  **Agents:** Roles especializados con "Backstory" para dar personalidad y contexto.
+2.  **Tasks:** Unidades de trabajo atómicas con "Expected Output" claro.
+3.  **Process:** Ejecución secuencial (Waterfall).
 
 Requisitos:
-pip install crewai langchain_openai duckduckgo-search
+pip install crewai langchain_openai
 """
 
 import os
 from crewai import Agent, Task, Crew, Process
-from langchain_community.tools import DuckDuckGoSearchRun
+from langchain_openai import ChatOpenAI
 
-# Herramienta de búsqueda
-search_tool = DuckDuckGoSearchRun()
+# Configuración de Modelo (Puede ser GPT-4 o local con Ollama)
+# os.environ["OPENAI_API_KEY"] = "sk-..." 
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0.7)
 
-# 1. Definir Agentes (Roles)
+# --- 1. Definición de Agentes (The Team) ---
 
-# Agente 1: Investigador
+# Agente 1: El Investigador
+# Su trabajo es recopilar datos, no escribir bonito.
 researcher = Agent(
-    role='Lead Research Analyst',
+    role='Senior Research Analyst',
     goal='Descubrir desarrollos de vanguardia en {topic}',
-    backstory="""Eres un analista senior en una gran empresa de tecnología.
-    Tu trabajo es investigar las últimas noticias y tendencias.
-    Tienes un ojo crítico para distinguir el hype de la realidad.""",
+    backstory="""Trabajas en un Think Tank de tecnología líder.
+    Tu especialidad es encontrar tendencias antes que nadie.
+    Eres analítico, frío y basado en datos.""",
     verbose=True,
     allow_delegation=False,
-    tools=[search_tool]
+    llm=llm
+    # tools=[SearchTool()] # En prod, aquí iría una herramienta real
 )
 
-# Agente 2: Escritor Técnico
+# Agente 2: El Escritor
+# Su trabajo es hacer que los datos sean aburridos suenen emocionantes.
 writer = Agent(
     role='Tech Content Strategist',
-    goal='Escribir contenido tech convincente sobre {topic}',
-    backstory="""Eres un escritor técnico reconocido.
-    Transformas conceptos complejos en narrativas fáciles de entender.
-    Tu estilo es profesional pero accesible.""",
+    goal='Crear contenido atractivo sobre {topic}',
+    backstory="""Eres un escritor famoso en Medium y Substack.
+    Sabes cómo simplificar temas complejos para una audiencia general.
+    Tu tono es optimista pero profesional.""",
     verbose=True,
-    allow_delegation=True # Puede pedir detalles extra al investigador si es necesario
+    allow_delegation=False,
+    llm=llm
 )
 
-# 2. Definir Tareas
+# --- 2. Definición de Tareas (The Work) ---
 
 # Tarea 1: Investigación
 task1 = Task(
-    description="""Realiza una investigación exhaustiva sobre {topic}.
-    Identifica tendencias clave, jugadores principales y noticias recientes.
-    Tu entregable debe ser un resumen detallado con puntos clave.""",
+    description="""Realiza un análisis exhaustivo sobre {topic}.
+    Identifica los pros, contras y las tendencias clave del mercado.
+    Tu informe final debe ser una lista de viñetas con datos duros.""",
     agent=researcher,
-    expected_output="Un informe detallado de 3 párrafos sobre las tendencias actuales."
+    expected_output="Informe de análisis de tendencias con 5 puntos clave."
 )
 
 # Tarea 2: Escritura
 task2 = Task(
-    description="""Usando el informe del investigador, escribe un artículo de blog sobre {topic}.
-    El artículo debe tener una introducción enganchante, cuerpo informativo y conclusión.
-    Debe estar formateado en Markdown.""",
+    description="""Usando el informe del Investigador, escribe un artículo de blog.
+    1. Usa un título pegadizo.
+    2. Escribe una introducción enganchadora.
+    3. Desarrolla los puntos clave.
+    4. Añade una conclusión reflexiva.""",
     agent=writer,
-    expected_output="Un artículo de blog en markdown de 500 palabras."
+    expected_output="Artículo de blog de 500 palabras en formato Markdown."
 )
 
-# 3. Definir la Crew (Equipo)
+# --- 3. Formación del Equipo (The Crew) ---
+
 crew = Crew(
     agents=[researcher, writer],
     tasks=[task1, task2],
-    verbose=2, # Nivel de log
-    process=Process.sequential # Ejecución secuencial: Tarea 1 -> Tarea 2
+    process=Process.sequential, # Ejecución paso a paso: Tarea 1 -> Tarea 2
+    verbose=2 # Nivel de detalle en los logs
 )
 
-def main():
-    topic = "Agentic AI and Multi-Agent Systems"
-    print(f"🚀 Iniciando CrewAI para investigar: {topic}\n")
+# --- 4. Ejecución ---
+
+if __name__ == "__main__":
+    print("🚀 Iniciando el Crew de Investigación...")
+    topic = "El futuro de los Agentes de IA en 2025"
     
     result = crew.kickoff(inputs={'topic': topic})
     
@@ -80,8 +95,3 @@ def main():
     print("## RESULTADO FINAL ##")
     print("########################\n")
     print(result)
-
-if __name__ == "__main__":
-    # Asegúrate de tener OPENAI_API_KEY en tu entorno
-    # os.environ["OPENAI_API_KEY"] = "sk-..."
-    main()
