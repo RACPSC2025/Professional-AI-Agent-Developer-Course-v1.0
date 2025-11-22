@@ -1,7 +1,7 @@
 # 🛠️ Módulo 2: El Panorama de Frameworks (The Landscape)
 
-![Level](https://img.shields.io/badge/Nivel-Intermedio-FDFD96?style=for-the-badge&logo=python&logoColor=black)
-![Time](https://img.shields.io/badge/Tiempo-3_Horas-A7C7E7?style=for-the-badge&labelColor=555)
+![Level](https://img.shields.io/badge/Nivel-Intermedio-C3B1E1?style=for-the-badge&logo=python&logoColor=white)
+![Time](https://img.shields.io/badge/Tiempo-3_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
 ![Stack](https://img.shields.io/badge/Stack-LangChain_|_CrewAI_|_AutoGen-C3B1E1?style=for-the-badge)
 
 > *"No te cases con una herramienta. Un Ingeniero de IA profesional elige el framework adecuado para el problema adecuado. LangChain para control, CrewAI para roles, AutoGen para conversación."*

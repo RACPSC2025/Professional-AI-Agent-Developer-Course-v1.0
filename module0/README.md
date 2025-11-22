@@ -4,9 +4,9 @@
 
 <div align="center">
 
-[![Level](https://img.shields.io/badge/Level-Beginner-green?style=for-the-badge)]()
-[![Time](https://img.shields.io/badge/Time-2%20Hours-blue?style=for-the-badge)]()
-[![Frameworks](https://img.shields.io/badge/Frameworks-All-orange?style=for-the-badge)]()
+[![Level](https://img.shields.io/badge/Level-Principiante-C3B1E1?style=for-the-badge)]()
+[![Time](https://img.shields.io/badge/Time-2_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)]()
+[![Frameworks](https://img.shields.io/badge/Frameworks-Todos-C3B1E1?style=for-the-badge)]()
 
 </div>
 

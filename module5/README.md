@@ -1,5 +1,11 @@
 # Módulo 5: RAG Avanzado (The Memory)
 
+![Module 5 Header](../images/module5_header.png)
+
+![Level](https://img.shields.io/badge/Nivel-Avanzado-C3B1E1?style=for-the-badge&logo=python&logoColor=white)
+![Time](https://img.shields.io/badge/Tiempo-4_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
+![Stack](https://img.shields.io/badge/Stack-LangChain_|_Cohere_|_ChromaDB-C3B1E1?style=for-the-badge)
+
 ## 🎯 Objetivos del Módulo
 El RAG básico (dividir texto -> vectorizar -> buscar) ya no es suficiente para producción. En este módulo, implementaremos técnicas avanzadas de **Retrieval-Augmented Generation** para manejar documentos complejos, tablas y relaciones semánticas profundas.
 

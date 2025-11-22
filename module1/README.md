@@ -1,7 +1,7 @@
 # 🧠 Módulo 1: Fundamentos y Mentalidad Agéntica
 
-![Level](https://img.shields.io/badge/Nivel-Fundamentos-A7C7E7?style=for-the-badge&logo=python&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-2_Horas-FDFD96?style=for-the-badge&labelColor=555)
+![Level](https://img.shields.io/badge/Nivel-Fundamentos-C3B1E1?style=for-the-badge&logo=python&logoColor=white)
+![Time](https://img.shields.io/badge/Tiempo-2_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
 ![Stack](https://img.shields.io/badge/Stack-LangChain_|_OpenAI-C3B1E1?style=for-the-badge)
 
 > *"Un agente no es solo un script que llama a una API. Es un sistema cognitivo capaz de razonar, planificar y actuar para cumplir un objetivo ambiguo."*

@@ -4,9 +4,9 @@
 
 <div align="center">
 
-[![Level](https://img.shields.io/badge/Level-Expert-red?style=for-the-badge)]()
-[![Time](https://img.shields.io/badge/Time-8%20Hours-blue?style=for-the-badge)]()
-[![Stack](https://img.shields.io/badge/Stack-CrewAI%20|%20LangChain%20|%20GitHub%20API-purple?style=for-the-badge)]()
+[![Level](https://img.shields.io/badge/Level-Experto-C3B1E1?style=for-the-badge)]()
+[![Time](https://img.shields.io/badge/Time-8_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)]()
+[![Stack](https://img.shields.io/badge/Stack-CrewAI_|_LangChain_|_GitHub_API-C3B1E1?style=for-the-badge)]()
 
 </div>
 
