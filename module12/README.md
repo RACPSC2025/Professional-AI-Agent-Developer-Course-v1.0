@@ -1,6 +1,6 @@
 # Módulo 12: Proyecto Capstone - GitHub AI Agent Team
 
-![Module 12 Header](../images/module12_header.png)
+![Module 12 Header](../images/module12_banner.png)
 
 <div align="center">
 

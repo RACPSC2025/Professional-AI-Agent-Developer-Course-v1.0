@@ -1,5 +1,5 @@
 # 🌐 Módulo 11: Protocolos de Agentes (MCP, A2A)
-
+![Module 2 Banner](../images/module11_banner.png)
 ![Level](https://img.shields.io/badge/Nivel-Avanzado-C3B1E1?style=for-the-badge&logo=anthropic&logoColor=white)
 ![Time](https://img.shields.io/badge/Tiempo-4_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
 ![Stack](https://img.shields.io/badge/Stack-MCP_|_FastMCP_|_JSON--RPC-C3B1E1?style=for-the-badge)
