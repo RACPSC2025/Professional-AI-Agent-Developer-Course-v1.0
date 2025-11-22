@@ -34,3 +34,9 @@ workflow.add_conditional_edges(
 
 app = workflow.compile()
 ```
+
+---
+
+<div align="center">
+<a href="../module8/README.md">➡️ Siguiente Módulo: Sistemas Multi-Agente</a>
+</div>

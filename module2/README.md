@@ -95,3 +95,9 @@ Un **Meta-Agente** que decide qué framework/modelo usar según la complejidad d
 
 ## 🚀 Siguientes Pasos
 Ejecuta [01_basic_syntax_comparison.py](01_basic_syntax_comparison.py) y observa las diferencias de estilo.
+
+---
+
+<div align="center">
+<a href="../module3/README.md">➡️ Siguiente Módulo: Patrones Cognitivos</a>
+</div>

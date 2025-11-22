@@ -103,5 +103,5 @@ Para considerar este módulo completado, tu sistema debe:
 ---
 
 <div align="center">
-<a href="../walkthrough.md">🎉 Ver Resumen Final del Curso</a>
+<a href="../module13/README.md">➡️ Siguiente Módulo: Testing de Agentes</a>
 </div>

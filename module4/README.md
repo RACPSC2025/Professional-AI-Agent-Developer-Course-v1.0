@@ -20,3 +20,9 @@ def search(query: str):
 # El LLM ahora sabe que esta función existe y qué parámetros necesita
 print(search.args) 
 ```
+
+---
+
+<div align="center">
+<a href="../module5/README.md">➡️ Siguiente Módulo: RAG Avanzado</a>
+</div>

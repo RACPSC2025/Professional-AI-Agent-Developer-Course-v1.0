@@ -78,3 +78,10 @@ print(results)
 5. **Human-in-the-loop:** Para decisiones críticas, siempre tener revisión humana.
 6. **Versioning de prompts:** Trackear cambios en prompts como código.
 
+
+
+---
+
+<div align="center">
+<a href="../module7/README.md">➡️ Siguiente Módulo: Planificación Avanzada</a>
+</div>

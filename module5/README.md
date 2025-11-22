@@ -92,3 +92,9 @@ final_docs = compression_retriever.get_relevant_documents(query)
 3. **Medir métricas:** Context Precision, Context Recall, Answer Relevancy.
 4. **Chunking inteligente:** El tamaño importa (experimenta entre 200-800 tokens).
 5. **Metadata matters:** Añade fuente, fecha, categoría a cada chunk.
+
+---
+
+<div align="center">
+<a href="../module6/README.md">➡️ Siguiente Módulo: IA Confiable & Seguridad</a>
+</div>

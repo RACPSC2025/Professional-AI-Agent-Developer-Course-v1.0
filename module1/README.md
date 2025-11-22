@@ -91,3 +91,9 @@ Un sistema que combina **autenticación** y **acciones de escritura**. Este agen
 
 ## 🚀 Siguientes Pasos
 Abre el archivo [01_basic_news_summarizer.py](01_basic_news_summarizer.py) y comienza tu viaje.
+
+---
+
+<div align="center">
+<a href="../module2/README.md">➡️ Siguiente Módulo: Frameworks Modernos</a>
+</div>
