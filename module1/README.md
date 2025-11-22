@@ -53,7 +53,7 @@ graph TD
 Para este módulo, hemos diseñado 3 niveles de implementación para que experimentes la evolución desde un script simple hasta un asistente capaz.
 
 ### 🟢 Nivel Básico: Resumidor de Noticias (The Chain)
-**Archivo:** `01_basic_news_summarizer.py`
+**Archivo:** [01_basic_news_summarizer.py](01_basic_news_summarizer.py)
 
 En este nivel, no construimos un agente real, sino una **Cadena Secuencial**. Es determinista: siempre hace lo mismo.
 1.  **Entrada:** Una URL.
@@ -66,7 +66,7 @@ En este nivel, no construimos un agente real, sino una **Cadena Secuencial**. Es
 ---
 
 ### 🟡 Nivel Intermedio: Analista de Inversiones (The Agent)
-**Archivo:** `02_intermediate_investment_analyst.py`
+**Archivo:** [02_intermediate_investment_analyst.py](02_intermediate_investment_analyst.py)
 
 Aquí introducimos la **incertidumbre**. El usuario puede preguntar "¿Cómo está Apple?" o "¿Debería vender Tesla?". El agente debe decidir qué herramientas usar.
 *   **Herramienta A:** `Yahoo Finance` (Datos numéricos).
@@ -78,7 +78,7 @@ Aquí introducimos la **incertidumbre**. El usuario puede preguntar "¿Cómo est
 ---
 
 ### 🔴 Nivel Avanzado: Asistente Ejecutivo (The System)
-**Archivo:** `03_advanced_executive_assistant.py`
+**Archivo:** [03_advanced_executive_assistant.py](03_advanced_executive_assistant.py)
 
 Un sistema que combina **autenticación** y **acciones de escritura**. Este agente no solo lee; actúa en el mundo real.
 *   **Capacidad:** Leer tu calendario real.
@@ -90,4 +90,4 @@ Un sistema que combina **autenticación** y **acciones de escritura**. Este agen
 ---
 
 ## 🚀 Siguientes Pasos
-Abre el archivo `01_basic_news_summarizer.py` y comienza tu viaje.
+Abre el archivo [01_basic_news_summarizer.py](01_basic_news_summarizer.py) y comienza tu viaje.

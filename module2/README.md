@@ -58,7 +58,7 @@ graph LR
 ## 🧪 Proyectos Prácticos
 
 ### 🟢 Nivel Básico: Comparativa de Sintaxis (The Rosetta Stone)
-**Archivo:** `01_basic_syntax_comparison.py`
+**Archivo:** [01_basic_syntax_comparison.py](01_basic_syntax_comparison.py)
 
 Implementaremos la **misma funcionalidad** (un generador de datos estructurados) usando dos paradigmas opuestos:
 1.  **LangChain (LCEL):** Explícito, modular, basado en pipes `|`.
@@ -69,7 +69,7 @@ Implementaremos la **misma funcionalidad** (un generador de datos estructurados)
 ---
 
 ### 🟡 Nivel Intermedio: Benchmark Paralelo (The Arena)
-**Archivo:** `02_intermediate_parallel_benchmark.py`
+**Archivo:** [02_intermediate_parallel_benchmark.py](02_intermediate_parallel_benchmark.py)
 
 ¿Qué modelo es más rápido? ¿Cuál es más barato?
 Crearemos un script que lanza **peticiones asíncronas** a múltiples proveedores (OpenAI vs Google Gemini) simultáneamente.
@@ -82,7 +82,7 @@ Crearemos un script que lanza **peticiones asíncronas** a múltiples proveedore
 ---
 
 ### 🔴 Nivel Avanzado: El Enrutador Inteligente (The Smart Router)
-**Archivo:** `03_advanced_smart_router.py`
+**Archivo:** [03_advanced_smart_router.py](03_advanced_smart_router.py)
 
 Un **Meta-Agente** que decide qué framework/modelo usar según la complejidad de la tarea.
 *   Si el usuario pide "Resume esto" -> **Ruta Rápida** (GPT-4o-mini directo).
@@ -94,4 +94,4 @@ Un **Meta-Agente** que decide qué framework/modelo usar según la complejidad d
 ---
 
 ## 🚀 Siguientes Pasos
-Ejecuta `01_basic_syntax_comparison.py` y observa las diferencias de estilo.
+Ejecuta [01_basic_syntax_comparison.py](01_basic_syntax_comparison.py) y observa las diferencias de estilo.
