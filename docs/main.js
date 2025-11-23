@@ -4,14 +4,16 @@ const translations = {
         header: "CERTIFICADO DE EXCELENCIA",
         title: "Certificado de Finalización",
         subtitle: "Este documento certifica que",
-        desc: "Este exitoso ha obtenido el certificado de entrenamiento desarrollado en el programa avanzado. Este curso ha sido formado y respaldado en el acto siguiente de estudios en revelaciones sobre su progreso.",
+        completed: "ha completado con éxito el programa avanzado",
+        desc: "Un programa intensivo enfocado en la arquitectura, desarrollo y despliegue de sistemas de Agentes de IA autónomos, utilizando tecnologías de vanguardia y patrones cognitivos avanzados.",
         powered: "IMPULSADO POR TECNOLOGÍAS LÍDERES DE IA"
     },
     en: {
         header: "CERTIFICATE OF EXCELLENCE",
         title: "Certificate of Completion",
         subtitle: "This document certifies that",
-        desc: "This successful has certificate obtains training develop in the advanced program. This course is has trained and supported on the act next de studies in revelations on to their progress.",
+        completed: "has successfully completed the advanced program",
+        desc: "An intensive program focused on the architecture, development, and deployment of autonomous AI Agent systems, utilizing cutting-edge technologies and advanced cognitive patterns.",
         powered: "POWERED BY LEADING AI TECHNOLOGIES"
     }
 };
@@ -29,10 +31,11 @@ function generateCertificate() {
     }
 
     // Actualizar contenido dinámico
-    document.getElementById('displayStudentName').textContent = name;
+    document.getElementById('displayStudentName').textContent = name.toUpperCase(); // Force uppercase for design
     document.getElementById('txt-header').textContent = translations[lang].header;
     document.getElementById('txt-title').textContent = translations[lang].title;
     document.getElementById('txt-subtitle').textContent = translations[lang].subtitle;
+    document.getElementById('txt-completed').textContent = translations[lang].completed;
     document.getElementById('txt-desc').textContent = translations[lang].desc;
     document.getElementById('txt-powered').textContent = translations[lang].powered;
 

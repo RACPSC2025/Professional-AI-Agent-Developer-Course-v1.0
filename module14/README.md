@@ -1,6 +1,6 @@
 # Módulo 14: Deployment y DevOps
 
-![Module 14 Header](../images/module14_header.png)
+![Module 14 Banner](../images/module14_banner.png)
 
 ![Level](https://img.shields.io/badge/Nivel-Experto-C3B1E1?style=for-the-badge&logo=docker&logoColor=white)
 ![Time](https://img.shields.io/badge/Tiempo-4_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)

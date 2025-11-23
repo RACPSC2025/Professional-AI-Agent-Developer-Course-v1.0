@@ -95,19 +95,19 @@ ollama rm llama3         # Eliminar modelo
 
 ### 🟢 Proyecto 1: HuggingFace Inference API
 Usaremos la API gratuita de HF para tareas de clasificación y generación sin descargar nada.
-📄 `examples/01_huggingface_inference.py`
+📄 [01_huggingface_inference.py](./examples/01_huggingface_inference.py)
 
 ### 🟡 Proyecto 2: Transformers Pipeline Local
 Descargaremos un modelo pequeño (GPT-2 o TinyLlama) usando la librería `transformers` para entender cómo funciona "bajo el capó".
-📄 `examples/02_transformers_pipeline.py`
+📄 [02_transformers_pipeline.py](./examples/02_transformers_pipeline.py)
 
 ### 🟡 Proyecto 3: Chatbot Local con Ollama
 Interactuaremos con un modelo Llama 3 corriendo en tu máquina a través de Python.
-📄 `examples/03_ollama_setup.py`
+📄 [03_ollama_setup.py](./examples/03_ollama_setup.py)
 
 ### 🔴 Proyecto 4: Agente Híbrido
 Un agente que usa un modelo local (Ollama) para resumir textos privados y un modelo en la nube (HF/OpenAI) para tareas de conocimiento general.
-📄 `examples/04_hybrid_agent.py`
+📄 [04_hybrid_agent.py](./examples/04_hybrid_agent.py)
 
 ---
 

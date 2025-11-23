@@ -6,14 +6,14 @@
     <title>Certificado de Finalización - Professional AI Agent Developer</title>
     
     <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;700&family=Space+Grotesk:wght@300;500;700;800&display=swap" rel="stylesheet" />
     
     <!-- Estilos -->
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <!-- MODAL -->
+    <!-- MODAL (Mantiene funcionalidad original) -->
     <div class="modal-overlay" id="configModal">
         <div class="modal-card">
             <div class="modal-left">
@@ -25,7 +25,7 @@
                 
                 <div class="input-group">
                     <label class="input-label">Nombre del Estudiante</label>
-                    <input type="text" id="studentNameInput" class="text-input" placeholder="Ej: Ronny Camacho">
+                    <input type="text" id="studentNameInput" class="text-input" placeholder="Ej: PEDRO J">
                 </div>
 
                 <div class="input-group">
@@ -47,64 +47,59 @@
         </div>
     </div>
 
-    <!-- UI CONTROLS -->
+    <!-- UI CONTROLS (Estilo actualizado al del usuario) -->
     <div class="ui-controls" id="uiControls">
-        <button class="action-btn btn-edit" onclick="showModal()">✏️ Editar</button>
-        <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir PDF</button>
+        <button class="action-btn btn-edit" onclick="showModal()">📝 Editar Nombre</button>
+        <button class="action-btn btn-print" onclick="window.print()">💾 Imprimir / Guardar PDF</button>
     </div>
 
-    <!-- CERTIFICATE -->
+    <!-- CERTIFICATE (Diseño del usuario) -->
     <div class="certificate-page">
         
-        <!-- Robot Logo -->
-        <img src="../images/robot/robot_certificado.png" alt="Robot AI" class="robot-logo">
-
-        <!-- Main Content -->
-        <div class="certificate-content">
-            <p class="certificate-of-excellence" id="txt-header">CERTIFICATE OF EXCELLENCE</p>
-            <h1 class="certificate-title" id="txt-title">Certificate of Completion</h1>
-            <p class="certifies-text" id="txt-subtitle">This document certifies that</p>
-
-            <div class="student-name" id="displayStudentName">Pedro J</div>
-
-            <h2 class="program-title">PROFESSIONAL AI AGENT DEVELOPER</h2>
+        <!-- Header Section with Robot and Titles -->
+        <div class="header-section">
+            <!-- Robot Logo (Positioned absolutely via CSS) -->
+            <img src="../images/robot/robot_icon_certificado.png" alt="AI Agent Logo" class="robot-logo">
             
-            <p class="program-description" id="txt-desc">
-                This successful has certificate obtains training develop in the advanced program. This course is has trained and supported on the act next de studies in revelations on to their progress.
-            </p>
+            <div class="titles-area">
+                <p class="certificate-of-excellence" id="txt-header">CERTIFICATE OF EXCELLENCE</p>
+                <h1 class="certificate-title" id="txt-title">Certificate of Completion</h1>
+                <p class="certifies-text" id="txt-subtitle">This document certifies that:</p>
+            </div>
         </div>
 
-        <!-- Neural Network Footer with Logos -->
-        <div class="neural-footer">
-            <div class="neural-network-container">
-                <!-- Neural Network Background Image -->
-                <img src="../images/neural_network.png" alt="Neural Network" class="neural-network-bg">
-                
-                <!-- Logo Nodes positioned over spheres -->
-                <div class="logo-node">
-                    <img src="../images/logos/openai.png" alt="OpenAI">
-                </div>
-                <div class="logo-node">
-                    <img src="../images/logos/gemini.png" alt="Gemini">
-                </div>
-                <div class="logo-node">
-                    <img src="../images/logos/qwen.png" alt="Qwen">
-                </div>
-                <div class="logo-node">
-                    <img src="../images/logos/claude.png" alt="Claude">
-                </div>
-                <div class="logo-node">
-                    <img src="../images/logos/meta.png" alt="Meta">
-                </div>
-            </div>
+        <!-- Main Content Wrapper for vertical spacing -->
+        <div class="certificate-content">
+            <!-- Spacer for header -->
+            <div style="height: 120px;"></div>
+
+            <!-- Student Name -->
+            <div class="student-name" id="displayStudentName">PEDRO J</div>
             
-            <div class="powered-by" id="txt-powered">POWERED BY LEADING AI TECHNOLOGIES</div>
+            <p class="program-completed" id="txt-completed">for having successfully completed the advanced program</p>
+
+            <!-- Program Info -->
+            <div class="program-info">
+                <h2 class="program-title">PROFESSIONAL AI AGENT DEVELOPER</h2>
+                <p class="program-description" id="txt-desc">
+                    An intensive program focused on the architecture, development, and deployment of autonomous AI Agent systems, utilizing cutting-edge technologies and advanced cognitive patterns.
+                </p>
+            </div>
+
+            <!-- Neural Network Footer -->
+            <div class="neural-footer">
+                <div class="neural-network-container">
+                    <!-- Neural Network Background Image ONLY -->
+                    <img src="../images/neural_network.png" alt="Neural Network" class="neural-network-bg">
+                </div>
+                
+                <div class="powered-by" id="txt-powered">POWERED BY LEADING AI TECHNOLOGIES</div>
+            </div>
         </div>
 
         <!-- Metadata -->
-        <div class="metadata">
+        <div class="metadata-section">
             <div id="dateField">DATE: <span>November 23, 2025</span></div>
-            <div>CERT ID: <span id="certId">9523-Y088-001</span></div>
         </div>
     </div>
 

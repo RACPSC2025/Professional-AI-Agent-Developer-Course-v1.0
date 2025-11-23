@@ -49,7 +49,25 @@ graph TB
 El curso está estructurado en **3 niveles de maestría**, cubriendo desde fundamentos de IA hasta orquestación compleja en la nube.
 
 ---
-
+ 
+ ## 🗺️ Ruta de Maestría en IA Agéntica
+ 
+ Este curso está diseñado siguiendo las **10 Fases para Dominar la IA Agéntica**, asegurando una progresión lógica desde los fundamentos hasta el ecosistema builder.
+ 
+ | Fase | Objetivo | Módulo Correspondiente |
+ | :--- | :--- | :--- |
+ | **1. Understand** | Entender qué significa IA Agéntica | [Módulo 1](module1/README.md) |
+ | **2. Core Components** | Aprender componentes (LLM, Prompts, Tools) | [Módulo 1](module1/README.md) & [Módulo 4](module4/README.md) |
+ | **3. Prompting for Agents** | System Prompts, Roles, Constraints | [Módulo 1.2](module1.2/README.md) |
+ | **4. Basic Agent** | Construir tu primer agente simple | [Módulo 1.5](module1.5/README.md) |
+ | **5. Agent Memory** | Añadir memoria (Short/Long term) | [Módulo 5](module5/README.md) |
+ | **6. Tools & APIs** | Function Calling y APIs externas | [Módulo 4](module4/README.md) |
+ | **7. Single-Agent Workflow** | Orquestación y Debugging | [Módulo 2](module2/README.md) |
+ | **8. Multi-Agent Systems** | Roles, Protocolos y Colaboración | [Módulo 8](module8/README.md) |
+ | **9. Deploy & Monitor** | Cloud, Logging, Rate Limits | [Módulo 11](module11/README.md) & [Módulo 14](module14/README.md) |
+ | **10. Builder Ecosystem** | Contribuir a LangChain, MCP, Benchmarks | [Módulo 12](module12/README.md) & [Módulo 13](module13/README.md) |
+ 
+ ---
 ## 📚 Estructura del Contenido
 
 ### 🟢 Nivel 1: Fundamentos & Frameworks
@@ -57,7 +75,10 @@ El curso está estructurado en **3 niveles de maestría**, cubriendo desde funda
 | Módulo | Tema | Descripción | Proyectos |
 | :--- | :--- | :--- | :--- |
 | **[Módulo 0](module0/README.md)** | **Introducción a IA y LLMs** | Historia, redes neuronales, transformers, BERT vs GPT | 🧠 Neural Network desde cero |
+| **[Módulo 0.5](module0.5/README.md)** | **Fundamentos Matemáticos** | Álgebra Lineal, Cálculo, Entropía, Backpropagation, Attention | 📐 Teoría Profunda |
+| **[Módulo 0.6](module0.6/README.md)** | **Applied Data Science** | Numpy, Pandas, Matplotlib, Visualización de Tensores | 💻 Taller Científico |
 | **[Módulo 1](module1/README.md)** | **LLMs y Mentalidad Agéntica** | Panorama de LLMs (GPT-4o, Claude, Gemini, etc.), LLM vs Agent vs Multi-agent | 🤖 Comparativa de 10 modelos |
+| **[Módulo 1.2](module1.2/README.md)** | **Advanced Prompt Engineering** | Frameworks (RACE, RISE), CoT, ReAct, System Prompts Avanzados | 🧪 Laboratorio de Prompts |
 | **[Módulo 1.5](module1.5/README.md)** | **Ecosistemas Open Source** | HuggingFace Hub, Inference API, Ollama, Local LLMs | 🦙 Chatbot Local & Híbrido |
 | **[Módulo 2](module2/README.md)** | **Panorama de Frameworks** | Deep dive en 9 frameworks (LangChain, Google ADK, CrewAI, AutoGen, etc.) | 🛠️ Framework Comparison |
 | **[Módulo 3](module3/README.md)** | **Arquitecturas Cognitivas** | 15 arquitecturas (ReAct, Reflexion, LATS, ToT, Agentic RAG, etc.) | 🔄 Loop de Razonamiento |

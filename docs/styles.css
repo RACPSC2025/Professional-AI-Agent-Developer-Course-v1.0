@@ -6,7 +6,8 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    background: #0a0a12;
+    background-color: #0d001a;
+    color: #f0f0f0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,221 +20,205 @@ body {
     width: 297mm;
     height: 210mm;
     position: relative;
-    background: 
-        linear-gradient(135deg, rgba(10, 10, 30, 0.95), rgba(5, 5, 15, 0.98)),
-        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><defs><pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M10,10 L90,10 M50,10 L50,50 M30,50 L70,50" stroke="%23a020f0" stroke-width="0.5" fill="none" opacity="0.3"/><circle cx="50" cy="50" r="2" fill="%2300ffff" opacity="0.5"/></pattern></defs><rect width="800" height="600" fill="url(%23circuit)"/></svg>');
-    background-size: cover, 25%;
-    border: 3px solid;
-    border-image: linear-gradient(135deg, #a020f0, #00ffff, #a020f0) 1;
-    box-shadow: 
-        0 0 0 8px rgba(10, 10, 30, 0.8),
-        0 0 60px rgba(160, 32, 240, 0.5),
-        inset 0 0 100px rgba(0, 0, 0, 0.5);
+    background-color: #0a0022;
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.6);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0; /* Padding handled by content and border positioning */
+    /* Circuit background pattern */
+    background-image: url('../images/certificate_background.png');
+    background-size: cover;
+    background-position: center;
 }
 
-/* Circuit Border Effect */
+/* Neon Border - Adjusted padding/inset to match user design */
 .certificate-page::before {
     content: '';
     position: absolute;
-    inset: 15px;
-    border: 1px solid rgba(160, 32, 240, 0.3);
+    top: 40px;    /* Increased spacing from edge */
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    border: 3px solid; /* Slightly thinner for elegance */
+    border-image: linear-gradient(to right, #19deec, #f503f5) 1;
+    box-shadow: 0 0 25px rgba(60, 142, 223, 0.6), 0 0 25px rgba(160, 32, 240, 0.6);
+    z-index: 2;
     pointer-events: none;
-    z-index: 1;
-}
-
-/* Robot Logo */
-.robot-logo {
-    position: absolute;
-    top: 50px;
-    left: 50px;
-    width: 150px;
-    height: auto;
-    z-index: 20;
-    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
 }
 
 /* Main Content */
 .certificate-content {
-    position: relative;
+    position: absolute; /* Absolute positioning to ensure perfect centering independent of padding */
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
     z-index: 10;
     text-align: center;
-    padding: 80px 100px 140px 100px;
-    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 50px; /* Inner padding inside the border */
+}
+
+/* Header Section */
+.header-section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center titles */
+    align-items: flex-start;
+    margin-bottom: 10px;
+}
+
+.robot-logo {
+    position: absolute; /* Take robot out of flow to not affect centering */
+    left: 15px;
+    top: 10px;
+    width: 200px; /* Slightly larger as in user design */
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+    z-index: 20;
+}
+
+.titles-area {
+    text-align: center;
+    margin-top: 20px;
+    z-index: 15;
 }
 
 .certificate-of-excellence {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 13px;
-    letter-spacing: 6px;
-    color: #ff00ff;
+    font-size: 16px;
+    letter-spacing: 4px;
+    color: #a020f0;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
     font-weight: 700;
-    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+    text-shadow: 0 0 10px rgba(160, 32, 240, 0.8);
 }
 
 .certificate-title {
     font-family: "Playfair Display", serif;
-    font-size: 52px;
+    font-size: 3.5em;
     color: #ffffff;
-    margin-bottom: 20px;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-    line-height: 1.2;
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
 }
 
 .certifies-text {
-    font-size: 16px;
-    color: #b0b0b0;
-    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    color: #d0d0d0;
     font-weight: 300;
+    letter-spacing: 1px;
 }
 
-/* Student Name - Cyan Signature Style */
+/* Student Name */
 .student-name {
     font-family: "Playfair Display", serif;
-    font-size: 70px;
+    font-size: 4em;
     font-weight: 700;
     color: #00ffff;
-    text-shadow: 
-        0 0 25px rgba(0, 255, 255, 0.8),
-        0 2px 4px rgba(0, 0, 0, 0.5);
-    font-style: italic;
-    margin: 15px 0;
-    position: relative;
+    text-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+    margin: 48px 0px 16px 0px;
+    border-bottom: 2px solid #6a0dad;
     display: inline-block;
-    padding: 0 30px 15px 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-.student-name::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 10%;
-    right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #00ffff, transparent);
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+.program-completed {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    color: #e0e0e0;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
 }
 
-/* Program Title - Cyan Bold */
+/* Program Info */
 .program-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 28px;
+    font-size: 2.75em;
     font-weight: 800;
-    color: #00ffff;
+    color: #bf8fdc;
+    text-shadow: 0 0 15px rgba(119, 27, 231, 0.8);
     text-transform: uppercase;
     letter-spacing: 3px;
-    margin: 25px 0 15px 0;
-    text-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.8),
-        0 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+
 }
 
 .program-description {
-    font-size: 12px;
-    color: #a0a0a0;
-    max-width: 700px;
-    margin: 0 auto 40px auto;
-    line-height: 1.6;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25em;
+    color: #b0b0b0;
+    max-width: 750px;
+    margin: 0 auto;
+    line-height: 1.7;
+    text-align: center;
 }
 
-/* === NEURAL NETWORK FOOTER === */
+/* Neural Network Footer */
 .neural-footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
-    left: 0;
-    right: 0;
-    height: 180px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    padding-bottom: 20px;
-    z-index: 15;
+    padding-bottom: 10px;
 }
 
 .neural-network-container {
     position: relative;
-    width: 700px;
-    height: 120px;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .neural-network-bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 60%;
+    height: auto;
     object-fit: contain;
-    opacity: 0.6;
+    opacity: 1; 
+    filter: drop-shadow(0 0 15px rgba(160, 32, 240, 0.4));
 }
-
-/* Logo Positions - Manually positioned over each sphere */
-.logo-node {
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 3px solid rgba(0, 255, 255, 0.6);
-    background: rgba(10, 10, 30, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 
-        0 0 20px rgba(0, 255, 255, 0.4),
-        inset 0 0 15px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.logo-node:hover {
-    transform: translateY(-50%) scale(1.15);
-    border-color: #00ffff;
-    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
-}
-
-.logo-node img {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-}
-
-/* Positions for 5 logos (left to right) */
-.logo-node:nth-child(2) { left: 5%; }    /* OpenAI */
-.logo-node:nth-child(3) { left: 25%; }   /* Gemini */
-.logo-node:nth-child(4) { left: 45%; }   /* Qwen */
-.logo-node:nth-child(5) { left: 65%; }   /* Claude */
-.logo-node:nth-child(6) { left: 85%; }   /* Meta */
 
 .powered-by {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     color: #00ffff;
+    text-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
     text-transform: uppercase;
-    letter-spacing: 3px;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    letter-spacing: 2px;
     margin-top: 5px;
 }
 
 /* Metadata */
-.metadata {
+.metadata-section {
     position: absolute;
-    bottom: 25px;
+    bottom: 40px;
     right: 50px;
-    text-align: right;
     font-family: 'Space Grotesk', monospace;
-    font-size: 10px;
-    color: #7a3db0;
+    font-size: 11px;
+    color: #ffffff;
     line-height: 1.6;
+    z-index: 20;
 }
 
-.metadata span { 
-    color: #00ffff; 
+.metadata-section span { 
+    color: #c9dade; 
+    font-weight: bold;
 }
 
 /* === MODAL === */
@@ -392,6 +377,7 @@ input[type="radio"] {
     bottom: 35px;
     right: 35px;
     display: flex;
+    flex-direction: column;
     gap: 15px;
     z-index: 100;
     opacity: 0;
@@ -405,30 +391,33 @@ input[type="radio"] {
 }
 
 .action-btn {
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
     border: none;
     display: flex;
     align-items: center;
-    gap: 10px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-    transition: all 0.3s;
+    gap: 8px;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
 
 .btn-edit { 
-    background: linear-gradient(135deg, #ffffff, #f0f0f0); 
-    color: #1a1a2e; 
+    background-color: #a020f0;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(160, 32, 240, 0.6);
 }
 
 .btn-print { 
-    background: linear-gradient(135deg, #00ffff, #00d4d4); 
-    color: #0a0a12; 
+    background-color: #00ffff;
+    color: #1a1a2e;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 
 .action-btn:hover { 
-    transform: translateY(-4px); 
+    transform: scale(1.05);
 }
 
 @media print {
@@ -437,7 +426,7 @@ input[type="radio"] {
     }
     
     body { 
-        background: white; 
+        background: black; 
         padding: 0;
     }
     
@@ -445,5 +434,7 @@ input[type="radio"] {
         width: 100%; 
         height: 100%; 
         box-shadow: none;
+        margin: 0;
+        border-radius: 0;
     }
 }

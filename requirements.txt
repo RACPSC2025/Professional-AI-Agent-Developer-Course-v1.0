@@ -34,3 +34,5 @@ pandas
 # Notebooks
 jupyter
 ipykernel
+matplotlib
+seaborn

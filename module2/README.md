@@ -13,6 +13,11 @@
 ## 🎯 Visión General
 
 En el Módulo 1 construimos agentes desde cero. En este módulo, exploraremos el **ecosistema de frameworks** que simplifican y potencian el desarrollo de agentes de IA. Cubriremos 9 frameworks principales con comparativas detalladas, casos de uso y ejemplos de código.
+
+```mermaid
+graph TD
+    A[Proyecto de Agentes IA] --> B{Caso de Uso}
+    B -->|RAG/Retrieval| C[LangChain<br/>LlamaIndex]
     B -->|Multi-Agente| D[CrewAI<br/>AutoGen]
     B -->|Agente Autónomo| E[LangGraph]
     B -->|Enterprise| F[Semantic Kernel<br/>Google ADK]
