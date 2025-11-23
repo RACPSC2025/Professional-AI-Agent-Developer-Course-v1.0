@@ -673,15 +673,15 @@ sentence = "The cat sat on the mat"
 
 ```mermaid
 graph LR
-    A[The] -.attn: 0.1.-> B[cat]
-    A -.attn: 0.05.-> C[sat]
-    A -.attn: 0.02.-> D[on]
-    A -.attn: 0.02.-> E[the]
-    A -.attn: 0.01.-> F[mat]
+    A[The] -->|0.1| B[cat]
+    A -->|0.05| C[sat]
+    A -->|0.02| D[on]
+    A -->|0.02| E[the]
+    A -->|0.01| F[mat]
     
-    B -.attn: 0.3.-> A
-    B -.attn: 0.4.-> C
-    B -.attn: 0.1.-> F
+    B -->|0.3| A
+    B -->|0.4| C
+    B -->|0.1| F
     
     style B fill:#4A90E2,color:#fff
     style C fill:#9B59B6,color:#fff

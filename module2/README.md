@@ -4,7 +4,7 @@
 
 ![Level](https://img.shields.io/badge/Nivel-Intermedio-C3B1E1?style=for-the-badge&logo=python&logoColor=white)
 ![Time](https://img.shields.io/badge/Tiempo-6_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-8_Frameworks-C3B1E1?style=for-the-badge)
+![Stack](https://img.shields.io/badge/Stack-9_Frameworks-C3B1E1?style=for-the-badge)
 
 > *"No te cases con una herramienta. Un Ingeniero de IA profesional elige el framework adecuado para el problema adecuado."*
 
@@ -12,22 +12,10 @@
 
 ## 🎯 Visión General
 
-En el Módulo 1 construimos agentes desde cero. En este módulo, exploraremos el **ecosistema de frameworks** que simplifican y potencian el desarrollo de agentes de IA. Cubriremos 8 frameworks principales con comparativas detalladas, casos de uso y ejemplos de código.
-
-> [!NOTE]
-> **Objetivo del Módulo**: Dominar la selección del framework correcto según el tipo de proyecto, entender las ventajas/desventajas de cada uno, y saber cuándo usar qué herramienta.
-
----
-
-## 📊 Los 8 Frameworks Principales
-
-```mermaid
-graph TD
-    A[Proyecto de Agentes IA] --> B{Tipo de Proyecto}
-    B -->|RAG/Documentos| C[LangChain<br/>LlamaIndex]
+En el Módulo 1 construimos agentes desde cero. En este módulo, exploraremos el **ecosistema de frameworks** que simplifican y potencian el desarrollo de agentes de IA. Cubriremos 9 frameworks principales con comparativas detalladas, casos de uso y ejemplos de código.
     B -->|Multi-Agente| D[CrewAI<br/>AutoGen]
     B -->|Agente Autónomo| E[LangGraph]
-    B -->|Enterprise| F[Semantic Kernel]
+    B -->|Enterprise| F[Semantic Kernel<br/>Google ADK]
     B -->|Prototipo Rápido| G[Smolagents<br/>Pydantic AI]
     
     style C fill:#4A90E2,stroke:#2E5C8A,stroke-width:2px,color:#fff
@@ -51,6 +39,7 @@ graph TD
 | **[Smolagents](#6-smolagents)** | Baja | ⭐⭐ | ⭐⭐ | Prototipos, Simplicidad | Parte de HuggingFace |
 | **[LlamaIndex](#7-llamaindex)** | Media | ⭐⭐⭐ | ⭐⭐⭐⭐ | RAG, Document Q&A | 38k+ |
 | **[Pydantic AI](#8-pydantic-ai)** | Baja | ⭐⭐⭐ | ⭐⭐ | Type safety, Structured outputs | Nuevo (2024) |
+| **[Google ADK](#9-google-adk-agent-development-kit)** | Media | ⭐⭐⭐⭐ | ⭐⭐⭐ | Google Cloud, Multi-agent, Enterprise | Nuevo (2024) |
 
 ---
 
@@ -693,6 +682,185 @@ print(f"Stars: {result.data.github_stars:,}")
 
 ---
 
+## 9. Google ADK (Agent Development Kit)
+
+### 🎯 Filosofía
+**"Cloud-Native Agent Platform"** - Framework de Google para sistemas multi-agente en producción
+
+### 📖 Descripción
+Google Agent Development Kit (ADK) es el framework oficial de Google para construir, desplegar y escalar sistemas de agentes de IA. Diseñado para integración nativa con Google Cloud (Vertex AI Agent Engine) y los modelos Gemini. Lanzado en 2024, ofrece un balance único entre simplicidad y poder enterprise.
+
+### ✅ Ventajas
+- **Native Google Cloud**: Deployment directo a Vertex AI Agent Engine
+- **Multi-language**: Python, Go, Java (3 SDKs oficiales)
+- **Workflow agents**: Sequential, Parallel, Loop, LlmAgent (tipos pre-built)
+- **Built-in evaluation**: Testing de respuesta y trayectoria integrado
+- **Safety patterns**: Security y safety best practices desde el inicio
+- **Agent composition**: Agentes como herramientas de otros agentes
+- **MCP support**: Model Context Protocol para interoperabilidad
+- **Type-safe**: Pydantic validation nativa
+- **Google tools ecosystem**: BigQuery, Code Execution, Google Search integrados
+
+### ❌ Desventajas
+- **Muy nuevo**: Lanzado en 2024 (framework joven)
+- **Comunidad pequeña**: Pocos recursos comparado con LangChain
+- **Documentación en crecimiento**: Menos ejemplos que frameworks maduros
+- **Google Cloud oriented**: Optimizado para GCP (aunque funciona standalone)
+- **Menos integraciones**: Ecosistema más pequeño que Lang Chain (por ahora)
+
+### 💻 Ejemplo de Código
+
+```python
+"""
+Ejemplo: Sistema multi-agente con Google ADK
+Framework: Google ADK
+Objetivo: Research pipeline con workflow agents
+"""
+
+from google.adk.agents import LlmAgent
+from google.adk.workflow_agents import SequentialAgent
+from google.adk.tools import tool
+
+# 1. Definir herramientas personalizadas
+@tool
+def search_documents(query: str) -> str:
+    """Search internal documentation"""
+    # Simulado - en producción usar vector DB
+    return f"Found documentation for: {query}"
+
+@tool
+def analyze_code(code_snippet: str) -> str:
+    """Analyze code quality"""
+    return f"Code analysis: {len(code_snippet)} chars, looks good"
+
+# 2. Crear agentes especializados
+researcher = LlmAgent(
+    model="gemini-2.0-flash-exp",
+    name="researcher",
+    description="Researches topics using documentation",
+    instruction="""You are a research specialist. Use the search_documents
+    tool to find relevant information. Be thorough and accurate.""",
+    tools=[search_documents]
+)
+
+analyst = LlmAgent(
+    model="gemini-2.0-flash-exp",
+    name="analyst",
+    description="Analyzes code quality",
+    instruction="""You are a code analyst. Review code and provide
+    actionable feedback using the analyze_code tool.""",
+    tools=[analyze_code]
+)
+
+writer = LlmAgent(
+    model="gemini-2.0-flash-exp",
+    name="writer",
+    description="Writes professional summaries",
+    instruction="You write clear, concise summaries of research findings."
+)
+
+# 3. Crear workflow secuencial
+research_pipeline = SequentialAgent(
+    name="research_workflow",
+    description="Complete research pipeline",
+    agents=[researcher, analyst, writer]  # Ejecutan en orden
+)
+
+# 4. Ejecutar el workflow
+task = "Research best practices for Python async programming and analyze example code"
+result = research_pipeline.run(task)
+
+print(f"Pipeline Result:\n{result.output_text}")
+
+# 5. (OPCIONAL) Deployment a Vertex AI Agent Engine
+# from google.adk.deploy import deploy_to_vertex_ai
+# 
+# deploy_to_vertex_ai(
+#     agent=research_pipeline,
+#     project_id="your-gcp-project",
+#     region="us-central1"
+# )
+```
+
+### 🏗️ Arquitectura de Google ADK
+
+```mermaid
+graph TB
+    A[App] --> B[Root Agent]
+    B --> C[Workflow Agents]
+    B --> D[LLM Agents]
+    
+    C --> E[Sequential<br/>Agent]
+    C --> F[Parallel<br/>Agent]
+    C --> G[Loop<br/>Agent]
+    
+    D --> H[Custom<br/>Agents]
+    
+    E --> I[Tools]
+    F --> I
+    G --> I
+    H --> I
+    
+    I --> J[Built-in Tools]
+    I --> K[Custom Tools]
+    I --> L[Google Cloud<br/>Tools]
+    
+    J --> M[Search]
+    J --> N[Code Exec]
+    
+    L --> O[BigQuery]
+    L --> P[Cloud SQL]
+    
+    style B fill:#4285f4,color:#fff,stroke:#1a73e8,stroke-width:2px
+    style C fill:#ea4335,color:#fff,stroke:#c5221f,stroke-width:2px
+    style I fill:#fbbc04,color:#333,stroke:#f9ab00,stroke-width:2px
+```
+
+### 🎯 Casos de Uso Ideales
+- **Google Cloud ecosystem**: Proyectos en GCP con Vertex AI
+- **Enterprise deployment**: Apps que requieren escalabilidad cloud-native
+- **Multi-agent systems**: Jerarquías y orquestación compleja
+- **Type-safe workflows**: Proyectos que requieren validation estricta
+- **Gemini integration**: Aprovechar modelos Gemini al máximo
+- **Evaluation-driven development**: Projecto con testing riguroso
+
+### 🆚 Comparación Rápida vs. Otros Frameworks
+
+| Aspecto | Google ADK | LangChain | CrewAI |
+|---------|------------|-----------|---------|
+| **Deployment** | Vertex AI nativo | LangServe | Custom |
+| **Workflow types** | 4 pre-built | Custom chains | Sequential/Hierarchical |
+| **Evaluation** | Built-in | LangSmith (paid) | Limited |
+| **Type safety** | Pydantic native | Partial | Limited |
+| **Learning curve** | Media | Alta | Media |
+| **Lines of code** | ~30-40 | ~50-60 | ~40-50 |
+| **Best for** | Google Cloud | Flexibility | Multi-agent UX |
+
+### 📚 Referencias
+- **Documentación oficial**: https://google.github.io/adk-docs/
+- **GitHub Python**: https://github.com/google/adk-python
+- **GitHub Go**: https://github.com/google/adk-go
+- **GitHub Java**: https://github.com/google/adk-java
+- **Vertex AI Agent Engine**: https://cloud.google.com/vertex-ai/docs/generative-ai/agent-engine
+- **Actualizaciones 2024**: Multi-language support, MCP protocol, built-in evaluation, reflection patterns
+
+### 💡 Cuándo Elegir Google ADK
+
+✅ **ÚSALO SI:**
+- Estás en Google Cloud Platform
+- Necesitas deployment escalable sin configuración compleja
+- Quieres type-safety con Pydantic
+- Requieres evaluation integrada
+- Prefieres código más limpio y menos boilerplate
+
+❌ **NO LO USES SI:**
+- Necesitas 100+ integraciones (usa LangChain)
+- El framework debe ser super maduro (esperatítulo a 2025)
+- No estás en Google Cloud Y no quieres aprender uno nuevo
+- Necesitas máxima flexibilidad (LangChain es más flexible)
+
+---
+
 ## 🎯 Matriz de Decisión
 
 ### ¿Cuándo usar cada framework?
@@ -729,6 +897,7 @@ graph TD
 | **Agentes conversando** | AutoGen | Soporte nativo para multi-agent chat |
 | **Flujos complejos con loops** | LangGraph | State machines y control de flujo |
 | **Integración Microsoft** | Semantic Kernel | Diseñado para Azure y .NET |
+| **Integración Google Cloud** | Google ADK | Vertex AI Agent Engine nativo |
 | **Prototipo rápido** | Smolagents | Mínimo boilerplate |
 | **Type safety estricto** | Pydantic AI | Validación de tipos en compile-time |
 | **Máxima flexibilidad** | LangChain | Más componentes y opciones |
@@ -756,16 +925,16 @@ Sistema que analiza la query del usuario y automáticamente selecciona el framew
 
 ## 📊 Comparación de Características
 
-| Característica | LangChain | LangGraph | CrewAI | AutoGen | Semantic Kernel | Smolagents | LlamaIndex | Pydantic AI |
-|----------------|-----------|-----------|--------|---------|-----------------|------------|------------|-------------|
-| **RAG** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
-| **Multi-Agent** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐ |
-| **State Management** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
-| **Code Execution** | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐ |
-| **Type Safety** | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ |
-| **Documentación** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
-| **Comunidad** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ |
-| **Curva Aprendizaje** | Alta | Alta | Media | Media | Media | Baja | Media | Baja |
+| Característica | LangChain | LangGraph | CrewAI | AutoGen | Semantic Kernel | Smolagents | LlamaIndex | Pydantic AI | Google ADK |
+|----------------|-----------|-----------|--------|---------|-----------------|------------|------------|-------------|------------|
+| **RAG** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Multi-Agent** | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ |
+| **State Management** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Code Execution** | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ |
+| **Type Safety** | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| **Documentación** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐ |
+| **Comunidad** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ⭐⭐ |
+| **Curva Aprendizaje** | Alta | Alta | Media | Media | Media | Baja | Media | Baja | Media |
 
 ---
 
@@ -810,6 +979,7 @@ Sistema que analiza la query del usuario y automáticamente selecciona el framew
 - **Smolagents**: https://huggingface.co/docs/smolagents
 - **LlamaIndex**: https://docs.llamaindex.ai/
 - **Pydantic AI**: https://ai.pydantic.dev/
+- **Google ADK**: https://google.github.io/adk-docs/
 
 ---
 
@@ -830,7 +1000,7 @@ Una vez que domines la selección de frameworks, estarás listo para:
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module1/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module3/README.md)**
+**[⬅️ Módulo Anterior 1.5](../module1.5/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module3/README.md)**
 
 </div>
 
@@ -847,4 +1017,4 @@ Una vez que domines la selección de frameworks, estarás listo para:
 7. **Analytics Vidhya** (2024). "Top 7 Frameworks for Building AI Agents in 2025". https://www.analyticsvidhya.com/blog/2024/07/ai-agent-frameworks/
 
 **Última actualización:** Noviembre 2024  
-**Frameworks cubiertos:** LangChain 0.1+, AutoGen v0.4, CrewAI, LangGraph, Semantic Kernel, Smolagents, LlamaIndex, Pydantic AI
+**Frameworks cubiertos:** LangChain 0.1+, AutoGen v0.4, CrewAI, LangGraph, Semantic Kernel, Smolagents, LlamaIndex, Pydantic AI, Google ADK

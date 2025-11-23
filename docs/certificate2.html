@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificado de Finalización - Professional AI Agent Developer</title>
+    
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet" />
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="configModal">
+        <div class="modal-card">
+            <div class="modal-left">
+                <img src="../images/robot/robot_felicitar.png" alt="Robot AI" class="modal-robot-hero">
+            </div>
+
+            <div class="modal-right">
+                <h2 class="modal-title">Generar Certificado</h2>
+                
+                <div class="input-group">
+                    <label class="input-label">Nombre del Estudiante</label>
+                    <input type="text" id="studentNameInput" class="text-input" placeholder="Ej: Ronny Camacho">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">Idioma / Language</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="lang" value="es" checked>
+                            <span>Español</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="lang" value="en">
+                            <span>English</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button class="generate-btn" onclick="generateCertificate()">✨ Generar Ahora</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UI CONTROLS -->
+    <div class="ui-controls" id="uiControls">
+        <button class="action-btn btn-edit" onclick="showModal()">✏️ Editar</button>
+        <button class="action-btn btn-print" onclick="window.print()">🖨️ Imprimir PDF</button>
+    </div>
+
+    <!-- CERTIFICATE -->
+    <div class="certificate-page">
+        
+        <!-- Robot Logo -->
+        <img src="../images/robot/robot_certificado.png" alt="Robot AI" class="robot-logo">
+
+        <!-- Main Content -->
+        <div class="certificate-content">
+            <p class="certificate-of-excellence" id="txt-header">CERTIFICATE OF EXCELLENCE</p>
+            <h1 class="certificate-title" id="txt-title">Certificate of Completion</h1>
+            <p class="certifies-text" id="txt-subtitle">This document certifies that</p>
+
+            <div class="student-name" id="displayStudentName">Pedro J</div>
+
+            <h2 class="program-title">PROFESSIONAL AI AGENT DEVELOPER</h2>
+            
+            <p class="program-description" id="txt-desc">
+                This successful has certificate obtains training develop in the advanced program. This course is has trained and supported on the act next de studies in revelations on to their progress.
+            </p>
+        </div>
+
+        <!-- Neural Network Footer with Logos -->
+        <div class="neural-footer">
+            <div class="neural-network-container">
+                <!-- Neural Network Background Image -->
+                <img src="../images/neural_network.png" alt="Neural Network" class="neural-network-bg">
+                
+                <!-- Logo Nodes positioned over spheres -->
+                <div class="logo-node">
+                    <img src="../images/logos/openai.png" alt="OpenAI">
+                </div>
+                <div class="logo-node">
+                    <img src="../images/logos/gemini.png" alt="Gemini">
+                </div>
+                <div class="logo-node">
+                    <img src="../images/logos/qwen.png" alt="Qwen">
+                </div>
+                <div class="logo-node">
+                    <img src="../images/logos/claude.png" alt="Claude">
+                </div>
+                <div class="logo-node">
+                    <img src="../images/logos/meta.png" alt="Meta">
+                </div>
+            </div>
+            
+            <div class="powered-by" id="txt-powered">POWERED BY LEADING AI TECHNOLOGIES</div>
+        </div>
+
+        <!-- Metadata -->
+        <div class="metadata">
+            <div id="dateField">DATE: <span>November 23, 2025</span></div>
+            <div>CERT ID: <span id="certId">9523-Y088-001</span></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>

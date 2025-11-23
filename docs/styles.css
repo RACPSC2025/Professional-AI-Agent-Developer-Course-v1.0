@@ -1,0 +1,449 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto", sans-serif;
+    background: #0a0a12;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* === CERTIFICATE CONTAINER === */
+.certificate-page {
+    width: 297mm;
+    height: 210mm;
+    position: relative;
+    background: 
+        linear-gradient(135deg, rgba(10, 10, 30, 0.95), rgba(5, 5, 15, 0.98)),
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600"><defs><pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M10,10 L90,10 M50,10 L50,50 M30,50 L70,50" stroke="%23a020f0" stroke-width="0.5" fill="none" opacity="0.3"/><circle cx="50" cy="50" r="2" fill="%2300ffff" opacity="0.5"/></pattern></defs><rect width="800" height="600" fill="url(%23circuit)"/></svg>');
+    background-size: cover, 25%;
+    border: 3px solid;
+    border-image: linear-gradient(135deg, #a020f0, #00ffff, #a020f0) 1;
+    box-shadow: 
+        0 0 0 8px rgba(10, 10, 30, 0.8),
+        0 0 60px rgba(160, 32, 240, 0.5),
+        inset 0 0 100px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* Circuit Border Effect */
+.certificate-page::before {
+    content: '';
+    position: absolute;
+    inset: 15px;
+    border: 1px solid rgba(160, 32, 240, 0.3);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Robot Logo */
+.robot-logo {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 150px;
+    height: auto;
+    z-index: 20;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.6));
+}
+
+/* Main Content */
+.certificate-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 80px 100px 140px 100px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.certificate-of-excellence {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: #ff00ff;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 700;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.8);
+}
+
+.certificate-title {
+    font-family: "Playfair Display", serif;
+    font-size: 52px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    line-height: 1.2;
+}
+
+.certifies-text {
+    font-size: 16px;
+    color: #b0b0b0;
+    margin-bottom: 20px;
+    font-weight: 300;
+}
+
+/* Student Name - Cyan Signature Style */
+.student-name {
+    font-family: "Playfair Display", serif;
+    font-size: 70px;
+    font-weight: 700;
+    color: #00ffff;
+    text-shadow: 
+        0 0 25px rgba(0, 255, 255, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+    font-style: italic;
+    margin: 15px 0;
+    position: relative;
+    display: inline-block;
+    padding: 0 30px 15px 30px;
+}
+
+.student-name::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.8);
+}
+
+/* Program Title - Cyan Bold */
+.program-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: #00ffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 25px 0 15px 0;
+    text-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.program-description {
+    font-size: 12px;
+    color: #a0a0a0;
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+}
+
+/* === NEURAL NETWORK FOOTER === */
+.neural-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 180px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    padding-bottom: 20px;
+    z-index: 15;
+}
+
+.neural-network-container {
+    position: relative;
+    width: 700px;
+    height: 120px;
+    margin-bottom: 10px;
+}
+
+.neural-network-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0.6;
+}
+
+/* Logo Positions - Manually positioned over each sphere */
+.logo-node {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 255, 255, 0.6);
+    background: rgba(10, 10, 30, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 0 20px rgba(0, 255, 255, 0.4),
+        inset 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logo-node:hover {
+    transform: translateY(-50%) scale(1.15);
+    border-color: #00ffff;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+}
+
+.logo-node img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+/* Positions for 5 logos (left to right) */
+.logo-node:nth-child(2) { left: 5%; }    /* OpenAI */
+.logo-node:nth-child(3) { left: 25%; }   /* Gemini */
+.logo-node:nth-child(4) { left: 45%; }   /* Qwen */
+.logo-node:nth-child(5) { left: 65%; }   /* Claude */
+.logo-node:nth-child(6) { left: 85%; }   /* Meta */
+
+.powered-by {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    color: #00ffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+    margin-top: 5px;
+}
+
+/* Metadata */
+.metadata {
+    position: absolute;
+    bottom: 25px;
+    right: 50px;
+    text-align: right;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 10px;
+    color: #7a3db0;
+    line-height: 1.6;
+}
+
+.metadata span { 
+    color: #00ffff; 
+}
+
+/* === MODAL === */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 5, 10, 0.96);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.4s;
+}
+
+.modal-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.modal-card {
+    display: flex;
+    background: linear-gradient(145deg, #1a1a2e 0%, #0f0f1a 100%);
+    border: 3px solid #a020f0;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 0 80px rgba(160, 32, 240, 0.4);
+    overflow: hidden;
+}
+
+.modal-left {
+    flex: 0 0 42%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at 30% 50%, rgba(160, 32, 240, 0.1) 0%, transparent 70%);
+}
+
+.modal-robot-hero {
+    width: 160%;
+    max-width: 520px;
+    position: relative;
+    left: -80px;
+    transform: rotateY(180deg);
+    filter: drop-shadow(0 15px 40px rgba(0,0,0,0.7));
+}
+
+.modal-right {
+    flex: 1;
+    padding: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-title {
+    font-family: 'Playfair Display', serif;
+    color: #ffffff;
+    font-size: 38px;
+    margin-bottom: 35px;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+    text-align: center;
+}
+
+.input-group { 
+    margin-bottom: 28px; 
+}
+
+.input-label {
+    display: block;
+    color: #a020f0;
+    margin-bottom: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.text-input {
+    width: 100%;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 2px solid rgba(106, 13, 173, 0.5);
+    border-radius: 14px;
+    color: white;
+    font-size: 17px;
+    transition: all 0.3s;
+}
+
+.text-input::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.text-input:focus {
+    outline: none;
+    border-color: #00ffff;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+}
+
+.radio-group {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+}
+
+.radio-label {
+    cursor: pointer;
+    padding: 12px 28px;
+    border: 2px solid rgba(106, 13, 173, 0.6);
+    border-radius: 12px;
+    color: #d0d0d0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-label:hover {
+    border-color: #00ffff;
+    background: rgba(0, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+input[type="radio"] {
+    accent-color: #00ffff;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 17px;
+    margin-top: 35px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #6a0dad, #00ffff);
+    color: #ffffff;
+    font-size: 1.25em;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 6px 24px rgba(0, 255, 255, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.generate-btn:hover {
+    background: linear-gradient(90deg, #00ffff, #6a0dad);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0, 255, 255, 0.5);
+}
+
+/* UI Controls */
+.ui-controls {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    display: flex;
+    gap: 15px;
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+.ui-controls.visible { 
+    opacity: 1; 
+    pointer-events: all; 
+}
+
+.action-btn {
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    transition: all 0.3s;
+}
+
+.btn-edit { 
+    background: linear-gradient(135deg, #ffffff, #f0f0f0); 
+    color: #1a1a2e; 
+}
+
+.btn-print { 
+    background: linear-gradient(135deg, #00ffff, #00d4d4); 
+    color: #0a0a12; 
+}
+
+.action-btn:hover { 
+    transform: translateY(-4px); 
+}
+
+@media print {
+    .modal-overlay, .ui-controls { 
+        display: none !important; 
+    }
+    
+    body { 
+        background: white; 
+        padding: 0;
+    }
+    
+    .certificate-page { 
+        width: 100%; 
+        height: 100%; 
+        box-shadow: none;
+    }
+}

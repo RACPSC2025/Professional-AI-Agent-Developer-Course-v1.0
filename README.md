@@ -58,7 +58,8 @@ El curso está estructurado en **3 niveles de maestría**, cubriendo desde funda
 | :--- | :--- | :--- | :--- |
 | **[Módulo 0](module0/README.md)** | **Introducción a IA y LLMs** | Historia, redes neuronales, transformers, BERT vs GPT | 🧠 Neural Network desde cero |
 | **[Módulo 1](module1/README.md)** | **LLMs y Mentalidad Agéntica** | Panorama de LLMs (GPT-4o, Claude, Gemini, etc.), LLM vs Agent vs Multi-agent | 🤖 Comparativa de 10 modelos |
-| **[Módulo 2](module2/README.md)** | **Panorama de Frameworks** | Deep dive en 8 frameworks (LangChain, CrewAI, AutoGen, etc.) | 🛠️ Framework Comparison |
+| **[Módulo 1.5](module1.5/README.md)** | **Ecosistemas Open Source** | HuggingFace Hub, Inference API, Ollama, Local LLMs | 🦙 Chatbot Local & Híbrido |
+| **[Módulo 2](module2/README.md)** | **Panorama de Frameworks** | Deep dive en 9 frameworks (LangChain, Google ADK, CrewAI, AutoGen, etc.) | 🛠️ Framework Comparison |
 | **[Módulo 3](module3/README.md)** | **Arquitecturas Cognitivas** | 15 arquitecturas (ReAct, Reflexion, LATS, ToT, Agentic RAG, etc.) | 🔄 Loop de Razonamiento |
 | **[Módulo 4](module4/README.md)** | **Tool Use & Function Calling** | Structured Outputs, MCP Protocol, multi-framework tool integration | 🔌 Multi-Framework Tools |
 
