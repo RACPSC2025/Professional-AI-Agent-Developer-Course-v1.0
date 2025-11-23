@@ -51,12 +51,12 @@ Los LLMs se han especializado en diferentes tareas. Aquí están los 5 tipos pri
 
 **Propósito:** Chat, escritura, resúmenes, Q&A general
 
-**Ejemplos:**
-- GPT-4, GPT-4o (OpenAI)
-- Claude 3.5 Sonnet, Claude 3 Opus (Anthropic)
-- Gemini 1.5 Pro/Flash (Google)
-- Llama 3/3.1 (Meta - Open Source)
-- Qwen 2.5 (Alibaba Cloud)
+**Ejemplos (Noviembre 2025):**
+- **GPT-5.1 Instant/Thinking**, GPT-5.1-Codex-Max (OpenAI)
+- **Claude 4.5 Sonnet**, Claude 4.1 Opus, Claude 4.5 Haiku (Anthropic)
+- **Gemini 3.0 Pro**, Gemini 3 Deep Think (Google)
+- **Llama 4** (Meta - Open Source)
+- **Qwen 3 / Qwen3-Max / Qwen3-Omni** (Alibaba Cloud)
 - Kimi (Moonshot AI)
 
 **Características:**
@@ -151,54 +151,71 @@ graph LR
 
 ---
 
-## 🏆 Líderes del Mercado (2024-2025)
+## 🏆 Líderes del Mercado (Noviembre 2025)
+
+> **Última actualización**: Noviembre 23, 2025
 
 ### Tabla Comparativa Principal
 
 | Modelo | Empresa | Tipo | Context | Fortalezas | Precio | Open Source |
 |--------|---------|------|---------|------------|--------|-------------|
-| **GPT-4o** | OpenAI | Text + Multimodal | 128K | Velocidad, multimodal | $$$ | ❌ |
-| **o1 / o3** | OpenAI | Reasoning | 128K | Math, code, logic | $$$$ | ❌ |
-| **Claude 3.5 Sonnet** | Anthropic | Text + Image | 200K | Coding #1, safety | $$$ | ❌ |
-| **Gemini 1.5 Pro** | Google | Multimodal | **1M** 🏆 | Long context | $$$ | ❌ |
-| **Llama 3.1 405B** | Meta | Text | 128K | Open source líder | FREE | ✅ |
-| **Grok-2** | xAI | Text | ? | Real-time, humor | $$$ | ❌ |
-| **Qwen 2.5** | Alibaba | Text | 128K | Multilingual | $/FREE | ✅ |
-| **QwQ-32B** | Alibaba | Reasoning | 32K | Open reasoning | FREE | ✅ |
-| **DeepSeek-V2** | DeepSeek | Text | 128K | Cost-effective | $ | ✅ |
+| **GPT-5.1 Instant** | OpenAI | Text + Multimodal | 128K-400K | Adaptive reasoning, velocidad | $$$ | ❌ |
+| **GPT-5.1 Thinking** | OpenAI | Reasoning | 128K-400K | Deep reasoning, math | $$$$ | ❌ |
+| **GPT-5.1-Codex-Max** | OpenAI | Code | 128K | 76.3% SWE-bench, agentic coding | $$$$ | ❌ |
+| **Claude 4.5 Sonnet** | Anthropic | Text + Image | 200K | Coding, safety | $$$ | ❌ |
+| **Claude 4.1 Opus** | Anthropic | Text + Image | 200K | Premium quality | $$$$ | ❌ |
+| **Gemini 3.0 Pro** | Google | Multimodal | **1M** 🏆 | PhD-level reasoning, multimodal | $$$ | ❌ |
+| **Gemini 3 Deep Think** | Google | Reasoning | 1M | Complex problem solving | $$$$ | ❌ |
+| **Llama 4** | Meta | Multimodal + MoE | 128K | Open source líder, MoE | FREE | ✅ |
+| **Qwen 3 (235B)** | Alibaba | Text + MoE | 128K-256K | 119 languages, hybrid reasoning | $$ | ✅ |
+| **Qwen3-Max** | Alibaba | Text | 128K | 1T+ params, líder global #3 | $$ | ❌ |
+| **Qwen3-Omni** | Alibaba | Multimodal | 128K | Text+image+audio+video | $$ | ✅ |
 | **DeepSeek-R1** | DeepSeek | Reasoning | 128K | Compite con o1 | $ | ✅ |
 
 ---
 
 ## 📊 Comparación Detallada
 
-### GPT-4o (OpenAI)
+### GPT-5.1 (OpenAI) - Noviembre 2025
 
 ```yaml
-Release: Mayo 2024
-Parámetros: ~1.76 Trillion (estimado)
-Context Window: 128K tokens
+Release: Noviembre 12, 2025
+Variantes: GPT-5.1 Instant, GPT-5.1 Thinking, GPT-5.1-Codex-Max
+Context Window: 
+  - Estándar: 128K tokens
+  - Extendido: 400K tokens (272K input, 128K output)
 
-Capacidades:
-  - Text generation (excelente)
-  - Image understanding
-  - Code generation
-  - Real-time voice
+Capacidades GPT-5.1 Instant:
+  - Adaptive reasoning (ajusta profundidad de pensamiento)
+  - 8 personality presets (Professional, Candid, Quirky, etc.)
+  - Conversación más natural y cálida
+  - Mejor seguimiento de instrucciones
+  - "No reasoning" mode para baja latencia
+
+Capacidades GPT-5.1 Thinking:
+  - Deep reasoning para problemas complejos
+  - Explicaciones más claras, menos jerga
+  - Razonamiento adaptativo dinámico
+
+Capacidades GPT-5.1-Codex-Max:
+  - Workflows de coding multi-hora
+  - 76.3% en SWE-bench Verified
+  - "Compaction" para millones de tokens
+  - Nuevas herramientas: apply_patch, shell
 
 Velocidad:
-  - 2x más rápido que GPT-4
-  - Latencia: ~500ms
+  - Instant: Más rápido que GPT-4o
+  - Thinking: Variable según complejidad
 
-Costo:
-  - Input: $2.50 / 1M tokens
-  - Output: $10 / 1M tokens
-  - 50% más barato que GPT-4
+Costo (estimado):
+  - Instant: Similar a GPT-4o
+  - Thinking: Premium pricing
+  - Codex-Max: Premium pricing
 
 Best for:
-  - Aplicaciones de producción generales
-  - Chatbots
-  - Customer support
-  - Content creation
+  - Instant: Chatbots, customer support
+  - Thinking: Research, math, ciencia
+  - Codex-Max: Agentic coding, desarrollo
 ```
 
 **Ejemplo de uso:**
@@ -206,8 +223,10 @@ Best for:
 from openai import OpenAI
 
 client = OpenAI()
+
+# GPT-5.1 Instant (rápido, conversacional)
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-5.1-chat-latest",  # Instant variant
     messages=[
         {"role": "system", "content": "You are a helpful assistant"},
         {"role": "user", "content": "Explain quantum computing simply"}
@@ -215,6 +234,21 @@ response = client.chat.completions.create(
 )
 
 print(response.choices[0].message.content)
+
+# GPT-5.1 Thinking (deep reasoning)
+response_thinking = client.chat.completions.create(
+    model="gpt-5.1",  # Thinking variant
+    messages=[
+        {"role": "user", "content": "Solve this complex math problem..."}
+    ]
+)
+
+# GPT-5.1 con "no reasoning" mode (ultra baja latencia)
+response_fast = client.chat.completions.create(
+    model="gpt-5.1",
+    messages=[{"role": "user", "content": "Quick answer needed"}],
+    reasoning_effort="none"  # Noviembre 2025 feature
+)
 ```
 
 ---
@@ -253,37 +287,55 @@ Best for:
 
 ---
 
-### Claude 3.5 Sonnet (Anthropic)
+### Claude 4.5 Sonnet (Anthropic) - Noviembre 2025
 
 ```yaml
-Release: Junio 2024 (updated Oct 2024)
+Release: Septiembre 29, 2025
+Nota: Claude 3.5 Sonnet fue retirado el 28 de octubre de 2025
+Otras variantes: Claude 4 Sonnet (Mayo 2025), Claude 4.1 Opus (Ago 2025), Claude 4.5 Haiku (Oct 2025)
 Context Window: 200K tokens
 
 Fortalezas clave:
-  - #1 en coding benchmarks (SWE-bench: 49%)
-  - Extended thinking mode (Claude 3.7)
-  - Computer use (beta) - puede controlar desktop
-  - Safety y alignment
+  - Enhanced reasoning capabilities
+  - Improved coding abilities
+  - Better instruction following
+  - Superior safety and alignment
+  - Extended thinking mode
 
 Capacidades:
   - Text + Image analysis
-  - Code generation
-  - Long document analysis
-  - Agentic workflows
+  - Advanced code generation
+  - Long document analysis  - Agentic workflows
+  - Computer use (beta)
 
-Costo:
-  - $3/$15 por 1M tokens
+Costo (estimado):
+  - Similar a Claude 3.5
+  - Premium tier para Opus
 
 Best for:
-  - Code assistants (mejor del mercado)
+  - Code assistants (top-tier)
   - Document analysis
   - Research tasks
   - Aplicaciones que requieren safety
+  - Enterprise applications
 ```
 
-**Ejemplo - Extended Thinking:**
+**Ejemplo:**
 ```python
 import anthropic
+
+client = anthropic.Anthropic()
+
+# Claude 4.5 Sonnet
+response = client.messages.create(
+    model="claude-4-5-sonnet",  # Noviembre 2025
+    max_tokens=1024,
+    messages=[
+        {"role": "user", "content": "Explain quantum entanglement"}
+    ]
+)
+
+print(response.content[0].text)
 
 client = anthropic.Anthropic()
 response = client.messages.create(
@@ -309,57 +361,93 @@ for block in response.content:
 
 ---
 
-### Gemini 1.5 Pro (Google)
+### Gemini 3.0 Pro (Google) - Noviembre 2025
 
 ```yaml
-Release: Febrero 2024
-Context Window: 1 MILLION tokens 🏆 (record mundial)
+Release: Noviembre 18, 2025
+Context Window: 1 MILLION tokens 🏆 (standard)
+Arquitectura: Mixture-of-Experts (MoE) Transformer
 
 Capacidades:
-  - Text + Image + Video + Audio
-  - Multimodal reasoning
-  - Code generation
-  - Native Google integration
+  - State-of-the-art multimodal (text, image, audio, video)
+  - PhD-level reasoning
+  - Gemini 3 Deep Think mode (enhanced reasoning)
+  - Native agentic capabilities
+  - Google Antigravity platform integration
+
+Performance:
+  - Líder en multimodal benchmarks vs GPT-5.1 y Claude
+  - Outperforms en Humanity's Last Exam, GPQA Diamond
+  - Leading scores en LMArena
 
 Use cases únicos:
-  - Analizar películas completas (1.5hrs video)
-  - Procesar codebases enteros
-  - 1500+ page documents
+  - Analizar películas completas + transcripciones
+  - Procesar codebases enteros con contexto
+  - 1M+ token documents
+  - Multimodal reasoning avanzado
 
-Costo:
-  - Prompts ≤128K: $1.25/$5 / 1M tokens
-  - Prompts >128K: $2.50/$10 / 1M tokens
+Costo (estimado):
+  - Free tier: Limitado
+  - Pro tier: Similar a Gemini 1.5
 
 Best for:
   - Long document analysis
-  - Multimodal tasks
+  - Multimodal complex tasks
   - Research con contexto masivo
+  - Agentic development
 ```
+
+**Ejemplo:**
+```python
+import google.generativeai as genai
+
+genai.configure(api_key="YOUR_API_KEY")
+
+# Gemini 3.0 Pro
+model = genai.GenerativeModel('gemini-3-pro')  # o 'gemini-3-pro-preview'
+
+# Text generation
+response = model.generate_content("Explain multimodal AI")
+print(response.text)
+
+# Gemini 3 Deep Think mode (enhanced reasoning)
+model_thinking = genai.GenerativeModel('gemini-3-deep-think')
+response = model_thinking.generate_content(
+    "Solve this complex problem requiring deep reasoning..."
+)
+print(response.text)
 
 ---
 
-### Llama 3.1 405B (Meta)
+### Llama 4 (Meta) - 2025
 
 ```yaml
-Release: Julio 2024
-Parámetros: 405 Billion
+Release: Abril 2025
+Arquitectura: Mixture-of-Experts (MoE)
 Context Window: 128K tokens
 Licencia: Apache 2.0 (Open Source)
 
 Modelos disponibles:
-  - 405B (flagship)
-  - 70B (balance)
-  - 8B (edge/mobile)
+  - Llama 4 (multimodal flagship)
+  - Llama 3.3 70B (Dic 2024 - text-only, efficient)
+  - Llama 3.2 Vision (multimodal)
+
+Nuevas capacidades (Llama 4):
+  - Multimodal: Text + Images
+  - Mixture-of-Experts para eficiencia
+  - Improved reasoning
+  - Better multilingual support
 
 Fortalezas:
   - OPEN SOURCE completo
   - Competitive con modelos closed
-  - Can fine-tune
+  - Can fine-tune completamente
   - On-premise deployment
+  - No vendor lock-in
 
 Performance:
-  - MMLU: 85.2% (close to GPT-4)
-  - HumanEval: 61.0%
+  - Competitive con GPT-5.1 y Claude 4
+  - Strong coding capabilities
   - Multilingual
 
 Best for:
@@ -367,6 +455,7 @@ Best for:
   - Fine-tuning para casos específicos
   - Research académico
   - Reducir vendor lock-in
+  - Privacy-critical applications
 ```
 
 **Deploy local:**
@@ -925,11 +1014,206 @@ Ahora que entiendes el panorama de LLMs y la diferencia entre LLM/Agent/Agentic/
 <div align="center">
 
 **[⬅️ Módulo 0.6: Data Science](../module0.6/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 1.2 ➡️](../module1.2/README.md)**
+    
+    style B fill:#4A90E2,color:#fff,stroke:#2E5C8A,stroke-width:2px
+    style C fill:#9B59B6,color:#fff,stroke:#6C3483,stroke-width:2px
+    style D fill:#E74C3C,color:#fff,stroke:#C0392B,stroke-width:2px
+    style E fill:#F39C12,color:#fff,stroke:#D68910,stroke-width:2px
+```
+
+### Frameworks Multi-Agent
+
+**CrewAI** - Role-based
+```python
+from crewai import Agent, Task, Crew
+
+# Agentes especializados
+researcher = Agent(
+    role="Market Researcher",
+    goal="Find latest AI trends",
+    backstory="Expert analyst with 10 years experience",
+    tools=[search_tool, scrape_tool],
+    verbose=True
+)
+
+writer = Agent(
+    role="Content Writer",
+    goal="Write engaging blog posts",
+    backstory="Award-winning tech writer",
+    tools=[],
+    verbose=True
+)
+
+critic = Agent(
+    role="Content Critic",
+    goal="Review and improve content",
+    backstory="Editor-in-chief",
+    tools=[],
+    verbose=True
+)
+
+# Tasks
+research_task = Task(
+    description="Research AI agent market trends 2024",
+    agent=researcher,
+    expected_output="Comprehensive market analysis"
+)
+
+write_task = Task(
+    description="Write 1000-word blog post based on research",
+    agent=writer,
+    expected_output="Polished blog post"
+)
+
+review_task = Task(
+    description="Review blog post and suggest improvements",
+    agent=critic,
+    expected_output="Feedback and final version"
+)
+
+# Crew (orchestrator)
+crew = Crew(
+    agents=[researcher, writer, critic],
+    tasks=[research_task, write_task, review_task],
+    verbose=True,
+    process="sequential"  # o "hierarchical"
+)
+
+# Execute
+result = crew.kickoff()
+```
+
+**AutoGen** - Conversational
+```python
+from autogen import ConversableAgent, GroupChat, GroupChatManager
+
+# Agentes conversacionales
+researcher_agent = ConversableAgent(
+    name="Researcher",
+    system_message="You are a researcher...",
+    llm_config={"model": "gpt-4"}
+)
+
+coder_agent = ConversableAgent(
+    name="Coder",
+    system_message="You are a Python expert...",
+    llm_config={"model": "gpt-4"}
+)
+
+critic_agent = ConversableAgent(
+    name="Critic",
+    system_message="You review code...",
+    llm_config={"model": "gpt-4"}
+)
+
+# Group chat (debate)
+group_chat = GroupChat(
+    agents=[researcher_agent, coder_agent, critic_agent],
+    messages=[],
+    max_round=10
+)
+
+manager = GroupChatManager(groupchat=group_chat)
+
+# Start conversation
+researcher_agent.initiate_chat(
+    manager,
+    message="Let's build a web scraper for news articles"
+)
+
+# Los agentes debaten entre sí hasta llegar a solución
+```
+
+### Cuándo usar Multi-Agent
+
+✅ **Cuando:**
+- Workflow tiene múltiples roles distintos
+- Beneficio de "debate" entre perspectivas
+- Tasks independientes paralelizables
+- Emular equipo humano
+
+❌ **Cuando NO:**
+- Task simple (single-agent suficiente)
+- Budget limitado (más agentes = más cost)
+- Latencia crítica (coordinación añade tiempo)
+
+---
+
+# Parte III: Guía de Decisión
+
+## 🎯 Decision Matrix
+
+### Árbol de Decisión
+
+```mermaid
+graph TD
+    A[¿Qué necesitas construir?] --> B{¿Requiere datos externos?}
+    
+    B -->|No| C[LLM puro]
+    B -->|Sí| D{¿Tarea simple o compleja?}
+    
+    D -->|Simple: 1-2 tools| E[Agent básico]
+    D -->|Compleja: objetivo ambiguo| F{¿Single role o múltiples?}
+    
+    F -->|Single role| G[Agentic system]
+    F -->|Múltiples roles| H[Multi-agent
+
+]
+    
+    C --> I[OpenAI API directo]
+    E --> J[LangChain Agent]
+    G --> K[ReAct / Reflexion]
+    H --> L[CrewAI / AutoGen]
+    
+    style C fill:#4ECDC4,color:#fff
+    style E fill:#4A90E2,color:#fff
+    style G fill:#9B59B6,color:#fff
+    style H fill:#E74C3C,color:#fff
+```
+
+### Tabla de Decisión
+
+| Necesito... | Usa | Framework | Ejemplo |
+|-------------|-----|-----------|---------|
+| Responder Q&A simple | **LLM** | OpenAI API | "What is photosynthesis?" |
+| Buscar en web + responder | **Agent** | LangChain | "Latest news on Tesla stock" |
+| Research profundo | **Agentic** | ReAct loop | "Full market analysis of EV industry" |
+| Workflow multi-rol | **Multi-agent** | CrewAI | "Create marketing campaign: research + write + design" |
+| Code generation + review | **Multi-agent** | AutoGen | "Build app with debate between coder + reviewer" |
+
+---
+
+## 💻 Ejemplos Prácticos
+
+### Costo Comparison
+
+| Tipo | Tokens promedio | Costo (GPT-4o) | Velocidad |
+|------|-----------------|----------------|-----------|
+| LLM | 500 | $0.0075 | 1x |
+| Agent | 2000 | $0.03 | 3x |
+| Agentic | 5000 | $0.075 | 5-10x |
+| Multi-agent (3 agents) | 8000 | $0.12 | 8-15x |
+
+**Conclusión:** Más autonomía = más cost + tiempo. Usa la herramienta correcta para el trabajo.
+
+---
+
+## 🚀 Próximos Pasos
+
+Ahora que entiendes el panorama de LLMs y la diferencia entre LLM/Agent/Agentic/Multi-agent, estás listo para explorar los frameworks específicos:
+
+➡️ **[Módulo 2: Panorama de Frameworks](../module2/README.md)**
+
+---
+
+<div align="center">
+
+**[⬅️ Módulo 0.6: Data Science](../module0.6/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 1.2 ➡️](../module1.2/README.md)**
 
 </div>
 
 ---
 
-**Última actualización:** Noviembre 2024  
-**Modelos comparados:** GPT-4o, o1, Claude, Gemini, Llama, Grok, Qwen, DeepSeek, Kimi  
+**Última actualización:** Noviembre 2025  
+**Modelos cubiertos:** GPT-5.1 (Nov 2025), Gemini 3.0 Pro (Nov 2025), Claude 4.5 Sonnet (Sept 2025), Llama 4 (Abril 2025), Qwen 3 (2025), DeepSeek-R1Kimi  
 **Frameworks mencionados:** LangChain, CrewAI, AutoGen, ReAct
