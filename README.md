@@ -49,26 +49,17 @@ graph TB
 El curso está estructurado en **3 niveles de maestría**, cubriendo desde fundamentos de IA hasta orquestación compleja en la nube.
 
 ---
- 
- ## 🗺️ Ruta de Maestría en IA Agéntica
- 
- Este curso está diseñado siguiendo las **10 Fases para Dominar la IA Agéntica**, asegurando una progresión lógica desde los fundamentos hasta el ecosistema builder.
- 
- | Fase | Objetivo | Módulo Correspondiente |
- | :--- | :--- | :--- |
- | **1. Understand** | Entender qué significa IA Agéntica | [Módulo 1](module1/README.md) |
- | **2. Core Components** | Aprender componentes (LLM, Prompts, Tools) | [Módulo 1](module1/README.md) & [Módulo 4](module4/README.md) |
- | **3. Prompting for Agents** | System Prompts, Roles, Constraints | [Módulo 1.2](module1.2/README.md) |
- | **4. Basic Agent** | Construir tu primer agente simple | [Módulo 1.5](module1.5/README.md) |
- | **5. Agent Memory** | Añadir memoria (Short/Long term) | [Módulo 5](module5/README.md) |
- | **6. Tools & APIs** | Function Calling y APIs externas | [Módulo 4](module4/README.md) |
- | **7. Single-Agent Workflow** | Orquestación y Debugging | [Módulo 2](module2/README.md) |
- | **8. Multi-Agent Systems** | Roles, Protocolos y Colaboración | [Módulo 8](module8/README.md) |
- | **9. Deploy & Monitor** | Cloud, Logging, Rate Limits | [Módulo 11](module11/README.md) & [Módulo 14](module14/README.md) |
- | **10. Builder Ecosystem** | Contribuir a LangChain, MCP, Benchmarks | [Módulo 12](module12/README.md) & [Módulo 13](module13/README.md) |
- 
- ---
-## 📚 Estructura del Contenido
+
+## 📚 Estructura del Curso
+
+> Este curso cubre **17 módulos organizados en 3 niveles progresivos**, desde fundamentos de IA hasta deployment en producción enterprise. Cada módulo incluye teoría, código ejecutable y proyectos prácticos.
+
+**🎯 Rutas de Aprendizaje Recomendadas**:
+- 🌱 **Nuevo en IA**: Empieza desde [Módulo 0](module0/README.md) (fundamentos completos)
+- 💼 **Developer con experiencia ML**: Comienza en [Módulo 1](module1/README.md) (directo a LLMs y agentes)
+- 🚀 **Focus en Producción**: Salta a [Módulo 2](module2/README.md) (frameworks y arquitecturas)
+
+---
 
 ### 🟢 Nivel 1: Fundamentos & Frameworks
 
