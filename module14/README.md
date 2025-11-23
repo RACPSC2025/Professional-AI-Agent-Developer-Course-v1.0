@@ -175,6 +175,27 @@ gcloud run deploy my-agent --image gcr.io/project/my-agent:latest
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module13/README.md)** | **[🏠 Inicio](../README.md)** | **[🎓 Obtener Certificado](../docs/certificate2.html)**
+**[⬅️ Módulo Anterior](../module13/README.md)** | **[🏠 Inicio](../README.md)**
+
+</div>
+
+---
+
+## 🎓 Tu Certificado
+
+¡Felicidades por completar el curso!
+
+> **Nota Importante:** GitHub no ejecuta archivos HTML directamente por seguridad. Tienes dos opciones para ver tu certificado:
+
+### 🌐 Opción 1: Ver Online (Recomendado)
+Si este repositorio tiene **GitHub Pages** activado, puedes ver tu certificado renderizado aquí:
+👉 **[Ver Certificado (GitHub Pages)](https://racpsc2025.github.io/Professional-AI-Agent-Developer-Course-v1.0/docs/certificate2.html)**
+
+*(Si da error 404, asegúrate de activar GitHub Pages en `Settings > Pages > Branch: main`)*
+
+### 💻 Opción 2: Ver Localmente
+1.  Haz clic aquí: **[Código Fuente del Certificado](../docs/certificate2.html)**
+2.  Descarga el archivo (Botón "Download raw file" o `Ctrl+S`).
+3.  Abre el archivo descargado en tu navegador (Chrome, Edge, etc.).
 
 </div>

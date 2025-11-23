@@ -421,20 +421,41 @@ input[type="radio"] {
 }
 
 @media print {
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+
     .modal-overlay, .ui-controls { 
         display: none !important; 
     }
     
     body { 
-        background: black; 
+        background: white; /* Better for print than black */
         padding: 0;
+        margin: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
     
     .certificate-page { 
-        width: 100%; 
-        height: 100%; 
+        width: 297mm; /* Force A4 width */
+        height: 210mm; /* Force A4 height */
+        position: absolute;
+        top: 0;
+        left: 0;
         box-shadow: none;
         margin: 0;
         border-radius: 0;
+        page-break-after: always;
+        background-color: #0a0022 !important; /* Force background color */
+        background-image: url('../images/certificate_background.png') !important;
+        background-size: cover !important;
+    }
+
+    /* Ensure text colors print correctly */
+    .certificate-title, .student-name, .program-title {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
