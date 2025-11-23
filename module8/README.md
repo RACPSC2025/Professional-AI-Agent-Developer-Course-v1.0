@@ -1,162 +1,157 @@
-# Módulo 8: Sistemas Multi-Agente (MAS)
+# Módulo 8: Sistemas Multi-Agente (Swarm Intelligence)
 
 ![Module 8 Header](../images/module8_header.png)
 
-![Level](https://img.shields.io/badge/Nivel-Enterprise-C3B1E1?style=for-the-badge&logo=crewai&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-8_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-CrewAI_|_AutoGen_|_LangGraph_|_MCP-C3B1E1?style=for-the-badge)
-
-> *"El talento gana partidos, pero el trabajo en equipo y la inteligencia ganan campeonatos."* — Michael Jordan
-
----
+> "En 2025, pasamos de equipos jerárquicos a Enjambres (Swarms) descentralizados. La inteligencia emerge de la colaboración, no del control."
 
 ## 🎯 Objetivos del Módulo
 
-En el mundo real, un solo empleado no hace todo el trabajo. Tienes departamentos: Ventas, Ingeniería, Legal.
-En la IA Enterprise, hacemos lo mismo. **Orquestamos** equipos de agentes especializados.
+En la IA Enterprise moderna, ya no solo orquestamos equipos; diseñamos **Swarms**. Sistemas donde múltiples agentes colaboran de forma autónoma y descentralizada.
 
 **Lo que vas a dominar:**
-1.  🚣 **CrewAI:** Cómo estructurar "Roles" y "Procesos" secuenciales.
-2.  🤖 **AutoGen:** Agentes que conversan y escriben código real.
-3.  🕸️ **LangGraph:** Control de estado granular para flujos complejos.
-4.  🔌 **MCP (Model Context Protocol):** El estándar universal para conectar herramientas.
+1.  🐝 **Swarm Intelligence:** Patrones de diseño descentralizados (OpenAI Swarm style).
+2.  🚣 **CrewAI v1.1:** Flows y procesos jerárquicos avanzados.
+3.  🤖 **AutoGen v0.4:** Agentes conversacionales asíncronos.
+4.  🕸️ **LangGraph Multi-Agent:** Control total del grafo de comunicación.
 
 ---
 
-## 🏗️ 1. Arquitectura de Equipos (Patrones Enterprise)
+## 🏗️ Arquitecturas de Agentes (Nov 2025)
 
-No basta con poner agentes juntos. Necesitas una **Topología de Comunicación**.
+### 1. Jerárquica (The Boss)
+Un "Supervisor" decide quién trabaja. Clásico y seguro, pero con cuello de botella.
+*   **Uso:** Soporte técnico, gestión de proyectos.
 
-### A. Patrón Secuencial (The Assembly Line)
-Ideal para procesos lineales: `Investigar -> Escribir -> Traducir`.
-*   **Framework:** CrewAI.
-*   **Analogía:** Una línea de montaje de coches.
+### 2. Swarm (The Hive)
+Agentes autónomos que se comunican entre sí sin un líder central. Si un agente necesita ayuda, la pide directamente a otro ("Handoff").
+*   **Uso:** Investigación compleja, simulación de mercados, verificación de hechos.
 
 ```mermaid
 graph LR
-    Input[📝 Tema] --> Researcher[🕵️ Investigador]
-    Researcher -->|Datos Crudos| Analyst[📊 Analista]
-    Analyst -->|Insights| Writer[✍️ Escritor]
-    Writer --> Output[📄 Reporte Final]
+    A[Agente A] <--> B[Agente B]
+    B <--> C[Agente C]
+    C <--> A
+    A <--> D[Agente D]
     
-    style Researcher fill:#E74C3C,color:#fff
-    style Analyst fill:#F39C12,color:#fff
-    style Writer fill:#2ECC71,color:#fff
-```
-
-### B. Patrón Jerárquico (The Boss)
-Un "Supervisor" decide quién trabaja. Ideal cuando la tarea varía dinámicamente.
-*   **Framework:** LangGraph / CrewAI (Hierarchical).
-*   **Analogía:** Un Project Manager asignando tickets.
-
-```mermaid
-graph TD
-    User((👤 Cliente)) --> Supervisor[👔 Supervisor]
-    Supervisor -->|¿Código?| Coder[💻 Coder Agent]
-    Supervisor -->|¿Diseño?| Designer[🎨 Designer Agent]
-    Coder -->|Pull Request| Supervisor
-    Designer -->|Mockup| Supervisor
-    
-    style Supervisor fill:#8E44AD,color:#fff
+    style A fill:#E74C3C,color:#fff
+    style B fill:#F39C12,color:#fff
+    style C fill:#2ECC71,color:#fff
+    style D fill:#3498DB,color:#fff
 ```
 
 ---
 
-## 🚣 2. CrewAI: Tu Primer Equipo Virtual
+## 🌍 High Impact Social/Professional Example (Nov 2025)
 
-CrewAI brilla por su simplicidad basada en roles.
+> **Proyecto: "TruthSwarm" - Sistema de Verificación de Noticias Descentralizado**
+>
+> Este ejemplo implementa un **Enjambre de Agentes** que colaboran en tiempo real para verificar la veracidad de noticias virales, combatiendo la desinformación.
 
-### Anatomía de un Agente CrewAI
+### El Problema
+Las Fake News se propagan más rápido de lo que los humanos pueden verificar. Un sistema centralizado es demasiado lento y sesgado.
 
-```python
-from crewai import Agent
-
-# 1. Definir el ROL (Quién es)
-researcher = Agent(
-    role='Senior Researcher',
-    goal='Descubrir tecnologías emergentes en IA',
-    backstory="""Eres un veterano de Silicon Valley. 
-    Tu olfato para la innovación es legendario.""",
-    verbose=True,          # ¡Verlo pensar!
-    allow_delegation=False # No puede mandar a otros (es un worker)
-)
-```
-
-### Anatomía de una Tarea (Qué hace)
+### La Solución
+Un **Swarm** de agentes especializados donde cada uno verifica un aspecto (fuente, imagen, texto) y consensúan una "Puntuación de Veracidad".
 
 ```python
-from crewai import Task
+"""
+Project: TruthSwarm
+Pattern: Decentralized Swarm (Handoffs)
+Framework: OpenAI Swarm / LangGraph
+"""
+from swarm import Swarm, Agent
 
-# 2. Definir la TAREA (Qué debe entregar)
-task1 = Task(
-    description='Investiga sobre "Agentic Patterns" en 2025.',
-    agent=researcher,
-    expected_output='Un resumen ejecutivo de 3 puntos clave.'
+client = Swarm()
+
+# 1. Definir Agentes Especialistas
+
+def transfer_to_source_verifier():
+    return source_verifier
+
+def transfer_to_image_analyst():
+    return image_analyst
+
+fact_checker = Agent(
+    name="FactChecker",
+    instructions="""Eres el coordinador inicial. Analiza el texto.
+    - Si hay imágenes sospechosas, llama a ImageAnalyst.
+    - Si cita fuentes desconocidas, llama a SourceVerifier.
+    - Si todo parece bien, emite un veredicto.""",
+    functions=[transfer_to_source_verifier, transfer_to_image_analyst]
 )
+
+source_verifier = Agent(
+    name="SourceVerifier",
+    instructions="""Verifica la reputación del dominio y el autor.
+    Busca antecedentes de desinformación.
+    Devuelve el control al FactChecker con tu hallazgo.""",
+    functions=[] # Podría tener herramientas de búsqueda web
+)
+
+image_analyst = Agent(
+    name="ImageAnalyst",
+    instructions="""Detecta manipulación digital o Deepfakes en imágenes adjuntas.
+    Devuelve el control al FactChecker con tu análisis.""",
+    functions=[] # Podría tener herramientas de visión
+)
+
+# 2. Ejecución del Enjambre
+print("🐝 TruthSwarm Active...")
+
+messages = [{"role": "user", "content": "Mira esta noticia: 'Aliens aterrizan en Madrid', fuente: diario-verdad-oculta.com, adjunto: alien.jpg"}]
+
+response = client.run(
+    agent=fact_checker,
+    messages=messages
+)
+
+print(f"🤖 Agente Final: {response.agent.name}")
+print(f"💬 Veredicto: {response.messages[-1]['content']}")
 ```
+
+**Impacto Social:**
+- **Velocidad**: Verificación en segundos, no horas.
+- **Objetividad**: Múltiples agentes especializados reducen el sesgo de un solo modelo.
+- **Escalabilidad**: Puede procesar miles de noticias simultáneamente.
 
 ---
 
-## 🔌 3. MCP: El Futuro de la Conectividad
-
-El **Model Context Protocol (MCP)** resuelve el problema de "¿Cómo conecto mi agente a mi Base de Datos / Slack / GitHub?".
-En lugar de escribir 50 integraciones, usas el estándar MCP.
-
-### Ejemplo: Deep Research con MCP
-En el script `06_mcp_deep_research.py`, simulamos cómo un agente usa herramientas MCP para navegar la web "profunda" (sin bloqueos).
-
-```python
-# El agente no sabe CÓMO funciona la herramienta, solo sabe que existe.
-# MCP se encarga del "CÓMO".
-search_agent = Agent(
-    role='Web Surfer',
-    tools=[mcp_tools.search_web], # Herramienta inyectada vía MCP
-    goal='Encontrar fuentes primarias'
-)
-```
-
----
-
-## 🛠️ Proyectos Prácticos (Nivel Enterprise)
+## 🛠️ Proyectos Prácticos
 
 ### 🚣 Proyecto 1: El Equipo de Investigación (CrewAI)
-**Archivo:** [`01_crewai_research_team.py`](01_crewai_research_team.py)
--   **Patrón:** Secuencial.
--   **Caso de Uso:** Generación de contenido automatizado.
--   **Reto:** Modifica el script para añadir un agente "Editor" que critique el trabajo del "Escritor".
+Implementación clásica secuencial para generar reportes profundos.
 
-### 🤖 Proyecto 2: El Equipo de Desarrollo (AutoGen)
-**Archivo:** [`02_autogen_coding_team.py`](02_autogen_coding_team.py)
--   **Patrón:** Conversacional (Chat).
--   **Caso de Uso:** Escribir y ejecutar código Python para análisis de datos.
--   **Nota:** AutoGen ejecuta código real en Docker (Sandbox). ¡Cuidado en local!
+### 🤖 Proyecto 2: Coding Swarm (AutoGen)
+Un enjambre de agentes (Coder, Reviewer, Tester) que escriben y arreglan software autónomamente.
 
-### 🕸️ Proyecto 3: El Supervisor Corporativo (LangGraph)
-**Archivo:** [`03_langgraph_supervisor.py`](03_langgraph_supervisor.py)
--   **Patrón:** Jerárquico (Router).
--   **Caso de Uso:** Sistema de soporte técnico nivel 1 y 2.
--   **Tech:** StateGraph, Conditional Edges.
-
-### 🔌 Proyecto 4: MCP Deep Research (Avanzado)
-**Archivo:** [`06_mcp_deep_research.py`](06_mcp_deep_research.py)
--   **Tech:** CrewAI + MCP (Simulado).
--   **Objetivo:** Orquestar búsqueda, lectura profunda y síntesis.
+### 🐝 Proyecto 3: TruthSwarm (OpenAI Swarm)
+Implementación del ejemplo de alto impacto usando el patrón de "Handoffs".
 
 ---
 
-## 📊 Comparativa Definitiva
+## 📊 Comparativa Definitiva (Nov 2025)
 
-| Característica | 🚣 CrewAI | 🤖 AutoGen | 🕸️ LangGraph |
+| Característica | 🚣 CrewAI v1.1 | 🐝 OpenAI Swarm | 🕸️ LangGraph |
 | :--- | :--- | :--- | :--- |
-| **Control** | ⭐⭐ (Medio) | ⭐⭐ (Medio) | ⭐⭐⭐⭐ (Total) |
-| **Facilidad** | ⭐⭐⭐⭐ (Alta) | ⭐⭐ (Media) | ⭐ (Baja - Curva alta) |
-| **Mejor para...** | Procesos de Negocio | Code Generation | Productos SaaS complejos |
-| **Producción** | ✅ Listo | ⚠️ Sandbox requerido | ✅ Estándar industrial |
+| **Paradigma** | Roles & Procesos | Handoffs & Rutinas | Grafos de Estado |
+| **Control** | Alto (Estructurado) | Medio (Emergente) | Total (Low-level) |
+| **Mejor para...** | Procesos de Negocio | Exploración / Chat | Productos SaaS |
+| **Curva** | Baja | Muy Baja | Alta |
 
 ---
+
+## 🚀 Próximos Pasos
+
+➡️ **[Módulo 9: Metacognición](../module9/README.md)**
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module7/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module9/README.md)**
+**[⬅️ Módulo Anterior](../module7/README.md)** | **[🏠 Inicio](../README.md)**
 
 </div>
+
+---
+
+**Última actualización:** Noviembre 2025
+**Stack:** OpenAI Swarm, CrewAI v1.1, AutoGen v0.4
+**Conceptos:** Swarm Intelligence, Decentralized Handoffs

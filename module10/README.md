@@ -1,164 +1,153 @@
-# Módulo 10: Full Stack Agentic Apps
+# Módulo 10: Full Stack Agentic Apps (Generative UI)
 
-![Module 10 Header](../images/module10_banner.png)
+![Module 10 Banner](../images/module10_banner.png)
 
-![Level](https://img.shields.io/badge/Nivel-Enterprise-2ECC71?style=for-the-badge&logo=fastapi&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-8_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-FastAPI_|_Streamlit_|_Docker_|_Redis-2ECC71?style=for-the-badge)
-
-> *"Un script de Python en tu laptop es un experimento. Una API asíncrona en Kubernetes es un producto."*
-
----
+> "En 2025, los agentes no solo chatean. Generan interfaces de usuario (UI) completas en tiempo real."
 
 ## 🎯 Objetivos del Módulo
 
-Hemos pasado 9 módulos construyendo cerebros. Ahora vamos a construir el cuerpo.
-En este módulo, transformaremos tu agente en una **Aplicación Full Stack** capaz de escalar a miles de usuarios.
+Olvida el chatbot de texto plano. En este módulo, aprenderás a construir **Full Stack Agents** que pueden renderizar componentes interactivos (gráficos, formularios, mapas) usando **Generative UI**.
 
 **Lo que vas a dominar:**
-1.  🏗️ **Arquitectura Enterprise:** Diseño de sistemas desacoplados (Frontend, Backend, Worker).
-2.  ⚡ **Concurrencia Real:** Por qué `async def` no es opcional en IA.
-3.  �️ **Producción:** Inyección de dependencias, manejo de errores y configuración robusta.
+1.  ⚛️ **Vercel AI SDK 6:** El framework estándar para agentes en Next.js (Nov 2025).
+2.  🎨 **Generative UI:** Streaming de componentes React desde el servidor.
+3.  ⚡ **React Server Components (RSC):** Arquitectura "Agent-first" para máxima velocidad.
 
 ---
 
-## 📚 1. La Arquitectura "Agentic Stack"
+## 📚 Conceptos Clave (Nov 2025)
 
-Para salir de `localhost`, necesitamos dividir responsabilidades.
+### 1. Generative UI (GenUI)
+En lugar de que el LLM responda con texto ("Aquí tienes el clima"), responde con un **Componente React** (`<WeatherCard temp={25} />`).
 
-### El Problema del "Script Único"
-Si pones tu UI (Streamlit) y tu lógica (LangChain) en el mismo archivo:
--   ❌ **No escala:** Un usuario pesado bloquea la UI para todos.
--   ❌ **No es seguro:** Tus API Keys viven en el navegador del cliente.
--   ❌ **No es mantenible:** Mezclas HTML con lógica de grafos.
+Esto permite experiencias ricas donde el agente "construye" la aplicación mientras la usas.
 
-### La Solución: Arquitectura de 3 Capas
+### 2. Vercel AI SDK 6 (Agent-First Architecture)
+Lanzado en Octubre 2025, introduce una abstracción unificada para definir agentes que funcionan en el servidor y transmiten UI al cliente.
 
 ```mermaid
 graph LR
-    User((👤 Usuario)) -->|HTTPS| Frontend[💻 Frontend UI]
-    Frontend -->|REST / WS| Backend[🚀 Backend API]
+    User((👤 Usuario)) -->|Prompt| Server[Next.js Server Action]
+    Server -->|Call| LLM[GPT-5.1]
+    LLM -->|Tool Call| Server
+    Server -->|Stream Component| Client[React Client]
+    Client -->|Render| UI[⚛️ Interactive UI]
     
-    subgraph "Zona Segura (Servidor)"
-        Backend -->|Job| Queue[(⚡ Task Queue)]
-        Backend -->|Stream| LLM[� GPT-4 / Claude]
-        Queue --> Worker[� Background Worker]
-    end
-    
-    style Backend fill:#2ECC71,color:#fff
-    style Queue fill:#F39C12,color:#fff
-    style Frontend fill:#3498DB,color:#fff
+    style Server fill:#000,color:#fff
+    style Client fill:#61DAFB,color:#000
 ```
 
 ---
 
-## ⚡ 2. Masterclass de Concurrencia: Async vs Sync
+## 🌍 High Impact Social/Professional Example (Nov 2025)
 
-En el desarrollo de Agentes, la **latencia** es el enemigo.
-GPT-4 tarda ~10 segundos en responder. Si tu servidor es síncrono (como Flask estándar), durante esos 10 segundos **tu servidor está muerto** para otros usuarios.
+> **Proyecto: "AccessUI" - Asistente de Accesibilidad Generativa**
+>
+> Este ejemplo utiliza **Generative UI** para adaptar la interfaz de una web en tiempo real según las necesidades de discapacidad del usuario.
 
-### La Analogía de la Pizzería 🍕
+### El Problema
+Las webs estáticas son "talla única". Un usuario con daltonismo necesita colores distintos a uno con dislexia.
 
-#### 🐢 Enfoque Síncrono (Bloqueante)
-1.  Cliente A pide pizza.
-2.  Cajero va a la cocina, **se queda mirando el horno 10 minutos**.
-3.  Entrega pizza A.
-4.  Recién atiende al Cliente B.
-*Resultado:* El Cliente B espera 10 minutos solo para pedir.
+### La Solución
+Un agente que detecta la necesidad y **regenera la UI** instantáneamente usando componentes React adaptados.
 
-#### 🐇 Enfoque Asíncrono (Non-blocking)
-1.  Cliente A pide pizza.
-2.  Cajero pasa la nota a la cocina y le da un "Beeper" al Cliente A.
-3.  **Inmediatamente** atiende al Cliente B.
-4.  Cuando la pizza A está lista, el Beeper suena.
-*Resultado:* El cajero (CPU) nunca está ocioso.
+```tsx
+/**
+ * Project: AccessUI
+ * Stack: Next.js 15, Vercel AI SDK 6, React Server Components
+ */
 
-### Implementación en Python
+import { createAI, getMutableAIState, streamUI } from 'ai/rsc';
+import { z } from 'zod';
 
-```python
-# ❌ MAL: Bloquea el servidor
-import time
-def chat_sync(message):
-    response = call_gpt4(message) # Tarda 5s
-    return response
+// 1. Definir Componentes Adaptativos
+import { HighContrastCard } from '@/components/access/high-contrast';
+import { DyslexicFriendlyText } from '@/components/access/dyslexic';
+import { ScreenReaderSummary } from '@/components/access/screen-reader';
 
-# ✅ BIEN: Libera el servidor
-import asyncio
-async def chat_async(message):
-    response = await call_gpt4_async(message) # Libera el control mientras espera
-    return response
+// 2. Server Action del Agente
+export async function submitUserQuery(input: string) {
+  'use server';
+
+  const history = getMutableAIState();
+
+  // 3. Generative UI Streaming
+  const result = await streamUI({
+    model: 'gpt-5.1-instant',
+    messages: [...history.get(), { role: 'user', content: input }],
+    text: ({ content, done }) => {
+      if (done) history.done((messages: any[]) => [...messages, { role: 'assistant', content }]);
+      return <div>{content}</div>;
+    },
+    tools: {
+      adapt_interface: {
+        description: 'Adapt UI for specific accessibility needs',
+        parameters: z.object({
+          need: z.enum(['visual_impairment', 'dyslexia', 'motor_control']),
+          content: z.string()
+        }),
+        generate: async ({ need, content }) => {
+          // El Agente decide QUÉ componente renderizar
+          switch(need) {
+            case 'visual_impairment':
+              return <HighContrastCard content={content} zoom={1.5} />;
+            case 'dyslexia':
+              return <DyslexicFriendlyText content={content} font="OpenDyslexic" />;
+            default:
+              return <ScreenReaderSummary content={content} />;
+          }
+        }
+      }
+    }
+  });
+
+  return result.value;
+}
 ```
+
+**Impacto Social:**
+- **Inclusión Real**: No es un "plugin" superpuesto, es la web reescribiéndose a sí misma para el usuario.
+- **Dignidad Digital**: Permite a personas con discapacidades severas navegar con autonomía.
 
 ---
 
-## 🏗️ 3. Construyendo el Backend (Paso a Paso)
+## 🛠️ Proyectos Prácticos
 
-Vamos a usar **FastAPI**, el estándar de oro para APIs de IA.
+### 🚀 Proyecto 1: Chatbot Financiero con Gráficos
+Un agente que no solo te dice el precio de las acciones, sino que renderiza gráficos interactivos de TradingView (`<StockChart />`) en el chat.
 
-### Paso 1: Definir el Modelo de Datos
-Usamos **Pydantic** para validar que lo que entra es correcto. Si el usuario no envía `query`, la API rechaza la petición automáticamente.
+### 🎨 Proyecto 2: Generador de Formularios Dinámicos
+Un agente para encuestas que genera inputs (`<Slider />`, `<DatePicker />`) sobre la marcha según las respuestas anteriores del usuario.
 
-```python
-from pydantic import BaseModel
-
-class AgentRequest(BaseModel):
-    query: str
-    user_id: str = "guest_user"
-    temperature: float = 0.7
-```
-
-### Paso 2: Streaming de Respuesta (SSE)
-Los usuarios odian esperar. Usamos **Server-Sent Events (SSE)** para enviar la respuesta palabra por palabra, igual que ChatGPT.
-
-```python
-from fastapi.responses import StreamingResponse
-
-@app.post("/chat")
-async def chat_endpoint(req: AgentRequest):
-    return StreamingResponse(
-        agent_generator(req.query), # Generador asíncrono
-        media_type="text/event-stream"
-    )
-```
+### ⚛️ Proyecto 3: AccessUI (Implementación Completa)
+El asistente de accesibilidad descrito arriba, desplegado en Vercel Edge Functions.
 
 ---
 
-## 🛠️ Proyectos Prácticos (Nivel Enterprise)
-
-### 🚀 Proyecto 1: Backend API Robusto
-**Archivo:** [`01_agent_api.py`](01_agent_api.py)
-Este no es un "Hello World". Es una base sólida para producción:
--   ✅ **Inyección de Dependencias:** Para gestionar la configuración y servicios.
--   ✅ **Middleware:** CORS y Logging de tiempo de respuesta.
--   ✅ **Manejo de Errores Global:** Captura excepciones y devuelve JSONs limpios.
--   ✅ **Streaming Real:** Conexión asíncrona con LangChain.
-
-### 🎨 Proyecto 2: Frontend Profesional
-**Archivo:** [`02_agent_ui.py`](02_agent_ui.py)
-Una interfaz en Streamlit que se siente como una App nativa:
--   ✅ **Gestión de Sesión:** Recuerda el historial.
--   ✅ **Configuración en Sidebar:** Ajusta temperatura y modelo.
--   ✅ **Feedback Visual:** Indicadores de carga y streaming fluido.
-
----
-
-## 📊 El Stack Ganador 2025
-
-Si vas a construir esto para una empresa, este es el stack recomendado:
+## 📊 El Stack Ganador 2025 (Full Stack)
 
 | Capa | Tecnología | Por qué |
 | :--- | :--- | :--- |
-| **Lenguaje** | **Python 3.11+** | Tipado fuerte, rápido, ecosistema IA. |
-| **API Framework** | **FastAPI** | Async nativo, validación automática, docs (Swagger). |
-| **Frontend** | **Next.js (React)** | Para apps complejas. Usa **Streamlit** solo para demos. |
-| **Orquestación** | **LangGraph** | Control de estado superior a cadenas simples. |
-| **Cola de Tareas** | **Celery + Redis** | Para tareas que duran >30s (investigación profunda). |
-| **Contenedores** | **Docker** | "Funciona en mi máquina" -> Funciona en la nube. |
+| **Framework** | **Next.js 15 (App Router)** | Soporte nativo para RSC y Streaming. |
+| **AI SDK** | **Vercel AI SDK 6** | La mejor abstracción para Generative UI. |
+| **UI Library** | **shadcn/ui** | Componentes accesibles y fáciles de adaptar. |
+| **Modelos** | **GPT-5.1 / Claude 3.5** | Rápidos y precisos para tool calling. |
+| **Deploy** | **Vercel / Cloudflare** | Edge computing para menor latencia. |
 
 ---
 
+## 🚀 Próximos Pasos
+
+➡️ **[Módulo 11: LLMOps y Observabilidad](../module11/README.md)**
+
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module9/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module11/README.md)**
+**[⬅️ Módulo Anterior](../module9/README.md)** | **[🏠 Inicio](../README.md)**
 
 </div>
+
+---
+
+**Última actualización:** Noviembre 2025
+**Stack:** Next.js 15, Vercel AI SDK 6
+**Conceptos:** Generative UI, Agent-First Architecture

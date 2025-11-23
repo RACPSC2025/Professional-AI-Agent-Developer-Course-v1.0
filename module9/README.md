@@ -1,112 +1,137 @@
-# Módulo 9: Metacognición y Auto-Evolución
+# Módulo 9: Metacognición y Auto-Evolución (System 2 Thinking)
 
-![Module 9 Header](../images/module9_banner.png)
+![Module 9 Banner](../images/module9_banner.png)
 
-![Level](https://img.shields.io/badge/Nivel-Experto-FF5733?style=for-the-badge&logo=brain&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-10_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-LangGraph_|_DSPy_|_Reflexion-FF5733?style=for-the-badge)
-
-> *"No es inteligente quien no comete errores, sino quien aprende de ellos."*
-
----
+> "En Noviembre 2025, los agentes ya no solo responden. Se detienen, piensan sobre su propio pensamiento (Metacognición) y se corrigen antes de hablar."
 
 ## 🎯 Objetivos del Módulo
 
-Hasta ahora, tus agentes eran "inteligentes" pero **estáticos**. Si cometían un error, lo repetían.
-En este módulo, cruzamos la frontera final: **Agentes que piensan sobre su propio pensamiento (Metacognición).**
+La mayoría de los LLMs operan en "System 1" (rápido, intuitivo, propenso a errores). En este módulo, aprenderás a forzar el "System 2" (lento, deliberado, lógico) usando técnicas avanzadas de 2025.
 
 **Lo que vas a dominar:**
-1.  🧠 **Reflexion:** El bucle de "Intentar -> Fallar -> Analizar -> Reintentar".
-2.  🛡️ **Self-RAG:** Agentes que se critican a sí mismos antes de hablar.
-3.  🧬 **DSPy:** Optimización automática de prompts (Auto-Evolución).
+1.  🧠 **Metacognitive Prompting (MP):** La técnica de Nov 2025 para introspección profunda.
+2.  🛡️ **Self-Correction (SCoRe):** Agentes que detectan sus propios errores sin feedback humano.
+3.  🧬 **DSPy 2.5:** Optimización automática de prompts basada en métricas.
 
 ---
 
-## 🧠 1. ¿Qué es la Metacognición en IA?
+## 📚 Conceptos Clave (Nov 2025)
 
-Imagina que estás aprendiendo a programar.
-1.  Escribes código.
-2.  Falla.
-3.  **Te detienes y piensas:** "¿Por qué falló? Ah, olvidé importar la librería."
-4.  Corriges.
+### 1. Metacognitive Prompting (MP)
 
-La mayoría de los agentes (ReAct básico) saltan el paso 3. Simplemente "alucinan" una corrección.
-La **Metacognición** es forzar al agente a hacer ese paso 3 explícitamente.
+A diferencia de "Chain of Thought" (CoT) que solo razona sobre el problema, **MP** razona sobre el *proceso* de resolver el problema.
 
-### El Bucle de Reflexión (Visualizado)
+**El Agente se pregunta:**
+- "¿Entendí realmente la intención del usuario?"
+- "¿Tengo suficiente información o estoy alucinando?"
+- "¿Mi estrategia actual es la más eficiente?"
 
-```mermaid
-graph TD
-    Start[🚀 Tarea Inicial] --> Draft[📝 Generar Borrador]
-    Draft --> Critique{🤔 ¿Es correcto?}
-    
-    Critique -->|No| Reflection[🧠 Generar Reflexión Verbal]
-    Reflection -->|Feedback| Draft
-    
-    Critique -->|Sí| Final[✅ Respuesta Final]
-    
-    style Reflection fill:#F39C12,color:#fff
-    style Critique fill:#E74C3C,color:#fff
-    style Final fill:#2ECC71,color:#fff
-```
+### 2. Intrinsic Error Detection
+
+Investigaciones de finales de 2025 demuestran que los modelos grandes (GPT-5.1, Claude 4.5) tienen una "capacidad latente" para detectar sus propios errores si se les da el tiempo de cómputo para reflexionar *después* de generar un borrador, pero *antes* de mostrarlo.
 
 ---
 
-## 🛡️ 2. Self-RAG: Autocrítica en Tiempo Real
+## 🌍 High Impact Social/Professional Example (Nov 2025)
 
-Self-RAG (Self-Reflective Retrieval-Augmented Generation) es una técnica donde el modelo genera "tokens de reflexión" especiales.
+> **Proyecto: "SocratesAI" - Tutor Adaptativo con Metacognición**
+>
+> Este ejemplo implementa un tutor de matemáticas que no solo da respuestas, sino que evalúa su propia pedagogía en tiempo real para adaptarse al estudiante.
 
-El agente se hace 3 preguntas en cada paso:
-1.  **Is Relevant?** ¿Lo que recuperé de la base de datos sirve?
-2.  **Is Supported?** ¿Lo que estoy diciendo está respaldado por los datos?
-3.  **Is Useful?** ¿Responde a la pregunta del usuario?
+### El Problema
+Los tutores de IA tradicionales explican siempre igual. Si el estudiante no entiende, repiten la misma explicación, frustrando al usuario.
 
-Si la respuesta es "No", el agente **se detiene y busca de nuevo**.
-
----
-
-## 🧬 3. DSPy: Programando Prompts, no Strings
-
-Escribir prompts a mano ("Actúa como un experto...") es frágil.
-**DSPy** (Declarative Self-improving Python) cambia el juego. En lugar de escribir el prompt, defines la **firma** (Input -> Output) y dejas que un "Optimizador" encuentre el mejor prompt por ti.
-
-### Analogía: Compilador vs Ensamblador
--   **Prompt Engineering Manual:** Es como escribir en Ensamblador. Mueves bits a mano.
--   **DSPy:** Es como un Compilador de C++. Escribes lógica, y el compilador genera el código máquina optimizado.
+### La Solución
+Un agente con un bucle metacognitivo que analiza la confusión del estudiante y *se critica a sí mismo*: "Mi explicación fue muy técnica. Debo simplificar y usar una analogía."
 
 ```python
-# Definición en DSPy (Lógica pura)
-class RAG(dspy.Module):
-    def forward(self, question):
-        context = self.retrieve(question)
-        return self.generate(context, question)
+"""
+Project: SocratesAI
+Pattern: Metacognitive Reflection Loop
+Framework: LangGraph / OpenAI GPT-5.1
+"""
+from typing import TypedDict, List
+from langgraph.graph import StateGraph, END
 
-# ¡El prompt real lo genera y optimiza DSPy automáticamente!
+class TutorState(TypedDict):
+    history: List[str]
+    last_explanation: str
+    student_confusion_level: int # 0-10
+    internal_monologue: str
+    strategy: str
+
+def assess_understanding(state: TutorState):
+    # El modelo analiza la respuesta del estudiante
+    # "No entiendo nada de integrales" -> Confusion: 9
+    print("🤔 Assessing student state...")
+    return {"student_confusion_level": 9}
+
+def metacognitive_reflection(state: TutorState):
+    # EL PASO CRÍTICO (System 2)
+    if state["student_confusion_level"] > 5:
+        reflection = """
+        AUTO-CRÍTICA: Mi explicación anterior sobre 'área bajo la curva' fue demasiado abstracta.
+        FALLO: Usé terminología de cálculo sin analogías.
+        CORRECCIÓN: Cambiar estrategia a 'Analogía Física' (velocidad/tiempo).
+        """
+        print(f"🧠 METACOGNITION: {reflection}")
+        return {"strategy": "analogy_physics", "internal_monologue": reflection}
+    return {"strategy": "continue_curriculum"}
+
+def generate_explanation(state: TutorState):
+    if state["strategy"] == "analogy_physics":
+        response = "Imagina que vas en un coche. El velocímetro dice 100 km/h..."
+    else:
+        response = "La integral se define como el límite de la suma de Riemann..."
+    
+    print(f"👨‍🏫 Tutor: {response}")
+    return {"last_explanation": response}
+
+# Construcción del Grafo
+workflow = StateGraph(TutorState)
+workflow.add_node("assess", assess_understanding)
+workflow.add_node("reflect", metacognitive_reflection)
+workflow.add_node("teach", generate_explanation)
+
+workflow.set_entry_point("assess")
+workflow.add_edge("assess", "reflect")
+workflow.add_edge("reflect", "teach")
+workflow.add_edge("teach", END)
+
+app = workflow.compile()
 ```
 
----
-
-## 🛠️ Proyectos Prácticos (Nivel Experto)
-
-### 🧠 Proyecto 1: Agente de Reflexión (LangGraph)
-**Archivo:** [`01_reflexion_agent.py`](01_reflexion_agent.py)
-Un agente que escribe código Python. Si el código falla al ejecutarse, el agente lee el error, reflexiona sobre la causa y se auto-corrige.
--   **Tech:** LangGraph State, PythonREPL Tool.
-
-### 🛡️ Proyecto 2: Self-RAG Minimal
-**Archivo:** [`02_self_rag_minimal.py`](02_self_rag_minimal.py)
-Implementación simplificada del ciclo Retrieve-Generate-Critique.
--   **Tech:** LangChain, Custom Evaluator.
-
-### 🧬 Proyecto 3: Optimizador Automático (DSPy)
-**Archivo:** [`03_dspy_auto_optimizer.py`](03_dspy_auto_optimizer.py)
-Un pipeline que mejora su precisión automáticamente analizando ejemplos de entrenamiento.
--   **Tech:** DSPy Teleprompter.
+**Impacto Social:**
+- **Educación Personalizada**: Democratiza el acceso a tutoría de alta calidad que se adapta al ritmo de aprendizaje de cada niño.
+- **Reducción de Frustración**: Evita el abandono escolar por "no entender".
 
 ---
+
+## 🛠️ Proyectos Prácticos
+
+### 🧠 Proyecto 1: El Crítico de Código (Reflexion)
+Un agente que escribe código, ejecuta los tests unitarios, lee los errores, y se auto-corrige en un bucle hasta que los tests pasan.
+
+### 🛡️ Proyecto 2: Self-RAG Validator
+Un sistema RAG que genera 3 respuestas candidatas y usa un LLM-Judge para evaluar cuál tiene mejor soporte documental antes de responder al usuario.
+
+### 🧬 Proyecto 3: Prompt Optimizer (DSPy)
+Un script que toma tu prompt inicial "malo" y usa un dataset de ejemplos para reescribirlo y optimizarlo automáticamente usando DSPy 2.5.
+
+---
+
+## 🚀 Próximos Pasos
+
+➡️ **[Módulo 10: Agentes Full Stack](../module10/README.md)**
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module8/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module10/README.md)**
+**[⬅️ Módulo Anterior](../module8/README.md)** | **[🏠 Inicio](../README.md)**
 
 </div>
+
+---
+
+**Última actualización:** Noviembre 2025
+**Stack:** LangGraph, DSPy 2.5
+**Conceptos:** Metacognitive Prompting, System 2 Thinking

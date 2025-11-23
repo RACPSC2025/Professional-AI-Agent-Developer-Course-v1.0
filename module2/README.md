@@ -74,7 +74,7 @@ LangChain es el framework más maduro y establecido para construir aplicaciones 
 ```python
 """
 Ejemplo: Pipeline RAG básico con LangChain
-Framework: LangChain 0.1+
+Framework: LangChain 0.4+ (Nov 2025)
 Objetivo: Sistema de Q&A sobre documentos
 """
 
@@ -85,7 +85,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
 # 1. Setup componentes
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-5.1-instant") # Nov 2025: Faster & cheaper than 4o-mini
 embeddings = OpenAIEmbeddings()
 
 # 2. Crear vectorstore
@@ -183,7 +183,7 @@ class AgentState(TypedDict):
     next_action: str
 
 # 3. Crear agente ReAct con LangGraph
-llm = ChatOpenAI(model="gpt-4o-mini")
+llm = ChatOpenAI(model="gpt-5.1-thinking") # Nov 2025: Native reasoning capabilities
 tools = [search_web, calculate]
 
 # Usar agente prebuilt de LangGraph
@@ -339,7 +339,7 @@ from autogen import AssistantAgent, UserProxyAgent, config_list_from_json
 # 1. Configurar modelos
 config_list = [
     {
-        "model": "gpt-4o-mini",
+        "model": "gpt-5.1-instant",
         "api_key": "your-api-key"
     }
 ]
@@ -428,7 +428,7 @@ kernel = sk.Kernel()
 kernel.add_service(
     OpenAIChatCompletion(
         service_id="default",
-        ai_model_id="gpt-4o-mini",
+        ai_model_id="gpt-5.1-instant",
         api_key="your-api-key"
     )
 )
@@ -572,7 +572,7 @@ from llama_index.llms.openai import OpenAI
 from llama_index.embeddings.openai import OpenAIEmbedding
 
 # 1. Configurar settings globales
-Settings.llm = OpenAI(model="gpt-4o-mini")
+Settings.llm = OpenAI(model="gpt-5.1-instant")
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 
 # 2. Cargar documentos
@@ -653,7 +653,7 @@ class FrameworkComparison(BaseModel):
     github_stars: int = Field(description="Estrellas en GitHub")
 
 # 2. Crear agente con output type
-model = OpenAIModel("gpt-4o-mini")
+model = OpenAIModel("gpt-5.1-instant")
 
 agent = Agent(
     model=model,
@@ -740,7 +740,7 @@ def analyze_code(code_snippet: str) -> str:
 
 # 2. Crear agentes especializados
 researcher = LlmAgent(
-    model="gemini-2.0-flash-exp",
+    model="gemini-3.0-pro",
     name="researcher",
     description="Researches topics using documentation",
     instruction="""You are a research specialist. Use the search_documents
@@ -749,7 +749,7 @@ researcher = LlmAgent(
 )
 
 analyst = LlmAgent(
-    model="gemini-2.0-flash-exp",
+    model="gemini-3.0-pro",
     name="analyst",
     description="Analyzes code quality",
     instruction="""You are a code analyst. Review code and provide
@@ -758,7 +758,7 @@ analyst = LlmAgent(
 )
 
 writer = LlmAgent(
-    model="gemini-2.0-flash-exp",
+    model="gemini-3.0-pro",
     name="writer",
     description="Writes professional summaries",
     instruction="You write clear, concise summaries of research findings."
@@ -985,6 +985,84 @@ Sistema que analiza la query del usuario y automáticamente selecciona el framew
 - **LlamaIndex**: https://docs.llamaindex.ai/
 - **Pydantic AI**: https://ai.pydantic.dev/
 - **Google ADK**: https://google.github.io/adk-docs/
+
+---
+
+## 🌍 High Impact Social/Professional Example (Nov 2025)
+
+> **Proyecto: "CrisisResponseFlow" - Coordinación de Emergencias Empresariales**
+>
+> Este ejemplo utiliza **CrewAI Flows (v1.1)**, la característica más reciente de Noviembre 2025, para orquestar una respuesta a crisis en tiempo real.
+
+### El Problema
+Durante una crisis corporativa (ej. ciberataque o desastre natural), la coordinación entre departamentos (Legal, PR, Ops) es caótica y lenta.
+
+### La Solución
+Un sistema de agentes autónomos orquestados por un **Flow** determinista que asegura que los protocolos se sigan al pie de la letra, pero con la flexibilidad de la IA para generar contenido.
+
+```python
+"""
+Project: CrisisResponseFlow
+Framework: CrewAI Flows (v1.1 - Nov 2025)
+Goal: Orchestrate enterprise crisis response
+"""
+from crewai.flow.flow import Flow, listen, start
+from crewai import Agent, Task, Crew
+from pydantic import BaseModel
+
+class CrisisState(BaseModel):
+    severity: str = "Unknown"
+    legal_approved: bool = False
+    public_statement: str = ""
+
+class CrisisFlow(Flow[CrisisState]):
+
+    @start()
+    def assess_severity(self):
+        print("🔍 Assessing crisis severity...")
+        # Agent logic to analyze incoming alerts
+        self.state.severity = "HIGH" # Simulated
+        return self.state.severity
+
+    @listen(assess_severity)
+    def activate_protocol(self, severity):
+        if severity == "HIGH":
+            print("🚨 HIGH SEVERITY: Activating War Room Protocol")
+            self.trigger_legal_review()
+            self.trigger_pr_drafting()
+        else:
+            print("ℹ️ Standard monitoring active")
+
+    def trigger_pr_drafting(self):
+        # PR Agent creates statement
+        pr_agent = Agent(role="Crisis Comms", goal="Draft calm, clear statements")
+        task = Task(description="Draft statement for data breach", agent=pr_agent)
+        crew = Crew(agents=[pr_agent], tasks=[task])
+        result = crew.kickoff()
+        self.state.public_statement = result.raw
+        print(f"📝 Draft created: {result.raw[:50]}...")
+
+    def trigger_legal_review(self):
+        # Legal Agent reviews compliance
+        print("⚖️ Legal reviewing protocols...")
+        self.state.legal_approved = True
+
+    @listen(trigger_pr_drafting)
+    def final_broadcast(self):
+        if self.state.legal_approved:
+            print("✅ APPROVED: Broadcasting statement to stakeholders.")
+        else:
+            print("⚠️ HOLD: Legal approval pending.")
+
+# Execute Flow
+flow = CrisisFlow()
+flow.kickoff()
+```
+
+**Impacto Profesional:**
+- **Reducción de Tiempos**: De horas a segundos en la activación de protocolos.
+- **Compliance**: Garantiza que Legal revise antes de que PR publique (Flow control).
+- **Escalabilidad**: Maneja múltiples crisis simultáneas sin fatiga.
 
 ---
 

@@ -1,113 +1,128 @@
-# Módulo 11: LLMOps & Observabilidad
+# Módulo 11: LLMOps & Agent Observability
 
-![Module 11 Header](../images/module11_banner.png)
+![Module 11 Banner](../images/module11_banner.png)
 
-![Level](https://img.shields.io/badge/Nivel-Production-FF0000?style=for-the-badge&logo=prometheus&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-6_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-LangSmith_|_Phoenix_|_Ragas-FF0000?style=for-the-badge)
-
-> *"Si no puedes medirlo, no puedes mejorarlo."* — Peter Drucker (y cualquier ingeniero de IA serio)
-
----
+> "En 2025, no monitoreamos modelos. Monitoreamos la *trayectoria* del pensamiento de los agentes."
 
 ## 🎯 Objetivos del Módulo
 
-Tu agente funciona en tu laptop. ¡Felicidades! 🎉
-Pero cuando lo lanzas a producción y 100 usuarios empiezan a quejarse de que "dice cosas raras", ¿cómo sabes qué pasó?
+Lanzar un agente es fácil. Mantenerlo cuerdo en producción es difícil. En este módulo, aprenderás **LLMOps** moderno:
 
 **Lo que vas a dominar:**
-1.  🕵️ **Tracing:** Ver la radiografía exacta de cada pensamiento del agente.
-2.  🧪 **Evaluación (Eval):** Unit tests para IA. ¿Cómo saber si tu bot es más tonto hoy que ayer?
-3.  📊 **Observabilidad:** Dashboards de latencia, costo y errores.
+1.  🕵️ **Agent Observability:** Tracing profundo con **LangSmith**.
+2.  ⚖️ **Ethical Guardrails:** Detección de sesgos en tiempo real con **Arize Phoenix**.
+3.  📉 **Trajectory Evaluation:** ¿El agente tomó el camino óptimo o dio vueltas innecesarias?
 
 ---
 
-## 🕵️ 1. El Problema de la "Caja Negra"
+## 📚 Conceptos Clave (Nov 2025)
 
-Sin observabilidad, un agente es una caja negra.
--   **Usuario:** "¿Por qué el bot me recomendó veneno?"
--   **Tú:** "No sé, el LLM alucinó." (Respuesta inaceptable en Enterprise).
+### 1. De "Model Monitoring" a "Agent Observability"
+En 2024 monitoreábamos latencia y tokens. En 2025, monitoreamos **Intención y Ejecución**.
+- **Tracing:** Ver cada paso (Thought -> Action -> Observation).
+- **Cost Attribution:** ¿Qué paso del agente gastó $0.50 innecesariamente?
 
-### La Solución: Tracing Distribuido
-
-Necesitamos ver la cadena de ejecución completa:
-`User Input` -> `Router` -> `Retriever` -> `LLM` -> `Parser` -> `Output`
-
-```mermaid
-sequenceDiagram
-    participant User
-    participant Agent
-    participant Tool (Google)
-    participant LLM
-    participant LangSmith
-    
-    User->>Agent: "¿Quién ganó el mundial 2022?"
-    Agent->>LangSmith: [Start Run]
-    Agent->>Tool (Google): Search("Mundial 2022 winner")
-    Tool (Google)-->>Agent: "Argentina"
-    Agent->>LangSmith: [Log Tool Output]
-    Agent->>LLM: Prompt("Context: Argentina...")
-    LLM-->>Agent: "Argentina ganó..."
-    Agent->>LangSmith: [Log LLM Output]
-    Agent-->>User: "Argentina ganó el mundial."
-    Agent->>LangSmith: [End Run]
-```
+### 2. Trajectory Evaluation
+No basta con que la respuesta sea correcta.
+- **Ejemplo:** Si pides "Hora en Londres", y el agente busca en Google "Historia de Londres" -> "Clima Londres" -> "Hora Londres".
+- **Resultado:** Correcto.
+- **Trayectoria:** Ineficiente (Fallo de razonamiento).
 
 ---
 
-## 🛠️ 2. Herramientas del Oficio (The Stack)
+## 🌍 High Impact Social/Professional Example (Nov 2025)
 
-En 2025, hay dos grandes caminos:
+> **Proyecto: "FairHire" - Monitor de Sesgos en Tiempo Real**
+>
+> Este ejemplo implementa un sistema de **Observabilidad Ética** para un agente de Recursos Humanos, bloqueando respuestas sesgadas antes de que lleguen al usuario.
 
-### A. La Nube (LangSmith)
-La solución de los creadores de LangChain.
--   ✅ **Pros:** Setup de 1 línea, UI increíble, datasets integrados.
--   ❌ **Contras:** Envías datos a la nube (cuidado con GDPR/HIPAA).
+### El Problema
+Los agentes de HR pueden heredar sesgos sutiles (género, edad) de sus datos de entrenamiento, exponiendo a la empresa a demandas.
 
-### B. Local / Open Source (Arize Phoenix)
-La opción para bancos y empresas paranoicas.
--   ✅ **Pros:** Todo corre en tu Docker, compatible con OpenTelemetry.
--   ❌ **Contras:** Tienes que mantener la infraestructura.
-
----
-
-## 🧪 3. Evaluación Automática (Ragas)
-
-¿Cómo sabes si tu RAG está recuperando buenos documentos?
-Usamos **Ragas** (Retrieval Augmented Generation Assessment) para calcular métricas matemáticamente:
-
-1.  **Faithfulness:** ¿La respuesta se inventó datos que no estaban en el contexto?
-2.  **Answer Relevance:** ¿Respondió lo que el usuario preguntó?
-3.  **Context Precision:** ¿La basura (ruido) está filtrada?
+### La Solución
+Un "Guardrail Agent" que intercepta cada respuesta, la analiza con **Arize Phoenix** en busca de sesgos, y si detecta >0.7 de probabilidad, reescribe la respuesta.
 
 ```python
-# Ejemplo conceptual de Test
-def test_agent_faithfulness():
-    response = agent.ask("¿Capital de Francia?")
-    score = ragas.evaluate(response, metric="faithfulness")
-    assert score > 0.9 # Si baja de 0.9, el build falla 🚨
+"""
+Project: FairHire
+Stack: LangChain, Arize Phoenix, OpenAI
+"""
+from phoenix.evals import HallucinationEvaluator, QAEvaluator
+from phoenix.session.evaluation import get_qa_with_reference
+from langsmith import trace
+
+# 1. El Agente de HR (Propenso a errores)
+@trace
+def hr_agent(resume_text):
+    # Simulación de lógica interna
+    return call_llm(f"Evalúa este CV: {resume_text}")
+
+# 2. El Monitor de Sesgos (Guardrail)
+@trace
+def bias_guardrail(response_text):
+    print("🛡️ Scanning for bias...")
+    
+    # Usamos un LLM-Judge especializado en ética
+    evaluation = call_llm_judge(
+        prompt=f"Analiza si este texto tiene sesgo de género o edad: '{response_text}'. Responde JSON.",
+        model="gpt-5.1-audit"
+    )
+    
+    if evaluation['bias_score'] > 0.7:
+        print(f"🚨 BIAS DETECTED: {evaluation['reason']}")
+        return rewrite_neutral(response_text)
+    
+    return response_text
+
+# 3. Pipeline Seguro
+def secure_hiring_flow(resume):
+    raw_response = hr_agent(resume)
+    safe_response = bias_guardrail(raw_response)
+    return safe_response
 ```
+
+**Impacto Social:**
+- **Justicia Algorítmica:** Garantiza que la IA no perpetúe discriminación histórica.
+- **Confianza Corporativa:** Permite a las empresas desplegar agentes en áreas sensibles con seguridad.
 
 ---
 
 ## 🛠️ Proyectos Prácticos
 
-### 🕵️ Proyecto 1: Instrumentación con LangSmith
-**Archivo:** [`01_instrumentation_basics.py`](01_instrumentation_basics.py)
-Aprende a conectar tu agente a LangSmith con 3 variables de entorno y visualiza tu primer trace.
+### 🕵️ Proyecto 1: LangSmith Tracing
+Instrumentar un agente complejo y visualizar su "árbol de pensamiento" en la nube para detectar bucles infinitos.
 
-### 🏠 Proyecto 2: Observabilidad Local (Phoenix)
-**Archivo:** [`02_local_observability_phoenix.py`](02_local_observability_phoenix.py)
-Levanta un servidor de observabilidad local y envía trazas sin tocar internet.
+### 🏠 Proyecto 2: Local Observability (Phoenix)
+Levantar un servidor local de Phoenix para monitorear un agente sin enviar datos sensibles a la nube (ideal Banca/Salud).
 
-### 🧪 Proyecto 3: Pipeline de Evaluación (CI/CD)
-**Archivo:** [`03_agent_evaluation_pipeline.py`](03_agent_evaluation_pipeline.py)
-Un script que corre un set de preguntas "Golden", evalúa las respuestas del agente y genera un reporte de calidad.
+### ⚖️ Proyecto 3: FairHire (Implementación)
+El sistema de monitoreo de sesgos descrito arriba, con un dataset de CVs de prueba.
 
 ---
 
+## 📊 El Stack Ganador 2025 (LLMOps)
+
+| Herramienta | Uso Principal | Tipo |
+| :--- | :--- | :--- |
+| **LangSmith** | Tracing & Debugging | SaaS (Cloud) |
+| **Arize Phoenix** | Evals & Bias Detection | Open Source (Local) |
+| **OpenTelemetry** | Estándar de Datos | Protocolo |
+| **Ragas** | Métricas RAG (Precisión) | Librería |
+
+---
+
+## 🚀 Próximos Pasos
+
+➡️ **[Módulo 12: Protocolos de Agentes](../module12/README.md)**
+
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module10/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module12/README.md)**
+**[⬅️ Módulo Anterior](../module10/README.md)** | **[🏠 Inicio](../README.md)**
 
 </div>
+
+---
+
+**Última actualización:** Noviembre 2025
+**Stack:** LangSmith, Arize Phoenix
+**Conceptos:** Agent Observability, Ethical Guardrails

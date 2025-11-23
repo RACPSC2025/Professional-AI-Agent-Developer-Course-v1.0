@@ -1,155 +1,162 @@
-# Módulo 7: Planificación Avanzada y Razonamiento
+# Módulo 7: Planificación Avanzada y Razonamiento (LangGraph 1.0)
 
 ![Module 7 Banner](../images/module7_banner.png)
 
-![Level](https://img.shields.io/badge/Nivel-Experto-F39C12?style=for-the-badge&logo=expert&logoColor=white)
-![Time](https://img.shields.io/badge/Tiempo-5_Horas-A7C7E7?style=for-the-badge&labelColor=2D2D44)
-![Stack](https://img.shields.io/badge/Stack-LangGraph_|_ToT-9B59B6?style=for-the-badge)
-
-> *"Un agente reactivo responde. Un agente planificador piensa antes de actuar."*
-
----
+> "En Noviembre 2025, ya no solo ejecutamos agentes. Viajamos en el tiempo a través de sus pensamientos para corregir el futuro."
 
 ## 🎯 Objetivos del Módulo
 
-Los agentes simples (ReAct) funcionan bien para tareas cortas, pero fallan en objetivos complejos que requieren múltiples pasos y coordinación. En este módulo, aprenderás a construir agentes que **planifican**, **razonan** y **corrigen** sus propios errores.
+Los agentes simples (ReAct) funcionan bien para tareas cortas. Pero para procesos críticos que duran días o semanas, necesitas **Durable Execution**. En este módulo dominarás las capacidades avanzadas de **LangGraph 1.0**:
 
-Aprenderás:
-- 🗺️ **Plan-and-Execute:** Separar la planificación de la ejecución para mayor robustez.
-- 🌳 **Tree of Thoughts (ToT):** Explorar múltiples caminos de razonamiento antes de decidir.
-- 🕸️ **LangGraph Planning:** Implementar grafos de estado cíclicos para agentes autónomos.
-- 🔄 **Reflexion:** Permitir que el agente critique y mejore su propio plan.
-
----
-
-## 📚 Índice
-
-1. [De ReAct a Plan-and-Execute](#1-de-react-a-plan-and-execute)
-2. [Tree of Thoughts (ToT)](#2-tree-of-thoughts-tot)
-3. [Planificación Jerárquica](#3-planificación-jerárquica)
-4. [Proyectos Prácticos](#-proyectos-prácticos)
+- 🕰️ **Time Travel Debugging**: Rebobinar el estado del agente, corregir un error y bifurcar una nueva realidad.
+- 💾 **Durable Execution**: Agentes que "duermen" y despiertan semanas después sin perder contexto.
+- 🚦 **Human-in-the-Loop (HITL)**: Sistemas de aprobación robustos para acciones sensibles.
+- 🌳 **Tree of Thoughts (ToT)**: Explorar múltiples futuros posibles antes de actuar.
 
 ---
 
-## 1. De ReAct a Plan-and-Execute
+## 📚 Conceptos Clave (Nov 2025)
 
-El patrón **ReAct** (Reason + Act) es un bucle simple:
-`Thought -> Action -> Observation -> Repeat`
+### 1. Time Travel Debugging
 
-**Problema:** Si el agente se equivoca en el paso 1, todo el proceso descarrila. Tiende a perder el objetivo general en tareas largas ("Lost in the middle").
-
-**Solución: Plan-and-Execute**
-Separamos el cerebro en dos roles:
-1.  **Planner:** Genera un plan completo paso a paso (DAG).
-2.  **Executor:** Ejecuta cada paso y reporta resultados.
-3.  **Re-Planner:** (Opcional) Ajusta el plan si algo falla.
+LangGraph guarda cada paso del agente como un "Checkpoint". Esto te permite:
+1.  **Replay**: Ver exactamente qué pensó el agente paso a paso.
+2.  **Fork**: Volver al paso 3, cambiar el input del usuario, y ver un resultado diferente.
+3.  **Fix**: Si el agente falló en producción, puedes bajar el estado, arreglar el código, y reanudar desde el error.
 
 ```mermaid
-graph TD
-    User[Objetivo Complejo] --> Planner
-    Planner -->|Genera Plan| State[Estado del Plan]
-    State --> Executor
-    Executor -->|Ejecuta Paso 1| Tool[Herramienta]
-    Tool -->|Resultado| Executor
-    Executor -->|Actualiza Estado| State
-    State -->|¿Plan terminado?| Check{Check}
-    Check -->|No| Executor
-    Check -->|Sí| Final[Respuesta Final]
-    Check -->|Error| RePlanner
-    RePlanner -->|Nuevo Plan| State
+graph LR
+    A[Inicio] --> B[Paso 1]
+    B --> C[Paso 2 (Error)]
+    C --> D[Fallo]
     
-    style Planner fill:#9B59B6,color:#fff
-    style Executor fill:#4A90E2,color:#fff
-    style RePlanner fill:#E74C3C,color:#fff
+    B -.->|Time Travel & Fix| C_Fixed[Paso 2 (Corregido)]
+    C_Fixed --> E[Éxito]
+    
+    style C fill:#E74C3C,color:#fff
+    style C_Fixed fill:#2ECC71,color:#fff
 ```
+
+### 2. Durable Execution (Persistencia)
+
+A diferencia de un script de Python normal, un grafo de LangGraph con persistencia (Postgres/Sqlite) es inmortal. Si el servidor se reinicia, el agente continúa exactamente donde se quedó.
 
 ---
 
-## 2. Tree of Thoughts (ToT)
+## 🌍 High Impact Social/Professional Example (Nov 2025)
 
-Inspirado en cómo los humanos resolvemos problemas difíciles: exploramos múltiples posibilidades, evaluamos cuál parece mejor y descartamos las malas.
+> **Proyecto: "UrbanFlow" - Sistema de Planificación Urbana Adaptativa**
+>
+> Este ejemplo utiliza **Time Travel** y **Durable Execution** para gestionar cambios de infraestructura en una ciudad inteligente.
 
-**Algoritmo ToT:**
-1.  **Decomposition:** Romper el problema en pasos.
-2.  **Thought Generation (Expand):** Generar k posibles soluciones para el paso actual.
-3.  **Evaluation (Score):** Evaluar cada solución (heurística o LLM-judge).
-4.  **Search (Prune):** Mantener las mejores, descartar el resto (BFS/DFS).
+### El Problema
+Aprobar un cambio de tráfico (ej. hacer peatonal una calle) toma meses y requiere aprobaciones de múltiples departamentos. Si algo sale mal, revertirlo es costoso.
 
-```mermaid
-graph TD
-    Root((Inicio)) --> A1((Idea A))
-    Root --> B1((Idea B))
-    Root --> C1((Idea C))
-    
-    A1 -->|Score: 0.2| Prune1[❌ Poda]
-    B1 -->|Score: 0.9| B2((Idea B.1))
-    B1 --> B3((Idea B.2))
-    C1 -->|Score: 0.5| C2((Idea C.1))
-    
-    B2 -->|Score: 0.95| Goal((🏆 Solución))
-    
-    style Goal fill:#51CF66,color:#fff
-    style Prune1 fill:#E74C3C,color:#fff
+### La Solución
+Un agente de larga duración que gestiona el proceso de aprobación y usa **Time Travel** para simular el impacto antes de ejecutarlo.
+
+```python
+"""
+Project: UrbanFlow
+Framework: LangGraph 1.0 (Nov 2025)
+Capabilities: Durable Execution, Time Travel, HITL
+"""
+from langgraph.graph import StateGraph, END
+from langgraph.checkpoint.sqlite import SqliteSaver
+from typing import TypedDict, Annotated
+import operator
+
+# 1. Definir Estado del Proyecto Urbano
+class UrbanState(TypedDict):
+    proposal_id: str
+    impact_score: float
+    approvals: Annotated[list, operator.add]
+    status: str
+
+# 2. Nodos del Proceso
+def simulate_impact(state: UrbanState):
+    print(f"🔄 Simulating traffic impact for {state['proposal_id']}...")
+    # Logic to call traffic simulation model
+    # Time Travel: We can fork here to test different parameters!
+    return {"impact_score": 0.85, "status": "simulated"}
+
+def department_approval(state: UrbanState):
+    print("⚖️ Requesting Department Approval...")
+    # Human-in-the-loop breakpoint happens here
+    return {"status": "pending_approval"}
+
+def execute_change(state: UrbanState):
+    if len(state['approvals']) >= 2:
+        print("🏗️ Executing infrastructure change...")
+        return {"status": "executed"}
+    else:
+        print("⛔ Change rejected.")
+        return {"status": "rejected"}
+
+# 3. Construir Grafo con Persistencia
+builder = StateGraph(UrbanState)
+builder.add_node("simulate", simulate_impact)
+builder.add_node("approve", department_approval)
+builder.add_node("execute", execute_change)
+
+builder.set_entry_point("simulate")
+builder.add_edge("simulate", "approve")
+builder.add_edge("approve", "execute")
+
+# Checkpointer para Durable Execution & Time Travel
+memory = SqliteSaver.from_conn_string(":memory:")
+graph = builder.compile(checkpointer=memory, interrupt_before=["execute"])
+
+# 4. Ejecución (Simulación de Semanas en Segundos)
+thread_config = {"configurable": {"thread_id": "proposal-101"}}
+
+# Paso 1: Simulación
+print("--- Day 1: Simulation ---")
+graph.invoke({
+    "proposal_id": "Pedestrian-MainSt", 
+    "approvals": [], 
+    "status": "new"
+}, config=thread_config)
+
+# ... Semanas después ...
+print("\n--- Day 15: Approval Received ---")
+# Resume execution with new state (Human Input)
+graph.update_state(thread_config, {"approvals": ["TransportDept", "Mayor"]})
+graph.resume(thread_config)
 ```
 
-**Cuándo usar ToT:**
-- Escritura creativa compleja.
-- Resolución de problemas lógicos/matemáticos.
-- Planificación estratégica.
-
----
-
-## 3. Planificación Jerárquica
-
-Para tareas masivas, un solo agente se satura. Usamos una jerarquía tipo "Jefe-Empleado".
-
-- **Supervisor (Manager):** Recibe la tarea, crea sub-tareas y las asigna.
-- **Workers:** Agentes especializados (Coder, Researcher, Writer) que ejecutan y devuelven resultados.
-- **Graph State:** Mantiene la memoria compartida y el estado de cada sub-tarea.
-
-**Implementación con LangGraph:**
-Usamos un `StateGraph` donde el nodo Supervisor decide a qué nodo Worker enrutar el flujo (Conditional Edge).
+**Impacto Profesional:**
+- **Simulación Segura**: Usamos *Time Travel* para probar "¿Qué pasa si el impacto es 0.9?" sin reiniciar todo el proceso.
+- **Auditoría Total**: Cada decisión queda guardada en el historial del grafo.
+- **Resiliencia**: El proceso sobrevive reinicios de servidor durante los meses de aprobación.
 
 ---
 
 ## 🛠️ Proyectos Prácticos
 
 ### 🟢 Nivel Básico: Agente Plan-and-Execute
-**Archivo:** [`01_plan_and_execute.py`](01_plan_and_execute.py)
-- Implementación usando LangGraph.
-- Agente Planner que crea lista de tareas.
-- Agente Executor que consume la lista.
+Implementación clásica de separación de preocupaciones.
 
-### 🟡 Nivel Intermedio: Tree of Thoughts
-**Archivo:** [`02_tree_of_thoughts.py`](02_tree_of_thoughts.py)
-- Resolución del "Game of 24" o problema lógico.
-- Implementación de Expand, Score y Prune.
-- Visualización del proceso de pensamiento.
+### 🟡 Nivel Intermedio: Tree of Thoughts (ToT)
+Resolver problemas complejos explorando múltiples ramas de razonamiento.
 
-### 🔴 Nivel Avanzado: Planificación Jerárquica
-**Archivo:** [`03_hierarchical_planning.py`](03_hierarchical_planning.py)
-- Sistema Supervisor-Worker.
-- Orquestación de múltiples agentes especializados.
-- Manejo de estado compartido complejo.
+### 🔴 Nivel Avanzado: Time Travel Debugger
+Crear una herramienta CLI que permita "viajar" por el historial de ejecución de un agente y modificar sus decisiones pasadas.
 
 ---
 
-## 💼 Caso de Estudio Real
-**[Startup Chatbot de Soporte](CASE_STUDY_STARTUP.md)**
-Descubre cómo una startup redujo su carga de soporte en un 70% usando un sistema RAG + Agentes, ahorrando $7k/mes.
-- **Stack:** LangChain, Pinecone, FastAPI.
-- **Resultados:** ROI de 750%.
+## 🚀 Próximos Pasos
 
-## 🎓 Referencias
-
-- **Paper:** ["Tree of Thoughts: Deliberate Problem Solving with Large Language Models"](https://arxiv.org/abs/2305.10601)
-- **Paper:** ["Plan-and-Solve Prompting"](https://arxiv.org/abs/2305.04091)
-- **LangGraph Docs:** [python.langchain.com/docs/langgraph](https://python.langchain.com/docs/langgraph)
-
----
+➡️ **[Módulo 8: Sistemas Multi-Agente](../module8/README.md)**
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module6/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module8/README.md)**
+**[⬅️ Módulo Anterior](../module6/README.md)** | **[🏠 Inicio](../README.md)**
 
 </div>
+
+---
+
+**Última actualización:** Noviembre 2025
+**Stack:** LangGraph 1.0, LangSmith
+**Conceptos:** Time Travel, Durable Execution, HITL
