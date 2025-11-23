@@ -68,6 +68,20 @@ graph TD
 
 ---
 
+## 📂 Estructura del Proyecto
+
+Accede directamente al código fuente de la "Software House":
+
+### 🧠 Backend (FastAPI + LangGraph)
+*   **[`backend/main.py`](./backend/main.py)**: Punto de entrada de la API. Define los endpoints y la orquestación.
+*   **[`backend/agents.py`](./backend/agents.py)**: Definición de los agentes (PM, Coder, Reviewer) y sus herramientas.
+*   **[`backend/requirements.txt`](./backend/requirements.txt)**: Dependencias necesarias.
+
+### 💻 Frontend (Streamlit)
+*   **[`frontend/app.py`](./frontend/app.py)**: Interfaz de usuario interactiva para enviar requerimientos y ver el progreso.
+
+---
+
 ## 🚀 Instrucciones de Ejecución
 
 ### 1. Backend (El Cerebro)
