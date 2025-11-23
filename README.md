@@ -72,16 +72,12 @@ graph LR
 
 Dominarás las herramientas que definen el estándar de la industria hoy:
 
-<div align="center">
-
 | Categoría | Tecnologías |
 | :--- | :--- |
 | **Modelos (LLMs)** | ![OpenAI](https://img.shields.io/badge/GPT--5.1-412991?style=flat-square&logo=openai&logoColor=white) ![Google](https://img.shields.io/badge/Gemini--3.0-8E75B2?style=flat-square&logo=google&logoColor=white) ![Anthropic](https://img.shields.io/badge/Claude--4.5-D97757?style=flat-square&logo=anthropic&logoColor=white) ![Meta](https://img.shields.io/badge/Llama--4-0467DF?style=flat-square&logo=meta&logoColor=white) |
 | **Orquestación** | ![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=langchain&logoColor=white) ![LangGraph](https://img.shields.io/badge/LangGraph-FF9900?style=flat-square) ![CrewAI](https://img.shields.io/badge/CrewAI-FF4B4B?style=flat-square) ![AutoGen](https://img.shields.io/badge/AutoGen-0078D4?style=flat-square) |
 | **Vector DBs** | ![Chroma](https://img.shields.io/badge/ChromaDB-FF6B6B?style=flat-square) ![Pinecone](https://img.shields.io/badge/Pinecone-000000?style=flat-square) ![Weaviate](https://img.shields.io/badge/Weaviate-00D061?style=flat-square) |
 | **Deployment** | ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white) ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white) |
-
-</div>
 
 ---
 
@@ -95,6 +91,7 @@ Dominarás las herramientas que definen el estándar de la industria hoy:
 - 🚀 **Focus Producción**: Ve directo a [Módulo 2](module2/README.md)
 
 ### 🟢 Nivel 1: Fundamentos & Frameworks
+
 | Módulo | Tema | Highlights |
 | :--- | :--- | :--- |
 | **[Módulo 0](module0/README.md)** | **Intro IA & LLMs** | Transformers, Neural Networks from scratch |
@@ -108,6 +105,7 @@ Dominarás las herramientas que definen el estándar de la industria hoy:
 | **[Módulo 4](module4/README.md)** | **Tools & MCP** | Model Context Protocol, Function Calling |
 
 ### 🟡 Nivel 2: Arquitecturas Avanzadas
+
 | Módulo | Tema | Highlights |
 | :--- | :--- | :--- |
 | **[Módulo 5](module5/README.md)** | **Advanced RAG** | Hybrid Search, Reranking, GraphRAG |
@@ -116,6 +114,7 @@ Dominarás las herramientas que definen el estándar de la industria hoy:
 | **[Módulo 8](module8/README.md)** | **Multi-Agent Systems** | Hierarchical Teams, Swarm Intelligence |
 
 ### 🔴 Nivel 3: Producción & Enterprise
+
 | Módulo | Tema | Highlights |
 | :--- | :--- | :--- |
 | **[Módulo 9](module9/README.md)** | **Metacognition** | Self-learning Agents, Long-term Memory |

@@ -32,6 +32,101 @@ Cuando dos agentes se encuentran en 2025, ocurre esto:
 
 ---
 
+## 📧 Caso Práctico: Tu Agente de Gmail con MCP
+
+Vamos a conectar tu Gmail real a un agente usando el servidor oficial de Google.
+
+### Paso 1: Obtener Credenciales (Google Cloud)
+Para que esto funcione, necesitas "llaves" de Google:
+1.  Ve a **[Google Cloud Console](https://console.cloud.google.com/)** y crea un proyecto.
+2.  Habilita la **Gmail API**.
+3.  Crea credenciales **OAuth 2.0 (Desktop App)** y descarga el JSON.
+4.  Obtén tu `Refresh Token` usando el [OAuth Playground](https://developers.google.com/oauthplayground) (Scopes: `https://mail.google.com/`).
+
+---
+
+## 🛠️ Configuración en VS Code (Copilot & Gemini)
+
+VS Code es el editor estándar. A partir de 2025, soporta MCP nativamente.
+
+1.  Crea una carpeta `.vscode` en la raíz de tu proyecto.
+2.  Crea un archivo `mcp.json` dentro:
+
+```json
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gmail"],
+      "env": {
+        "GMAIL_CLIENT_ID": "TU_CLIENT_ID",
+        "GMAIL_CLIENT_SECRET": "TU_CLIENT_SECRET",
+        "GMAIL_REFRESH_TOKEN": "TU_REFRESH_TOKEN"
+      }
+    }
+  }
+}
+```
+
+3.  **Reinicia VS Code.**
+4.  Abre **GitHub Copilot Chat** o **Gemini Code Assist**.
+5.  Escribe: *"@gmail busca los correos no leídos de hoy"*.
+    *   El editor te pedirá permiso para ejecutar el comando `npx`. Acepta y observa la magia.
+
+---
+
+## 💻 Configuración Avanzada: CLIs y Antigravity
+
+Si eres fan de la terminal, así se configuran los CLIs oficiales:
+
+#### 1. Gemini CLI (`gemini-cli`)
+Archivo: `~/.gemini/settings.json`
+
+```json
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gmail"],
+      "env": {
+        "GMAIL_CLIENT_ID": "TU_CLIENT_ID",
+        "GMAIL_CLIENT_SECRET": "TU_CLIENT_SECRET",
+        "GMAIL_REFRESH_TOKEN": "TU_REFRESH_TOKEN"
+      }
+    }
+  }
+}
+```
+
+#### 2. Qwen CLI (`qwen-code`)
+Archivo: `~/.qwen/settings.json`
+
+```json
+{
+  "mcpServers": {
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gmail"],
+      "env": {
+        "GMAIL_CLIENT_ID": "TU_CLIENT_ID",
+        "GMAIL_CLIENT_SECRET": "TU_CLIENT_SECRET",
+        "GMAIL_REFRESH_TOKEN": "TU_REFRESH_TOKEN"
+      }
+    }
+  }
+}
+```
+
+### 🤖 Antigravity (Yo) y Tú
+¿Cómo me usas a mí (**Antigravity**) con estas herramientas?
+
+¡Es automático! Al estar yo integrado en tu entorno de desarrollo (VS Code / Cursor):
+1.  Sigue los pasos de **"Configuración en VS Code"** de arriba.
+2.  Una vez creado el archivo `.vscode/mcp.json`, yo detecto automáticamente las herramientas disponibles.
+3.  Solo dime: *"Antigravity, usa Gmail para enviarle este código a mi manager"* y yo me encargo del resto.
+
+---
+
 ## 🌍 High Impact Social/Professional Example (Nov 2025)
 
 > **Proyecto: "BabelNode" - El Traductor Universal de Agentes**
@@ -96,26 +191,39 @@ async def main():
     # ... traffic loop
 ```
 
-**Impacto Profesional:**
-- **Interoperabilidad Global:** Permite a las empresas elegir "el mejor agente para el trabajo" sin importar quién lo fabricó.
-- **Mercado Líquido:** Crea una economía real donde agentes pequeños pueden vender servicios a grandes corporaciones.
+---
 
 ---
 
-## 🛠️ Proyectos Prácticos
+## 🚀 Proyecto Avanzado: Tu Propio Agente MCP Full-Stack
 
-### 🔌 Proyecto 1: Servidor MCP Universal
-Crear un servidor que expone el sistema de archivos local a cualquier agente (Claude, OpenAI) de forma segura.
+¿Quieres ir más allá de la configuración? Vamos a construir un sistema completo: **Servidor Propio + Cliente CLI + Interfaz Web**.
 
-### 🤝 Proyecto 2: Negociación A2A Simple
-Dos agentes (Comprador y Vendedor) que negocian el precio de un item simulado usando un protocolo de subasta.
+Hemos creado una carpeta `project_mcp_agent` con 3 archivos clave:
 
-### 🌐 Proyecto 3: BabelNode (Simulación)
-El puente de traducción descrito arriba, conectando dos agentes con "idiomas" JSON incompatibles.
+### 1. El Cerebro (Servidor MCP)
+Archivo: `module12/project_mcp_agent/server.py`
+Un servidor seguro hecho con Python que expone herramientas críticas (como encriptación).
+
+### 2. La Terminal (Cliente CLI)
+Archivo: `module12/project_mcp_agent/client_cli.py`
+Para probar tus herramientas rápidamente desde la consola.
+> **Ejecutar:** `python client_cli.py`
+
+### 3. La Interfaz (Streamlit UI)
+Archivo: `module12/project_mcp_agent/app.py`
+Una web completa donde eliges tu LLM (GPT-4, Claude), pones tu API Key y chateas con tus herramientas.
+> **Ejecutar:** `streamlit run app.py`
+
+### 🌐 Escalabilidad Infinita
+Lo mágico de esto es que **puedes conectar CUALQUIER servidor MCP** a este mismo cliente. No solo el tuyo, sino los cientos disponibles en la comunidad:
+
+*   **[Official MCP Servers Repo](https://github.com/modelcontextprotocol/servers):** Conecta Google Drive, Slack, Postgres, GitHub, etc.
+*   **[Glama MCP Registry](https://glama.ai/mcp/servers):** Un directorio visual de servidores comunitarios.
+
+Tu agente puede empezar enviando correos y terminar gestionando toda tu infraestructura en la nube, solo añadiendo más servidores a la lista.
 
 ---
-
-## 🚀 Próximos Pasos
 
 ➡️ **[Capstone Project: El Agente Maestro](../module13/README.md)**
 
