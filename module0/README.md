@@ -948,15 +948,15 @@ graph TD
 
 ## 🚀 Próximos Pasos
 
-Ahora que comprendes los fundamentos, estás listo para aprender sobre **agentes de IA**:
+Ahora que comprendes los fundamentos técnicos de los LLMs, es momento de profundizar en las **matemáticas y algoritmos** que los hacen posibles:
 
-➡️ **[Módulo 1: Introducción a Agentes de IA](../module1/README.md)**
+➡️ **[Módulo 0.5: Fundamentos Matemáticos y Algorítmicos de la IA](../module0.5/README.md)**
 
 ---
 
 <div align="center">
 
-**[🏠 Inicio](../README.md)** | **[Siguiente Módulo ➡️](../module1/README.md)**
+**[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 0.5 ➡️](../module0.5/README.md)**
 
 </div>
 

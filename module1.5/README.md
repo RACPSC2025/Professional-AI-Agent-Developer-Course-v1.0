@@ -122,6 +122,6 @@ Un agente que usa un modelo local (Ollama) para resumir textos privados y un mod
 
 <div align="center">
 
-**[⬅️ Módulo 1: Panorama LLMs](../module1/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo 2: Frameworks ➡️](../module2/README.md)**
+**[⬅️ Módulo 1.2: Advanced Prompting](../module1.2/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 2 ➡️](../module2/README.md)**
 
 </div>

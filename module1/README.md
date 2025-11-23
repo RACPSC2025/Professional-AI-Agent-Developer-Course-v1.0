@@ -924,7 +924,7 @@ Ahora que entiendes el panorama de LLMs y la diferencia entre LLM/Agent/Agentic/
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module0/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo 1.5: Ecosistemas Open Source ➡️](../module1.5/README.md)**
+**[⬅️ Módulo 0.6: Data Science](../module0.6/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 1.2 ➡️](../module1.2/README.md)**
 
 </div>
 

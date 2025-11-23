@@ -47,4 +47,12 @@ Dominar estas librerías te da "superpoderes" al desarrollar agentes:
 
 ---
 
-**Siguiente Paso:** Con los fundamentos firmes, estamos listos para entrar al mundo de los LLMs en el **[Módulo 1: LLMs y Mentalidad Agéntica](../module1/README.md)**.
+**Siguiente Paso:** Con los fundamentos firmes, estamos listos para entrar al mundo de los LLMs y los agentes en el **[Módulo 1: LLMs y Mentalidad Agéntica](../module1/README.md)**.
+
+---
+
+<div align="center">
+
+**[⬅️ Módulo 0.5: Fundamentos Matemáticos](../module0.5/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 1 ➡️](../module1/README.md)**
+
+</div>

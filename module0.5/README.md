@@ -110,3 +110,11 @@ Es lo que nos dice: "Hay un 80% de probabilidad de que la siguiente palabra sea 
 ---
 
 **Siguiente Paso:** Ahora que entendemos la teoría, vamos a ensuciarnos las manos con código en el **[Módulo 0.6: Applied Data Science for AI](../module0.6/README.md)**.
+
+---
+
+<div align="center">
+
+**[⬅️ Módulo 0: Intro a IA](../module0/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 0.6 ➡️](../module0.6/README.md)**
+
+</div>

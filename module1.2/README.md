@@ -191,3 +191,11 @@ Example advanced System Prompt for an agent with simulated tool usage, using def
 ---
 
 **Siguiente Paso:** Ahora que sabes hablar el idioma de los modelos, vamos a ver cómo ejecutarlos localmente en el **[Módulo 1.5: Ecosistemas Open Source](../module1.5/README.md)**.
+
+---
+
+<div align="center">
+
+**[⬅️ Módulo 1: LLMs y Agentes](../module1/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente: Módulo 1.5 ➡️](../module1.5/README.md)**
+
+</div>
