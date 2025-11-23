@@ -99,6 +99,6 @@ streamlit run app.py
 
 <div align="center">
 
-**[⬅️ Módulo Anterior](../module12/README.md)** | **[🎓 Certificado de Finalización](../CERTIFICATE.md)**
+**[⬅️ Módulo Anterior](../module12/README.md)** | **[🏠 Inicio](../README.md)** | **[Siguiente Módulo (Deployment) ➡️](../module14/README.md)**
 
 </div>

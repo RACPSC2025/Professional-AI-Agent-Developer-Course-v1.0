@@ -174,5 +174,7 @@ gcloud run deploy my-agent --image gcr.io/project/my-agent:latest
 ---
 
 <div align="center">
-<a href="../README.md">🎓 Volver al Inicio del Curso</a>
+
+**[⬅️ Módulo Anterior](../module13/README.md)** | **[🏠 Inicio](../README.md)** | **[🎓 Obtener Certificado](../docs/certificate2.html)**
+
 </div>
